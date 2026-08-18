@@ -1,0 +1,12 @@
+//////////////////////////////////////////////////////
+// Copyright (C) P.Huttinger 2026 - CGE game engine //
+//////////////////////////////////////////////////////
+
+#include <Engine/Inc/Instance.h>
+
+int main()
+{
+  CInstance inst;
+  int te = inst.Test();
+  return -1;
+}

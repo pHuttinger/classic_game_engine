@@ -1,0 +1,11 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="Backend/Backend.vcxproj" Id="bb869b3b-f266-4755-b59f-9cd91244b975" />
+  <Project Path="Common/Common.vcxproj" Id="c17e9edc-c0ec-49c6-90e8-9b57a0574197" />
+  <Project Path="Engine/Engine.vcxproj" Id="f7559ea9-828b-429c-a67c-d949948e8c3d" />
+  <Project Path="Renderer/Renderer.vcxproj" Id="8b6fa855-2238-4079-841d-652151836a94" />
+  <Project Path="TestApp/TestApp.vcxproj" Id="e80827e1-bd1e-4ea8-aa9e-66e524f37abb" />
+</Solution>

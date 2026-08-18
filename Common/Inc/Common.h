@@ -1,0 +1,14 @@
+//////////////////////////////////////////////////////
+// Copyright (C) P.Huttinger 2026 - CGE game engine //
+//////////////////////////////////////////////////////
+
+#pragma once
+
+#include "../Inc/ApiDefinitions.h"
+
+class COMMON_API CCommon
+{
+public:
+
+  bool Test() const;
+};
