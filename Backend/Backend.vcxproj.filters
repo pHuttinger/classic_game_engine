@@ -18,10 +18,16 @@
     <ClInclude Include="Inc\Instance.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Inc\DX11\Common.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Instance.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Directory.Build.props" />
   </ItemGroup>
 </Project>

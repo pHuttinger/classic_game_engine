@@ -4,6 +4,8 @@
 
 #pragma once
 
+#undef UNICODE
+
 //----------------------------------------------------
 
 #ifdef COMMON_API_EXPORTS

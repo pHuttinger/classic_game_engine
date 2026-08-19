@@ -6,6 +6,15 @@
 
 #include <Common/Inc/Common.h>
 
+namespace cge::backend
+{
+//----------------------------------------------------
+// CInstance 
+//----------------------------------------------------
 class BACKEND_API CInstance
 {
+public:
+
+  TResult Initialize();
 };
+}

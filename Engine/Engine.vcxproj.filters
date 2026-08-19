@@ -18,9 +18,15 @@
     <ClInclude Include="Inc\Instance.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Inc\App\Window.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Instance.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\App\Window.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
