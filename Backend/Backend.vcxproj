@@ -154,10 +154,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Inc\DX11\Common.h" />
+    <ClInclude Include="Inc\DX11\Instance.h" />
     <ClInclude Include="Inc\Instance.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\DX11\Instance.cpp" />
     <ClCompile Include="Src\Instance.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -157,10 +157,14 @@
   <ItemGroup>
     <ClInclude Include="Inc\Instance.h" />
     <ClInclude Include="Inc\App\Window.h" />
+    <ClInclude Include="Inc\App\Timer.h" />
+    <ClInclude Include="Inc\App\RenderProxy.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\App\RenderProxy.cpp" />
     <ClCompile Include="Src\Instance.cpp" />
     <ClCompile Include="Src\App\Window.cpp" />
+    <ClCompile Include="Src\App\Timer.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

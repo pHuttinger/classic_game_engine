@@ -107,8 +107,8 @@ private:
 #define CGE_DEBUG_BREAK()
 #endif
 
-#define CGE_CHECK(result) \
-if (result.IsError()) \
+#define CGE_TRY(fct) \
+if (TResult result = fct; result.IsError()) \
 { \
   if(!cge::CgeWasErrorRaised()) \
   { \

@@ -5,8 +5,8 @@
 #pragma once
 
 #include "App/Window.h"
-//#include "RenderProxy.h"
-//#include "Timer.h"
+#include "App/Timer.h"
+#include "App/RenderProxy.h"
 //#include "AssetManager.h"
 //#include "../Scene/World.h"
 
@@ -32,8 +32,8 @@ public:
 //---------------------------------------------------
 struct ENGINE_API TInstanceCreateInfo final
 {
-  TWindowCreateInfo m_windowCreateInfo;
-  //rhi::EBackend m_backend;
+  TWindowCreateInfo      m_windowCreateInfo;
+  rhi::EBackend          m_backend;
   std::unique_ptr<IGame> m_pGame;
 };
 
@@ -77,11 +77,11 @@ private:
   void OnTick();
 
   CWindow m_window;
-  CGameLoop m_gameLoop;
- /* CRenderProxy m_renderProxy;
   CTimer m_timer;
-  CWorld m_world;
-  CAssetManager m_assetManager;*/
+  CGameLoop m_gameLoop;
+  CRenderProxy m_renderProxy;
+  //CWorld m_world;
+  //CAssetManager m_assetManager;
   std::unique_ptr<IGame> m_pGame;
 };
 }

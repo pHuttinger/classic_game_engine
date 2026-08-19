@@ -33,17 +33,14 @@ TResult CInstance::Create(TInstanceCreateInfo& createInfo)
 {
   CGE_INIT();
 
-  TResult result = m_window.Create(createInfo.m_windowCreateInfo);
-  CGE_CHECK(result);
+  CGE_TRY(m_window.Create(createInfo.m_windowCreateInfo));
   CGE_MILESTONE("window created...");
 
-  result = CreateRenderProxy(createInfo);
-  CGE_CHECK(result);
+  CGE_TRY(CreateRenderProxy(createInfo));
   CGE_MILESTONE("renderProxy created...");
 
   m_pGame = std::move(createInfo.m_pGame);
-  result = m_pGame->OnCreate(*this);
-  CGE_CHECK(result);
+  CGE_TRY(m_pGame->OnCreate(*this));
   CGE_MILESTONE("game created...");
 
   return TResult::Okay();
@@ -58,31 +55,26 @@ void CInstance::Start()
 
 TResult CInstance::CreateRenderProxy(const TInstanceCreateInfo& createInfo)
 {
- /* const TWindowData& windowData = m_window.GetWindowData();
+  const TWindowData& windowData = m_window.GetWindowData();
 
-  rendering::TBackendCreateInfo backendCreateInfo
+  render::TBackendCreateInfo backendCreateInfo
   {
     .m_hwnd      = windowData.m_hwnd,
     .m_hinstance = windowData.m_hinstance,
     .m_backend   = createInfo.m_backend,
   };
 
-  TResult result = m_renderProxy.Initialize(backendCreateInfo);
-  CGE_CHECK(result);*/
+  CGE_TRY(m_renderProxy.Initialize(backendCreateInfo));
 
   return TResult::Okay();
 }
 
 void CInstance::OnTick()
 {
-  //m_timer.Update();
-
-  //m_renderProxy.Open();
-
+  m_timer.Update();
+  m_renderProxy.Open();
   //m_world.EvaluateScene(m_renderProxy);
-
-  //m_renderProxy.Present();
-
-  //m_pGame->OnTick(m_timer.GetDeltaTime());
+  m_renderProxy.Present();
+  m_pGame->OnTick(m_timer.GetDeltaTime());
 }
 }

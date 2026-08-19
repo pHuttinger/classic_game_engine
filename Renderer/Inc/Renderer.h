@@ -4,15 +4,29 @@
 
 #pragma once
 
-#include <Common/Inc/Common.h>
+#include "Backend.h"
+//#include "FrameSystem.h"
+//#include "RenderGraph.h"
 
-class RENDER_API CRenderer
+namespace cge::render
+{
+class RENDER_API CRenderer final
 {
 public:
 
-  int Test() {
-    return 5 + 5 + 1;
-  }
+  CRenderer();
+
+  TResult Initialize(const TBackendCreateInfo& createInfo);
+  //void RenderFrame(const CRenderFrameInput& input);
+  //glm::vec2 GetViewportSize() const;
+
+  //CBackend& GetBackend() { return m_backend; };
+  //CFrameSystem& GetFrameSystem() { return m_frameSystem; }
+
+private:
+
+  CBackend m_backend;
+  //CFrameSystem m_frameSystem;
+  //CRenderGraph m_renderGraph;
 };
-
-
+}
