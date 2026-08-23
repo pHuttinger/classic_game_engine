@@ -147,9 +147,6 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Backend\Backend.vcxproj">
-      <Project>{bb869b3b-f266-4755-b59f-9cd91244b975}</Project>
-    </ProjectReference>
     <ProjectReference Include="..\Common\Common.vcxproj">
       <Project>{c17e9edc-c0ec-49c6-90e8-9b57a0574197}</Project>
     </ProjectReference>
