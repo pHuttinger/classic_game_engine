@@ -37,7 +37,7 @@ int main()
   if (result.IsError())
     return -1;
 
-  instance.Start();
+  instance.Run();
 
   return 0;
 }

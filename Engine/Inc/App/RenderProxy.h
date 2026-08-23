@@ -14,7 +14,7 @@ public:
 
   CRenderProxy();
 
-  TResult Initialize(const render::TBackendCreateInfo& createInfo);
+  TResult Initialize(const rhi::TCreateInfo& createInfo);
 
   void Open();
   void Present();

@@ -2,7 +2,6 @@
 // Copyright (C) P.Huttinger 2026 - CGE game engine //
 //////////////////////////////////////////////////////
 
-#include "../Inc/Instance.h"
 #include "../Inc/DX11/Instance.h"
 
 namespace cge::rhi
@@ -11,22 +10,22 @@ namespace cge::rhi
 // CreateInstance - Helper - Function
 //---------------------------------------------------
 template <typename TInstance>
-static TResult CreateInstance(std::unique_ptr<IInstance>& pInstanceInterface)
+static TResult TCreateInstance(const TCreateInfo& createInfo, std::unique_ptr<IInstance>& pInstanceInterface)
 {
   auto pInstance = std::make_unique<TInstance>();
+  TInstance* pInstanceRaw = pInstance.get();
   pInstanceInterface = std::move(pInstance);
-  return TResult::Okay();
+  return pInstanceRaw->Create(createInfo);
 }
 
 //---------------------------------------------------
 // CreateInstance - Function
 //---------------------------------------------------
-TResult CreateInstance(const EBackend backend,
-                       std::unique_ptr<IInstance>& pInstance)
+TResult CreateInstance(const TCreateInfo& createInfo, std::unique_ptr<IInstance>& pInstance)
 {
-  switch (backend)
+  switch (createInfo.m_backend)
   {
-    case EBackend::DX11  : return CreateInstance<dx11::CInstance>(pInstance);
+    case EBackend::DX11  : return TCreateInstance<dx11::CInstance>(createInfo, pInstance);
     case EBackend::OpenGL: return TResult::Error("OpenGL is not implemented yet!");
   }
 

@@ -46,7 +46,7 @@ TResult CInstance::Create(TInstanceCreateInfo& createInfo)
   return TResult::Okay();
 }
 
-void CInstance::Start()
+void CInstance::Run()
 {
   CGE_INFO("start gameloop...");
   m_window.Show();
@@ -57,11 +57,11 @@ TResult CInstance::CreateRenderProxy(const TInstanceCreateInfo& createInfo)
 {
   const TWindowData& windowData = m_window.GetWindowData();
 
-  render::TBackendCreateInfo backendCreateInfo
+  rhi::TCreateInfo backendCreateInfo
   {
+    .m_backend   = createInfo.m_backend,
     .m_hwnd      = windowData.m_hwnd,
     .m_hinstance = windowData.m_hinstance,
-    .m_backend   = createInfo.m_backend,
   };
 
   CGE_TRY(m_renderProxy.Initialize(backendCreateInfo));

@@ -40,13 +40,13 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v145</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v145</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -148,18 +148,22 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ProjectReference Include="..\Backend\Backend.vcxproj">
-      <Project>{bb869b3b-f266-4755-b59f-9cd91244b975}</Project>
+      <Project>{88fc5821-d18b-4c86-b749-b2337d9678c1}</Project>
     </ProjectReference>
     <ProjectReference Include="..\Common\Common.vcxproj">
       <Project>{c17e9edc-c0ec-49c6-90e8-9b57a0574197}</Project>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Inc\Backend.h" />
     <ClInclude Include="Inc\Renderer.h" />
+    <ClInclude Include="Inc\RenderPass.h" />
+    <ClInclude Include="Inc\FrameInput.h" />
+    <ClInclude Include="Inc\RenderGraph.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Src\Backend.cpp" />
+    <ClCompile Include="Src\FrameInput.cpp" />
+    <ClCompile Include="Src\RenderGraph.cpp" />
+    <ClCompile Include="Src\RenderPass.cpp" />
     <ClCompile Include="Src\Renderer.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

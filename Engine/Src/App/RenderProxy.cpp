@@ -11,7 +11,7 @@ CRenderProxy::CRenderProxy()
 {
 }
 
-TResult CRenderProxy::Initialize(const render::TBackendCreateInfo& createInfo)
+TResult CRenderProxy::Initialize(const rhi::TCreateInfo& createInfo)
 {
   CGE_TRY(m_renderer.Initialize(createInfo));
 

@@ -5,9 +5,6 @@
 #pragma once
 
 #include <Common/Inc/Common.h>
-//#include "Device.h"
-//#include "Swapchain.h"
-//#include "RenderTarget.h"
 
 namespace cge::rhi
 {
@@ -21,31 +18,31 @@ enum class EBackend
   OpenGL,
 };
 
-////----------------------------------------------------
-//// TCreateInfo
-////----------------------------------------------------
-//struct TCreateInfo final
-//{
-//  HWND      m_hwnd      = nullptr;
-//  HINSTANCE m_hinstance = nullptr;
-//};
+//----------------------------------------------------
+// TCreateInfo
+//----------------------------------------------------
+struct TCreateInfo final
+{
+  EBackend  m_backend    = EBackend::Undefined;
+  HWND      m_hwnd       = nullptr;
+  HINSTANCE m_hinstance  = nullptr;
+  bool      m_fullscreen = false;
+  uint16_t  m_width      = 800U;
+  uint16_t  m_height     = 600U;
+};
 
 //----------------------------------------------------
 // IInstance
 //----------------------------------------------------
-class BACKEND_API IInstance
+class IInstance
 {
 public:
 
   virtual ~IInstance() = default;
-
-  //virtual EResult CreateDevice(std::unique_ptr<IDevice>& pDevice) const = 0;
-  //virtual EResult CreateSwapchain(const IDevice& device, std::unique_ptr<ISwapchain>& pSwapchain) const = 0;
-  //virtual EResult CreateRenderTarget(const IDevice& device, ISwapchain& swapchain, std::unique_ptr<IRenderTarget>& pRenderTarget) const = 0;
 };
 
 //----------------------------------------------------
 // CreateInstance - Function
 //----------------------------------------------------
-TResult BACKEND_API CreateInstance(const EBackend backend, std::unique_ptr<IInstance>& pInstance);
+TResult CreateInstance(const TCreateInfo& createInfo, std::unique_ptr<IInstance>& pInstance);
 }

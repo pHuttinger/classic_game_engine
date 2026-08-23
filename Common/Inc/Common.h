@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "../Inc/ApiDefinitions.h"
+#undef UNICODE
 
 //----------------------------------------------------
 // General
@@ -49,17 +49,17 @@ enum class ETerminalColor
   Yellow
 };
 
-void COMMON_API CgeInit();
-void COMMON_API CgeWriteImpl(std::ostream& stream, const std::string& text, ETerminalColor color);
-void COMMON_API CgeWrite(const std::string& text, ETerminalColor color = ETerminalColor::White);
-void COMMON_API CgeWriteError(const std::string& text, const std::string& file, const uint32_t line);
-void COMMON_API CgeErrorExit(const std::string& text);
-bool COMMON_API CgeWasErrorRaised();
+void CgeInit();
+void CgeWriteImpl(std::ostream& stream, const std::string& text, ETerminalColor color);
+void CgeWrite(const std::string& text, ETerminalColor color = ETerminalColor::White);
+void CgeWriteError(const std::string& text, const std::string& file, const uint32_t line);
+void CgeErrorExit(const std::string& text);
+bool CgeWasErrorRaised();
 
 //----------------------------------------------------
 // TResult
 //----------------------------------------------------
-struct COMMON_API TResult
+struct TResult final
 {
   TResult();
   TResult(const bool isOK, const char* text, const char* file, const int line);
@@ -82,8 +82,7 @@ private:
 }
 
 //----------------------------------------------------
-// errorhandling
-//----------------------------------------------------
+
 #ifdef _DEBUG
 #define CGE_INIT()
 #else
@@ -101,11 +100,15 @@ private:
 #define CGE_WARN(msg)
 #endif
 
+//----------------------------------------------------
+
 #ifdef _DEBUG
 #define CGE_DEBUG_BREAK() __debugbreak()
 #else
 #define CGE_DEBUG_BREAK()
 #endif
+
+//----------------------------------------------------
 
 #define CGE_TRY(fct) \
 if (TResult result = fct; result.IsError()) \
@@ -117,3 +120,8 @@ if (TResult result = fct; result.IsError()) \
   } \
   return result; \
 }
+
+//----------------------------------------------------
+
+#define CGE_HRESULT_CHECK(hr, msg) \
+if(hr != S_OK) return TResult::Error(msg);

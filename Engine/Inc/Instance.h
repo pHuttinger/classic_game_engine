@@ -17,7 +17,7 @@ class CInstance;
 //---------------------------------------------------
 // IGame
 //---------------------------------------------------
-class ENGINE_API IGame
+class IGame
 {
 public:
 
@@ -30,7 +30,7 @@ public:
 //---------------------------------------------------
 // TInstanceCreateInfo
 //---------------------------------------------------
-struct ENGINE_API TInstanceCreateInfo final
+struct TInstanceCreateInfo final
 {
   TWindowCreateInfo      m_windowCreateInfo;
   rhi::EBackend          m_backend;
@@ -56,7 +56,7 @@ private:
 //---------------------------------------------------
 // CInstance
 //---------------------------------------------------
-class ENGINE_API CInstance final
+class CInstance final
 {
   friend class CGameLoop;
 
@@ -66,7 +66,7 @@ public:
   ~CInstance() = default;
 
   TResult Create(TInstanceCreateInfo& createInfo);
-  void Start();
+  void Run();
 
   //CWorld& GetWorld() { return m_world; }
   //CAssetManager& GetAssetManager() { return m_assetManager; }

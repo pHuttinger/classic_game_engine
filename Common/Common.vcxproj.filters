@@ -15,10 +15,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Inc\ApiDefinitions.h">
+    <ClInclude Include="Inc\Common.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Inc\Common.h">
+    <ClInclude Include="Inc\ComPtr.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

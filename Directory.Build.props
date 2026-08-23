@@ -1,0 +1,18 @@
+<Project>
+	<ItemDefinitionGroup>
+		<ClCompile>
+			<AdditionalIncludeDirectories>
+				$(MSBuildThisFileDirectory);
+				C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include;
+				%(AdditionalIncludeDirectories)
+			</AdditionalIncludeDirectories>
+		</ClCompile>
+		<Link>
+			<AdditionalLibraryDirectories>
+				$(OutDir);
+				C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Lib\x64;
+				%(AdditionalLibraryDirectories)
+			</AdditionalLibraryDirectories>
+		</Link>
+	</ItemDefinitionGroup>
+</Project>
