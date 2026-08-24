@@ -59,9 +59,12 @@ TResult CInstance::CreateRenderProxy(const TInstanceCreateInfo& createInfo)
 
   rhi::TCreateInfo backendCreateInfo
   {
-    .m_backend   = createInfo.m_backend,
-    .m_hwnd      = windowData.m_hwnd,
-    .m_hinstance = windowData.m_hinstance,
+    .m_backend    = createInfo.m_backend,
+    .m_hwnd       = windowData.m_hwnd,
+    .m_hinstance  = windowData.m_hinstance,
+    .m_fullscreen = createInfo.m_windowCreateInfo.m_fullscreen,
+    .m_width      = createInfo.m_windowCreateInfo.m_width,
+    .m_height     = createInfo.m_windowCreateInfo.m_height, 
   };
 
   CGE_TRY(m_renderProxy.Initialize(backendCreateInfo));

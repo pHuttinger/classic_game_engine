@@ -29,7 +29,7 @@ int main()
   cge::TInstanceCreateInfo createInfo
   {
     .m_backend = cge::rhi::EBackend::DX11,
-    .m_pGame   = std::make_unique<CTestGame>()
+    .m_pGame   = std::make_unique<CTestGame>(),
   };
 
   cge::CInstance instance;

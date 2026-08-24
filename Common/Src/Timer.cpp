@@ -2,13 +2,12 @@
 // Copyright (C) P.Huttinger 2026 - CGE game engine //
 //////////////////////////////////////////////////////
 
-#include "../../Inc/App/Timer.h"
+#include "../Inc/Timer.h"
 
 namespace cge
 {
 CTimer::CTimer()
-  : m_deltaTime(0.0)
-  , m_lastFrameTime(std::chrono::steady_clock::now())
+  : m_lastFrameTime(std::chrono::steady_clock::now())
 {
 }
 

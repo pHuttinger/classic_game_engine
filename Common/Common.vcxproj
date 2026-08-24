@@ -141,9 +141,13 @@
   <ItemGroup>
     <ClInclude Include="Inc\Common.h" />
     <ClInclude Include="Inc\ComPtr.h" />
+    <ClInclude Include="Inc\Timer.h" />
+    <ClInclude Include="Inc\Window.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Common.cpp" />
+    <ClCompile Include="Src\Timer.cpp" />
+    <ClCompile Include="Src\Window.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

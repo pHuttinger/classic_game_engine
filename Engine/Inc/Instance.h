@@ -4,8 +4,8 @@
 
 #pragma once
 
-#include "App/Window.h"
-#include "App/Timer.h"
+#include <Common/Inc/Window.h>
+#include <Common/Inc/Timer.h>
 #include "App/RenderProxy.h"
 //#include "AssetManager.h"
 //#include "../Scene/World.h"

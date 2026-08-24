@@ -21,6 +21,6 @@ public:
 private:
 
   std::chrono::steady_clock::time_point m_lastFrameTime;
-  float m_deltaTime;
+  float m_deltaTime = 0.0f;
 };
 }

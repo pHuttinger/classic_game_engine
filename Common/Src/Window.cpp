@@ -2,7 +2,7 @@
 // Copyright (C) P.Huttinger 2026 - CGE game engine //
 //////////////////////////////////////////////////////
 
-#include "../../Inc/App/Window.h"
+#include "../Inc/Window.h"
 
 namespace cge
 {
