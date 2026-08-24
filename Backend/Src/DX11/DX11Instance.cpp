@@ -3,6 +3,7 @@
 /////////////////////////////////////////////////////
 
 #include "../../Inc/DX11/DX11Instance.h"
+#include "../../Inc/DX11/DX11Pipeline.h"
 
 namespace cge::rhi::dx11
 {
@@ -31,7 +32,7 @@ TResult CInstance::Create(const TCreateInfo& createInfo)
   swapChainDesc.OutputWindow       = createInfo.m_hwnd;
   swapChainDesc.Windowed           = !createInfo.m_fullscreen;
   swapChainDesc.SwapEffect         = DXGI_SWAP_EFFECT_DISCARD;
-
+                                     
   HRESULT hr = D3D11CreateDeviceAndSwapChain(nullptr,
                                              D3D_DRIVER_TYPE_HARDWARE,
                                              nullptr,
@@ -48,5 +49,10 @@ TResult CInstance::Create(const TCreateInfo& createInfo)
   CGE_HRESULT_CHECK(hr, "can't create device and swapchain");
 
   return TResult::Okay();
+}
+
+std::unique_ptr<IPipeline> CInstance::CreatePipeline()
+{
+  return std::make_unique<CPipeline>(*this);
 }
 }

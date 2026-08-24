@@ -8,6 +8,10 @@ namespace cge::render
 {
 TResult CBackend::Create(const rhi::TCreateInfo& createInfo)
 {
-  return rhi::CreateInstance(createInfo, m_pInstance);
+  CGE_TRY(rhi::CreateInstance(createInfo, m_pInstance));
+
+  m_pPipeline = m_pInstance->CreatePipeline();
+
+  return TResult::Okay();
 }
 }

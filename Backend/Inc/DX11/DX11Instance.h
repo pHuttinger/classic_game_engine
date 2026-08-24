@@ -19,6 +19,10 @@ public:
 
   TResult Create(const TCreateInfo& createInfo);
 
+  std::unique_ptr<IPipeline> CreatePipeline() override;
+
+  IDXGISwapChain* GetSwapChain() { return m_pSwapChain.Get(); }
+
 private:
 
   CComPtr<IDXGISwapChain>      m_pSwapChain;

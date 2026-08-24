@@ -13,9 +13,10 @@ namespace cge
 //---------------------------------------------------
 struct TWindowCreateInfo final
 {
-  uint32_t m_width      = 1024U;
-  uint32_t m_height     = 720U;
-  bool     m_fullscreen = false;
+  std::string m_title      = "classic game engine";
+  uint32_t    m_width      = 1024U;
+  uint32_t    m_height     = 720U;
+  bool        m_fullscreen = false;
 };
 
 //---------------------------------------------------

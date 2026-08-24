@@ -72,9 +72,8 @@ TResult CInstance::CreateRenderProxy(const TInstanceCreateInfo& createInfo)
 void CInstance::OnTick()
 {
   m_timer.Update();
-  m_renderProxy.Open();
   //m_world.EvaluateScene(m_renderProxy);
-  m_renderProxy.Present();
+  m_renderProxy.RenderFrame();
   m_pGame->OnTick(m_timer.GetDeltaTime());
 }
 }

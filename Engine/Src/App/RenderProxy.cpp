@@ -7,7 +7,6 @@
 namespace cge
 {
 CRenderProxy::CRenderProxy()
-  //: m_staticMeshFactory(m_renderer)
 {
 }
 
@@ -18,23 +17,8 @@ TResult CRenderProxy::Initialize(const rhi::TCreateInfo& createInfo)
   return TResult::Okay();
 }
 
-void CRenderProxy::Open()
+void CRenderProxy::RenderFrame()
 {
-  //m_renderFrameInput.Clear();
+  m_renderer.RenderFrame(CFrameInput());
 }
-
-void CRenderProxy::Present()
-{
-  //m_renderer.RenderFrame(m_renderFrameInput);
-}
-
-//void CRenderProxy::SetViewInfo(const rendering::TRenderFrameViewInfo& viewInfo)
-//{
-//  m_renderFrameInput.SetViewInfo(viewInfo);
-//}
-//
-//void CRenderProxy::FrameAddStaticMesh(rendering::CStaticMesh* pStaticMesh)
-//{
-//  m_renderFrameInput.AddStaticMesh(pStaticMesh);
-//}
 }

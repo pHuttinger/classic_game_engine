@@ -5,6 +5,7 @@
 #pragma once
 
 #include <Common/Inc/Common.h>
+#include "Pipeline.h"
 
 namespace cge::rhi
 {
@@ -39,6 +40,8 @@ class IInstance
 public:
 
   virtual ~IInstance() = default;
+
+  virtual std::unique_ptr<IPipeline> CreatePipeline() = 0;
 };
 
 //----------------------------------------------------

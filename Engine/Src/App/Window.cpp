@@ -42,7 +42,7 @@ TResult CWindow::Create(const TWindowCreateInfo& windowCreateInfo)
   m_windowData.m_hwnd = CreateWindowEx(
     0L,
     wndClassName,
-    TEXT("LPE"),
+    TEXT(windowCreateInfo.m_title.c_str()),
     WS_OVERLAPPEDWINDOW,
     CW_USEDEFAULT, CW_USEDEFAULT,
     windowCreateInfo.m_width,

@@ -27,10 +27,6 @@ void CRenderer::RenderFrame(const CFrameInput& input)
 
 void CRenderer::Present()
 {
+  m_backend.GetPipeline().Present();
 }
-
-//glm::vec2 CRenderer::GetViewportSize() const
-//{
-//  return m_backend.GetRenderTarget().GetSize();
-//}
 }

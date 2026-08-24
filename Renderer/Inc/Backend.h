@@ -5,6 +5,7 @@
 #pragma once
 
 #include <Backend/Inc/Instance.h>
+#include <Backend/Inc/Pipeline.h>
 
 namespace cge::render
 {
@@ -17,8 +18,11 @@ public:
 
   TResult Create(const rhi::TCreateInfo& createInfo); 
 
+  rhi::IPipeline& GetPipeline() { return *m_pPipeline; }
+
 private:
 
   std::unique_ptr<rhi::IInstance> m_pInstance = nullptr;
+  std::unique_ptr<rhi::IPipeline> m_pPipeline = nullptr;
 };
 }

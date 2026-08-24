@@ -17,7 +17,6 @@ public:
 
   TResult Initialize(const rhi::TCreateInfo& createInfo);
   void RenderFrame(const CFrameInput& input);
-  //glm::vec2 GetViewportSize() const;
 
 private:
 
