@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include <Backend/Inc/Instance.h>
+#include "Backend.h"
 #include "RenderPass.h"
 
 namespace cge::render
@@ -13,12 +13,13 @@ class CRenderGraph final
 {
 public:
 
-  void Create(rhi::IInstance* pBackend);
+  CRenderGraph(CBackend& backend);
+
   void Execute(const CFrameInput& input) const;
 
 private:
 
-  rhi::IInstance* m_pBackend = nullptr;
+  CBackend& m_backend;
   std::vector<std::unique_ptr<IRenderPass>> m_renderPasses;
 };
 }

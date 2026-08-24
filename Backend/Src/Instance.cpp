@@ -2,7 +2,7 @@
 // Copyright (C) P.Huttinger 2026 - CGE game engine //
 //////////////////////////////////////////////////////
 
-#include "../Inc/DX11/Instance.h"
+#include "../Inc/DX11/DX11Instance.h"
 
 namespace cge::rhi
 {

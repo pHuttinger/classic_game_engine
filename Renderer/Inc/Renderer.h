@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include <Backend/Inc/Instance.h>
+#include "Backend.h"
 #include "RenderGraph.h"
 
 namespace cge::render
@@ -23,7 +23,7 @@ private:
 
   void Present();
 
-  std::unique_ptr<rhi::IInstance> m_pBackend;
+  CBackend m_backend;
   CRenderGraph m_renderGraph;
 };
 }

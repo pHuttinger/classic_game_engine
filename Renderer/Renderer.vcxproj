@@ -27,13 +27,13 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v145</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v145</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -155,12 +155,14 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Inc\Backend.h" />
     <ClInclude Include="Inc\Renderer.h" />
     <ClInclude Include="Inc\RenderPass.h" />
     <ClInclude Include="Inc\FrameInput.h" />
     <ClInclude Include="Inc\RenderGraph.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Backend.cpp" />
     <ClCompile Include="Src\FrameInput.cpp" />
     <ClCompile Include="Src\RenderGraph.cpp" />
     <ClCompile Include="Src\RenderPass.cpp" />

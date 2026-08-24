@@ -21,12 +21,12 @@
     <ClInclude Include="Inc\DX11\DX11.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Inc\DX11\Instance.h">
+    <ClInclude Include="Inc\DX11\DX11Instance.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Src\DX11\Instance.cpp">
+    <ClCompile Include="Src\DX11\DX11Instance.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Src\Instance.cpp">

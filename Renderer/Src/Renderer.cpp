@@ -7,15 +7,14 @@
 namespace cge::render
 {
 CRenderer::CRenderer()
+  : m_renderGraph(m_backend)
 {
 }
 
 TResult CRenderer::Initialize(const rhi::TCreateInfo& createInfo)
 {
-  CGE_TRY(rhi::CreateInstance(createInfo, m_pBackend));
+  CGE_TRY(m_backend.Create(createInfo));
   CGE_MILESTONE("backend initialized...");
-
-  m_renderGraph.Create(m_pBackend.get());
 
   return TResult::Okay();
 }

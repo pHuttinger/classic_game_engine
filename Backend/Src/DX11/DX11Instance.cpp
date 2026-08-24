@@ -2,7 +2,7 @@
 // Copyright (C) BifrostDev 2026 - LPE game engine //
 /////////////////////////////////////////////////////
 
-#include "../../Inc/DX11/Instance.h"
+#include "../../Inc/DX11/DX11Instance.h"
 
 namespace cge::rhi::dx11
 {

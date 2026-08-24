@@ -6,9 +6,9 @@
 
 namespace cge::render
 {
-void CRenderGraph::Create(rhi::IInstance* pBackend)
+CRenderGraph::CRenderGraph(CBackend& backend)
+  : m_backend(backend)
 {
-  m_pBackend = pBackend;
 }
 
 void CRenderGraph::Execute(const CFrameInput& input) const
