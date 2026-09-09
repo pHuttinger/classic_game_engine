@@ -155,6 +155,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Inc\GeometryPass.h" />
     <ClInclude Include="Inc\Backend.h" />
     <ClInclude Include="Inc\Renderer.h" />
     <ClInclude Include="Inc\RenderPass.h" />
@@ -162,10 +163,10 @@
     <ClInclude Include="Inc\RenderGraph.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\GeometryPass.cpp" />
     <ClCompile Include="Src\Backend.cpp" />
     <ClCompile Include="Src\FrameInput.cpp" />
     <ClCompile Include="Src\RenderGraph.cpp" />
-    <ClCompile Include="Src\RenderPass.cpp" />
     <ClCompile Include="Src\Renderer.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

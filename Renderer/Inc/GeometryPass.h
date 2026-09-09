@@ -4,26 +4,22 @@
 
 #pragma once
 
-#include "Backend.h"
 #include "RenderPass.h"
 
 namespace cge::render
 {
-class CRenderGraph final
+class CGeometryPass final : public IRenderPass
 {
 public:
 
-  CRenderGraph(CBackend& backend);
+  CGeometryPass(CBackend& backend);
 
   TResult Initialize();
 
-  void Execute(const CFrameInput& input) const;
+  void Execute(const CFrameInput& input) const override;
 
 private:
 
-  TResult CreateGeometryPass();
-
   CBackend& m_backend;
-  std::vector<std::unique_ptr<IRenderPass>> m_renderPasses;
 };
 }

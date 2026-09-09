@@ -2,30 +2,27 @@
 // Copyright (C) P.Huttinger 2026 - CGE game engine //
 //////////////////////////////////////////////////////
 
-#include "../../Inc/DX11/DX11Surface.h"
+#include "../../Inc/DX11/DX11RenderTarget.h"
 
 namespace cge::rhi::dx11
 {
-CSurface::CSurface(IInstance& instance)
+CRenderTarget::CRenderTarget(IInstance& instance)
   : m_instance(dynamic_cast<CInstance&>(instance))
 {
 }
 
-TResult CSurface::Initialize(const TSurfaceCreateInfo& createInfo)
+TResult CRenderTarget::Initialize(const TRenderTargetCreateInfo& createInfo)
 {
-  m_createInfo = createInfo;
-
-  CGE_TRY(InitializeRenderTargetView(createInfo));
-
+  CGE_TRY(CreateRenderTargetView(createInfo));
   return TResult::Okay();
 }
 
-void CSurface::Clear()
+void CRenderTarget::Clear()
 {
-  m_instance.GetDeviceContext()->ClearRenderTargetView(m_pRenderTargetView.Get(), D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f));
+  m_instance.GetDeviceContext()->ClearRenderTargetView(m_pRenderTargetView.Get(), D3DXCOLOR(0.0f, 0.0f, 1.0f, 1.0f));
 }
 
-TResult CSurface::InitializeRenderTargetView(const TSurfaceCreateInfo& createInfo)
+TResult CRenderTarget::CreateRenderTargetView(const TRenderTargetCreateInfo& createInfo)
 {
   ID3D11Texture2D* backBuffer = nullptr;
 

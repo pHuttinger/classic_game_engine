@@ -144,14 +144,20 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Inc\DX11\DX11DepthBuffer.h" />
+    <ClInclude Include="Inc\DepthBuffer.h" />
+    <ClInclude Include="Inc\DX11\DX11RenderTarget.h" />
     <ClInclude Include="Inc\DX11\DX11Surface.h" />
     <ClInclude Include="Inc\DX11\DX11Pipeline.h" />
     <ClInclude Include="Inc\DX11\DX11.h" />
     <ClInclude Include="Inc\DX11\DX11Instance.h" />
     <ClInclude Include="Inc\Instance.h" />
     <ClInclude Include="Inc\Pipeline.h" />
+    <ClInclude Include="Inc\RenderTarget.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\DX11\DX11DepthBuffer.cpp" />
+    <ClCompile Include="Src\DX11\DX11RenderTarget.cpp" />
     <ClCompile Include="Src\DX11\DX11Surface.cpp" />
     <ClCompile Include="Inc\Surface.h" />
     <ClCompile Include="Src\DX11\DX11Pipeline.cpp" />

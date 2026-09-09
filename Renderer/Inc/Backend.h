@@ -18,6 +18,9 @@ public:
 
   TResult Create(const rhi::TCreateInfo& createInfo); 
 
+  TResult CreateRenderTarget(const rhi::TRenderTargetCreateInfo& createInfo, std::unique_ptr<rhi::IRenderTarget>& pRenderTarget);
+  TResult CreateDepthBuffer(const rhi::TDepthBufferCreateInfo& createInfo, std::unique_ptr<rhi::IDepthBuffer>& pDepthBuffer);
+
   rhi::ISurface& GetSurface() { return *m_pSurface; }
   rhi::IPipeline& GetPipeline() { return *m_pPipeline; }
 

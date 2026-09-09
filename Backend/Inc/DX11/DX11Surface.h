@@ -17,18 +17,16 @@ public:
   CSurface(IInstance& instance);
 
   TResult Initialize(const TSurfaceCreateInfo& createInfo) override;
-  
   void Clear() override;
+
+  TSurfaceCreateInfo GetCreateInfo() const override { return m_createInfo; }
 
 private:
 
   TResult InitializeRenderTargetView(const TSurfaceCreateInfo& createInfo);
-  TResult InitializeDepthBuffer(const TSurfaceCreateInfo& createInfo);
 
-  CInstance& m_instance;
-
+  CInstance&                      m_instance;
+  TSurfaceCreateInfo              m_createInfo;
   CComPtr<ID3D11RenderTargetView> m_pRenderTargetView;
-  CComPtr<ID3D11Texture2D>        m_pDepthBuffer;
-  CComPtr<ID3D11DepthStencilView> m_pDepthStencilView;
 };
 }

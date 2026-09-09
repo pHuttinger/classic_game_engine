@@ -16,6 +16,9 @@ TResult CRenderer::Initialize(const rhi::TCreateInfo& createInfo)
   CGE_TRY(m_backend.Create(createInfo));
   CGE_MILESTONE("backend initialized...");
 
+  CGE_TRY(m_renderGraph.Initialize());
+  CGE_MILESTONE("renderGraph initialized...");
+
   return TResult::Okay();
 }
 

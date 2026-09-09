@@ -4,14 +4,11 @@
 
 #pragma once
 
-#include <Backend/Inc/Instance.h>
+#include "Backend.h"
 #include "FrameInput.h"
 
 namespace cge::render
 {
-//----------------------------------------------------
-// IRenderPass
-//----------------------------------------------------
 class IRenderPass
 {
 public:
@@ -19,21 +16,5 @@ public:
   virtual ~IRenderPass() = default;
 
   virtual void Execute(const CFrameInput& input) const = 0;
-};
-
-//----------------------------------------------------
-// CGeometryPass
-//----------------------------------------------------
-class CGeometryPass final : public IRenderPass
-{
-public:
-
-  CGeometryPass(rhi::IInstance& backend);
-
-  void Execute(const CFrameInput& input) const override;
-
-private:
-
-  rhi::IInstance& m_backend;
 };
 }

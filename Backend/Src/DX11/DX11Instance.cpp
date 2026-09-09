@@ -5,6 +5,8 @@
 #include "../../Inc/DX11/DX11Instance.h"
 #include "../../Inc/DX11/DX11Pipeline.h"
 #include "../../Inc/DX11/DX11Surface.h"
+#include "../../Inc/DX11/DX11RenderTarget.h"
+#include "../../Inc/DX11/DX11DepthBuffer.h"
 
 namespace cge::rhi::dx11
 {
@@ -61,5 +63,17 @@ TResult CInstance::CreateSurface(const TSurfaceCreateInfo& createInfo, std::uniq
 {
   pSurface = std::make_unique<CSurface>(*this);
   return pSurface->Initialize(createInfo);
+}
+
+TResult CInstance::CreateRenderTarget(const TRenderTargetCreateInfo& createInfo, std::unique_ptr<IRenderTarget>& pRenderTarget)
+{
+  pRenderTarget = std::make_unique<CRenderTarget>(*this);
+  return pRenderTarget->Initialize(createInfo);
+}
+
+TResult CInstance::CreateDepthBuffer(const TDepthBufferCreateInfo& createInfo, std::unique_ptr<IDepthBuffer>& pDepthBuffer)
+{
+  pDepthBuffer = std::make_unique<CDepthBuffer>(*this);
+  return pDepthBuffer->Initialize(createInfo);
 }
 }

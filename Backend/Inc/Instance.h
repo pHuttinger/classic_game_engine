@@ -7,6 +7,8 @@
 #include <Common/Inc/Common.h>
 #include "Pipeline.h"
 #include "Surface.h"
+#include "RenderTarget.h"
+#include "DepthBuffer.h"
 
 namespace cge::rhi
 {
@@ -43,7 +45,10 @@ public:
   virtual ~IInstance() = default;
 
   virtual std::unique_ptr<IPipeline> CreatePipeline() = 0;
+
   virtual TResult CreateSurface(const TSurfaceCreateInfo& createInfo, std::unique_ptr<ISurface>& pSurface) = 0;
+  virtual TResult CreateRenderTarget(const TRenderTargetCreateInfo& createInfo, std::unique_ptr<IRenderTarget>& pRenderTarget) = 0;
+  virtual TResult CreateDepthBuffer(const TDepthBufferCreateInfo& createInfo, std::unique_ptr<IDepthBuffer>& pDepthBuffer) = 0;
 };
 
 //----------------------------------------------------

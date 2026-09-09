@@ -30,12 +30,12 @@
     <ClInclude Include="Inc\Backend.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Inc\GeometryPass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Renderer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\RenderPass.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Src\RenderGraph.cpp">
@@ -45,6 +45,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Src\Backend.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\GeometryPass.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

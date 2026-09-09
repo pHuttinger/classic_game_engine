@@ -9,27 +9,25 @@
 namespace cge::rhi
 {
 //----------------------------------------------------
-// TSurfaceCreateInfo
+// TRenderTargetCreateInfo
 //----------------------------------------------------
-struct TSurfaceCreateInfo final
+struct TRenderTargetCreateInfo final
 {
-  uint16_t m_width  = 800U;
+  uint16_t m_width = 800U;
   uint16_t m_height = 600U;
 };
 
 //----------------------------------------------------
-// TSurfaceCreateInfo
+// TRenderTargetCreateInfo
 //----------------------------------------------------
-class ISurface
+class IRenderTarget
 {
 public:
 
-  virtual ~ISurface() = default;
+  virtual ~IRenderTarget() = default;
 
-  virtual TResult Initialize(const TSurfaceCreateInfo& createInfo) = 0;
+  virtual TResult Initialize(const TRenderTargetCreateInfo& createInfo) = 0;
 
   virtual void Clear() = 0;
-
-  virtual TSurfaceCreateInfo GetCreateInfo() const = 0;
 };
 }

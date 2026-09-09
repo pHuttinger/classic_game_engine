@@ -9,27 +9,23 @@
 namespace cge::rhi
 {
 //----------------------------------------------------
-// TSurfaceCreateInfo
+// TDepthBufferCreateInfo
 //----------------------------------------------------
-struct TSurfaceCreateInfo final
+struct TDepthBufferCreateInfo final
 {
   uint16_t m_width  = 800U;
   uint16_t m_height = 600U;
 };
 
 //----------------------------------------------------
-// TSurfaceCreateInfo
+// TDepthBufferCreateInfo
 //----------------------------------------------------
-class ISurface
+class IDepthBuffer
 {
 public:
 
-  virtual ~ISurface() = default;
+  virtual ~IDepthBuffer() = default;
 
-  virtual TResult Initialize(const TSurfaceCreateInfo& createInfo) = 0;
-
-  virtual void Clear() = 0;
-
-  virtual TSurfaceCreateInfo GetCreateInfo() const = 0;
+  virtual TResult Initialize(const TDepthBufferCreateInfo& createInfo) = 0;
 };
 }
