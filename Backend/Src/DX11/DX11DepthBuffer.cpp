@@ -7,7 +7,7 @@
 namespace cge::rhi::dx11
 {
 CDepthBuffer::CDepthBuffer(IInstance& instance)
-  : m_instance(dynamic_cast<CInstance&>(instance))
+  : m_instance(static_cast<CInstance&>(instance))
 {
 }
 
@@ -33,11 +33,9 @@ TResult CDepthBuffer::CreateDepthStencilView(const TDepthBufferCreateInfo& creat
   depthStencilDesc.MiscFlags          = 0;
 
   HRESULT hr = m_instance.GetDevice()->CreateTexture2D(&depthStencilDesc, nullptr, &m_pDepthBuffer.Get());
-
   CGE_HRESULT_CHECK(hr, "failed to create depthBuffer");
 
   hr = m_instance.GetDevice()->CreateDepthStencilView(m_pDepthBuffer.Get(), nullptr, &m_pDepthStencilView.Get());
-
   CGE_HRESULT_CHECK(hr, "failed to create depthStencilView");
 
   return TResult::Okay();

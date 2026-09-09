@@ -5,6 +5,8 @@
 #pragma once
 
 #include "Surface.h"
+#include "RenderTarget.h"
+#include "DepthBuffer.h"
 
 namespace cge::rhi
 {
@@ -14,7 +16,7 @@ public:
 
   virtual ~IPipeline() = default;
 
-  virtual void Clear(ISurface& surface) = 0;
   virtual void Present() = 0;
+  virtual void BindRenderTargets(const std::vector<IRenderTarget*>& renderTargets, IDepthBuffer* depthBuffer) = 0;
 };
 }

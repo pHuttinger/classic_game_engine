@@ -20,12 +20,15 @@ public:
 
   void Clear() override;
 
+  ID3D11RenderTargetView* GetRenderTargetView() { return m_pRenderTargetView.Get(); }
+
 private:
 
   TResult CreateRenderTargetView(const TRenderTargetCreateInfo& createInfo);
 
   CInstance& m_instance;
 
+  CComPtr<ID3D11Texture2D> m_pTexture;
   CComPtr<ID3D11RenderTargetView> m_pRenderTargetView;
 };
 }

@@ -7,7 +7,7 @@
 namespace cge::rhi::dx11
 {
 CSurface::CSurface(IInstance& instance)
-  : m_instance(dynamic_cast<CInstance&>(instance))
+  : m_instance(static_cast<CInstance&>(instance))
 {
 }
 

@@ -5,6 +5,8 @@
 #pragma once
 
 #include "RenderPass.h"
+#include <Backend/Inc/RenderTarget.h>
+#include <Backend/Inc/DepthBuffer.h>
 
 namespace cge::render
 {
@@ -20,6 +22,12 @@ public:
 
 private:
 
+  TResult CreateRenderTarget(std::unique_ptr<rhi::IRenderTarget>& renderTarget);
+  TResult CreateDepthBuffer();
+
   CBackend& m_backend;
+  std::unique_ptr<rhi::IRenderTarget> m_pRenderTarget_Diffuse;
+  std::unique_ptr<rhi::IDepthBuffer> m_pDepthBuffer;
+  std::vector<rhi::IRenderTarget*> m_renderTargets;
 };
 }

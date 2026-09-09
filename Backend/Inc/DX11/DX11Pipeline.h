@@ -15,8 +15,8 @@ public:
 
   CPipeline(IInstance& instance);
 
-  void Clear(ISurface& surface) override;
   void Present() override;
+  void BindRenderTargets(const std::vector<IRenderTarget*>& renderTargets, IDepthBuffer* depthBuffer) override;
 
 private:
 

@@ -7,7 +7,7 @@
 namespace cge::rhi::dx11
 {
 CRenderTarget::CRenderTarget(IInstance& instance)
-  : m_instance(dynamic_cast<CInstance&>(instance))
+  : m_instance(static_cast<CInstance&>(instance))
 {
 }
 
@@ -24,19 +24,22 @@ void CRenderTarget::Clear()
 
 TResult CRenderTarget::CreateRenderTargetView(const TRenderTargetCreateInfo& createInfo)
 {
-  ID3D11Texture2D* backBuffer = nullptr;
+  D3D11_TEXTURE2D_DESC textureDesc{};
+  textureDesc.Width          = createInfo.m_width;
+  textureDesc.Height         = createInfo.m_height;
+  textureDesc.MipLevels      = 1;
+  textureDesc.ArraySize      = 1;
+  textureDesc.Format         = DXGI_FORMAT_R8G8B8A8_UNORM;
+  textureDesc.SampleDesc     = { 1, 0 };
+  textureDesc.Usage          = D3D11_USAGE_DEFAULT;
+  textureDesc.BindFlags      = D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE;
+  textureDesc.CPUAccessFlags = 0;
+  textureDesc.MiscFlags      = 0;
 
-  m_instance.GetSwapChain()->GetBuffer(0, __uuidof(ID3D11Texture2D), (void**)&backBuffer);
+  HRESULT hr = m_instance.GetDevice()->CreateTexture2D(&textureDesc, nullptr, &m_pTexture.Get());
+  CGE_HRESULT_CHECK(hr, "Can't create Texture2D");
 
-  if (backBuffer == nullptr)
-  {
-    return TResult::Error("Failed to get BackBuffer");
-  }
-
-  HRESULT hr = m_instance.GetDevice()->CreateRenderTargetView(backBuffer, nullptr, &m_pRenderTargetView.Get());
-
-  backBuffer->Release();
-
+  hr = m_instance.GetDevice()->CreateRenderTargetView(m_pTexture.Get(), nullptr, &m_pRenderTargetView.Get());
   CGE_HRESULT_CHECK(hr, "Can't create RenderTargetView");
 
   return TResult::Okay();
