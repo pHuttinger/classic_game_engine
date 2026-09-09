@@ -4,6 +4,7 @@
 
 #include "../../Inc/DX11/DX11Instance.h"
 #include "../../Inc/DX11/DX11Pipeline.h"
+#include "../../Inc/DX11/DX11Surface.h"
 
 namespace cge::rhi::dx11
 {
@@ -54,5 +55,11 @@ TResult CInstance::Create(const TCreateInfo& createInfo)
 std::unique_ptr<IPipeline> CInstance::CreatePipeline()
 {
   return std::make_unique<CPipeline>(*this);
+}
+
+TResult CInstance::CreateSurface(const TSurfaceCreateInfo& createInfo, std::unique_ptr<ISurface>& pSurface)
+{
+  pSurface = std::make_unique<CSurface>(*this);
+  return pSurface->Initialize(createInfo);
 }
 }

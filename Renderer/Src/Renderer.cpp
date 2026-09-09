@@ -21,12 +21,8 @@ TResult CRenderer::Initialize(const rhi::TCreateInfo& createInfo)
 
 void CRenderer::RenderFrame(const CFrameInput& input)
 {
+  m_backend.GetPipeline().Clear(m_backend.GetSurface());
   m_renderGraph.Execute(input);
-  Present();
-}
-
-void CRenderer::Present()
-{
   m_backend.GetPipeline().Present();
 }
 }

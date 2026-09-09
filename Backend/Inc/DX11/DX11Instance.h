@@ -20,13 +20,16 @@ public:
   TResult Create(const TCreateInfo& createInfo);
 
   std::unique_ptr<IPipeline> CreatePipeline() override;
+  TResult CreateSurface(const TSurfaceCreateInfo& createInfo, std::unique_ptr<ISurface>& pSurface) override;
 
+  ID3D11Device* GetDevice() { return m_pDevice.Get(); }
+  ID3D11DeviceContext* GetDeviceContext() { return m_pDeviceContext.Get(); }
   IDXGISwapChain* GetSwapChain() { return m_pSwapChain.Get(); }
 
 private:
 
-  CComPtr<IDXGISwapChain>      m_pSwapChain;
   CComPtr<ID3D11Device>        m_pDevice;
   CComPtr<ID3D11DeviceContext> m_pDeviceContext;
+  CComPtr<IDXGISwapChain>      m_pSwapChain;
 };
 }

@@ -12,10 +12,9 @@ namespace cge::rhi
 template <typename TInstance>
 static TResult TCreateInstance(const TCreateInfo& createInfo, std::unique_ptr<IInstance>& pInstanceInterface)
 {
-  auto pInstance = std::make_unique<TInstance>();
-  TInstance* pInstanceRaw = pInstance.get();
-  pInstanceInterface = std::move(pInstance);
-  return pInstanceRaw->Create(createInfo);
+  pInstanceInterface = std::make_unique<TInstance>();
+  auto* pInstance = static_cast<TInstance*>(pInstanceInterface.get());
+  return pInstance->Create(createInfo);
 }
 
 //---------------------------------------------------

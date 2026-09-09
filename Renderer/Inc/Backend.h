@@ -18,11 +18,13 @@ public:
 
   TResult Create(const rhi::TCreateInfo& createInfo); 
 
+  rhi::ISurface& GetSurface() { return *m_pSurface; }
   rhi::IPipeline& GetPipeline() { return *m_pPipeline; }
 
 private:
 
   std::unique_ptr<rhi::IInstance> m_pInstance = nullptr;
+  std::unique_ptr<rhi::ISurface>  m_pSurface  = nullptr;
   std::unique_ptr<rhi::IPipeline> m_pPipeline = nullptr;
 };
 }

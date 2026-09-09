@@ -11,8 +11,9 @@ CPipeline::CPipeline(IInstance& instance)
 {
 }
 
-void CPipeline::Clear()
+void CPipeline::Clear(ISurface& surface)
 {
+  surface.Clear();
 }
 
 void CPipeline::Present()

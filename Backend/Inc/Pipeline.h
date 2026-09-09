@@ -4,6 +4,8 @@
 
 #pragma once
 
+#include "Surface.h"
+
 namespace cge::rhi
 {
 class IPipeline
@@ -12,7 +14,7 @@ public:
 
   virtual ~IPipeline() = default;
 
-  virtual void Clear() = 0;
+  virtual void Clear(ISurface& surface) = 0;
   virtual void Present() = 0;
 };
 }

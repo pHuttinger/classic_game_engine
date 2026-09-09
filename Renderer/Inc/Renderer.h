@@ -20,9 +20,7 @@ public:
 
 private:
 
-  void Present();
-
-  CBackend m_backend;
+  CBackend     m_backend;
   CRenderGraph m_renderGraph;
 };
 }

@@ -6,6 +6,7 @@
 
 #include <Common/Inc/Common.h>
 #include "Pipeline.h"
+#include "Surface.h"
 
 namespace cge::rhi
 {
@@ -42,6 +43,7 @@ public:
   virtual ~IInstance() = default;
 
   virtual std::unique_ptr<IPipeline> CreatePipeline() = 0;
+  virtual TResult CreateSurface(const TSurfaceCreateInfo& createInfo, std::unique_ptr<ISurface>& pSurface) = 0;
 };
 
 //----------------------------------------------------

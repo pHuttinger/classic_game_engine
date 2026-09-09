@@ -144,6 +144,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Inc\DX11\DX11Surface.h" />
     <ClInclude Include="Inc\DX11\DX11Pipeline.h" />
     <ClInclude Include="Inc\DX11\DX11.h" />
     <ClInclude Include="Inc\DX11\DX11Instance.h" />
@@ -151,6 +152,8 @@
     <ClInclude Include="Inc\Pipeline.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\DX11\DX11Surface.cpp" />
+    <ClCompile Include="Inc\Surface.h" />
     <ClCompile Include="Src\DX11\DX11Pipeline.cpp" />
     <ClCompile Include="Src\DX11\DX11Instance.cpp" />
     <ClCompile Include="Src\Instance.cpp" />

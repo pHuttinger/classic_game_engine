@@ -15,7 +15,7 @@ public:
 
   CPipeline(IInstance& instance);
 
-  void Clear() override;
+  void Clear(ISurface& surface) override;
   void Present() override;
 
 private:
