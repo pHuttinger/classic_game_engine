@@ -7,6 +7,8 @@
 #include "../../Inc/DX11/DX11Surface.h"
 #include "../../Inc/DX11/DX11RenderTarget.h"
 #include "../../Inc/DX11/DX11DepthBuffer.h"
+#include "../../Inc/DX11/DX11PixelShader.h"
+#include "../../Inc/DX11/DX11VertexShader.h"
 
 namespace cge::rhi::dx11
 {
@@ -18,24 +20,24 @@ CInstance::~CInstance()
 TResult CInstance::Create(const TCreateInfo& createInfo)
 {
   DXGI_MODE_DESC bufferDesc{};
-  bufferDesc.Width                   = createInfo.m_width;
-  bufferDesc.Height                  = createInfo.m_height;
+  bufferDesc.Width = createInfo.m_width;
+  bufferDesc.Height = createInfo.m_height;
   bufferDesc.RefreshRate.Denominator = 1;
-  bufferDesc.RefreshRate.Numerator   = 60;
-  bufferDesc.Format                  = DXGI_FORMAT_R8G8B8A8_UNORM;
-  bufferDesc.ScanlineOrdering        = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
-  bufferDesc.Scaling                 = DXGI_MODE_SCALING_UNSPECIFIED;
+  bufferDesc.RefreshRate.Numerator = 60;
+  bufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+  bufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
+  bufferDesc.Scaling = DXGI_MODE_SCALING_UNSPECIFIED;
 
   DXGI_SWAP_CHAIN_DESC swapChainDesc{};
-  swapChainDesc.BufferDesc         = bufferDesc;
-  swapChainDesc.SampleDesc.Count   = 1;
+  swapChainDesc.BufferDesc = bufferDesc;
+  swapChainDesc.SampleDesc.Count = 1;
   swapChainDesc.SampleDesc.Quality = 0;
-  swapChainDesc.BufferUsage        = DXGI_USAGE_RENDER_TARGET_OUTPUT;
-  swapChainDesc.BufferCount        = 1;
-  swapChainDesc.OutputWindow       = createInfo.m_hwnd;
-  swapChainDesc.Windowed           = !createInfo.m_fullscreen;
-  swapChainDesc.SwapEffect         = DXGI_SWAP_EFFECT_DISCARD;
-                                     
+  swapChainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
+  swapChainDesc.BufferCount = 1;
+  swapChainDesc.OutputWindow = createInfo.m_hwnd;
+  swapChainDesc.Windowed = !createInfo.m_fullscreen;
+  swapChainDesc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
+
   HRESULT hr = D3D11CreateDeviceAndSwapChain(nullptr,
                                              D3D_DRIVER_TYPE_HARDWARE,
                                              nullptr,
@@ -75,5 +77,17 @@ TResult CInstance::CreateDepthBuffer(const TDepthBufferCreateInfo& createInfo, s
 {
   pDepthBuffer = std::make_unique<CDepthBuffer>(*this);
   return pDepthBuffer->Initialize(createInfo);
+}
+
+TResult CInstance::CreatePixelShader(const TPixelShaderCreateInfo& createInfo, std::unique_ptr<IPixelShader>& pPixelShader)
+{
+  pPixelShader = std::make_unique<CPixelShader>(*this);
+  return pPixelShader->Initialize(createInfo);
+}
+
+TResult CInstance::CreateVertexShader(const TVertexShaderCreateInfo& createInfo, std::unique_ptr<IVertexShader>& pVertexShader)
+{
+  pVertexShader = std::make_unique<CVertexShader>(*this);
+  return pVertexShader->Initialize(createInfo);
 }
 }

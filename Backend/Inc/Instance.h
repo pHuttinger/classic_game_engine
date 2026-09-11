@@ -9,6 +9,8 @@
 #include "Surface.h"
 #include "RenderTarget.h"
 #include "DepthBuffer.h"
+#include "PixelShader.h"
+#include "VertexShader.h"
 
 namespace cge::rhi
 {
@@ -49,6 +51,8 @@ public:
   virtual TResult CreateSurface(const TSurfaceCreateInfo& createInfo, std::unique_ptr<ISurface>& pSurface) = 0;
   virtual TResult CreateRenderTarget(const TRenderTargetCreateInfo& createInfo, std::unique_ptr<IRenderTarget>& pRenderTarget) = 0;
   virtual TResult CreateDepthBuffer(const TDepthBufferCreateInfo& createInfo, std::unique_ptr<IDepthBuffer>& pDepthBuffer) = 0;
+  virtual TResult CreatePixelShader(const TPixelShaderCreateInfo& createInfo, std::unique_ptr<IPixelShader>& pPixelShader) = 0;
+  virtual TResult CreateVertexShader(const TVertexShaderCreateInfo& createInfo, std::unique_ptr<IVertexShader>& pVertexShader) = 0; 
 };
 
 //----------------------------------------------------

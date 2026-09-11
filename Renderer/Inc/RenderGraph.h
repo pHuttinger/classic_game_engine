@@ -17,7 +17,7 @@ public:
 
   TResult Initialize();
 
-  void Execute(const CFrameInput& input) const;
+  std::unordered_map<std::string, rhi::IRenderTarget*> Execute(const CFrameInput& input) const;
 
 private:
 

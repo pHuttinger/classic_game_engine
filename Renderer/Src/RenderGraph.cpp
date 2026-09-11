@@ -19,12 +19,20 @@ TResult CRenderGraph::Initialize()
   return TResult::Okay();
 }
 
-void CRenderGraph::Execute(const CFrameInput& input) const
+std::unordered_map<std::string, rhi::IRenderTarget*> CRenderGraph::Execute(const CFrameInput& input) const
 {
+  std::unordered_map<std::string, rhi::IRenderTarget*> renderTargets;
+
   for (auto& renderPass : m_renderPasses)
   {
-    renderPass->Execute(input);
+    auto passRenderTargets = renderPass->Execute(input);
+    for (const auto& kvp : passRenderTargets)
+    {
+      renderTargets[kvp.first] = kvp.second;
+    }
   }
+
+  return renderTargets;
 }
 
 TResult CRenderGraph::CreateGeometryPass()

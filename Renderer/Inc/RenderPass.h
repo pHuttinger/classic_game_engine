@@ -15,6 +15,6 @@ public:
 
   virtual ~IRenderPass() = default;
 
-  virtual void Execute(const CFrameInput& input) const = 0;
+  virtual std::unordered_map<std::string, rhi::IRenderTarget*> Execute(const CFrameInput& input) const = 0;
 };
 }

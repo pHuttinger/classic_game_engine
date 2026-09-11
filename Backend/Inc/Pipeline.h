@@ -4,7 +4,6 @@
 
 #pragma once
 
-#include "Surface.h"
 #include "RenderTarget.h"
 #include "DepthBuffer.h"
 

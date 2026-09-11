@@ -18,7 +18,7 @@ public:
 
   TResult Initialize();
 
-  void Execute(const CFrameInput& input) const override;
+  std::unordered_map<std::string, rhi::IRenderTarget*> Execute(const CFrameInput& input) const override;
 
 private:
 
@@ -26,7 +26,7 @@ private:
   TResult CreateDepthBuffer();
 
   CBackend& m_backend;
-  std::unique_ptr<rhi::IRenderTarget> m_pRenderTarget_Diffuse;
+  std::unique_ptr<rhi::IRenderTarget> m_pRenderTarget_Albedo;
   std::unique_ptr<rhi::IDepthBuffer> m_pDepthBuffer;
   std::vector<rhi::IRenderTarget*> m_renderTargets;
 };

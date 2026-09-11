@@ -25,7 +25,7 @@ TResult CRenderer::Initialize(const rhi::TCreateInfo& createInfo)
 void CRenderer::RenderFrame(const CFrameInput& input)
 {
   m_backend.GetSurface().Clear();
-  m_renderGraph.Execute(input);
+  auto renderTargets = m_renderGraph.Execute(input);
   m_backend.GetPipeline().Present();
 }
 }

@@ -4,22 +4,23 @@
 
 #pragma once
 
-#include "../Pipeline.h"
+#include "../PixelShader.h"
 #include "DX11Instance.h"
 
 namespace cge::rhi::dx11
 {
-class CPipeline final : public IPipeline
+class CPixelShader final : public IPixelShader
 {
 public:
 
-  CPipeline(IInstance& instance);
+  CPixelShader(IInstance& instance);
 
-  void Present() override;
-  void BindRenderTargets(const std::vector<IRenderTarget*>& renderTargets, IDepthBuffer* depthBuffer) override;
+  TResult Initialize(const TPixelShaderCreateInfo& createInfo) override;
 
 private:
 
   CInstance& m_instance;
+
+  CComPtr<ID3D11PixelShader> m_pPixelShader;
 };
 }

@@ -4,22 +4,23 @@
 
 #pragma once
 
-#include "../Pipeline.h"
+#include "../VertexShader.h"
 #include "DX11Instance.h"
 
 namespace cge::rhi::dx11
 {
-class CPipeline final : public IPipeline
+class CVertexShader final : public IVertexShader
 {
 public:
 
-  CPipeline(IInstance& instance);
+  CVertexShader(IInstance& instance);
 
-  void Present() override;
-  void BindRenderTargets(const std::vector<IRenderTarget*>& renderTargets, IDepthBuffer* depthBuffer) override;
+  TResult Initialize(const TVertexShaderCreateInfo& createInfo) override;
 
 private:
 
   CInstance& m_instance;
+
+  CComPtr<ID3D11VertexShader> m_pVertexShader;
 };
 }

@@ -4,13 +4,12 @@
 
 #pragma once
 
-#include <Common/Inc/ComPtr.h>
 #include "../DepthBuffer.h"
 #include "DX11Instance.h"
 
 namespace cge::rhi::dx11
 {
-class CDepthBuffer : public IDepthBuffer
+class CDepthBuffer final : public IDepthBuffer
 {
 public:
 

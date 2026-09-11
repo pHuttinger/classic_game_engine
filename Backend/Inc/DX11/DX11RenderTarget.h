@@ -4,13 +4,12 @@
 
 #pragma once
 
-#include <Common/Inc/ComPtr.h>
 #include "../RenderTarget.h"
 #include "DX11Instance.h"
 
 namespace cge::rhi::dx11
 {
-class CRenderTarget : public IRenderTarget 
+class CRenderTarget final : public IRenderTarget 
 {
 public:
 
@@ -21,14 +20,18 @@ public:
   void Clear() override;
 
   ID3D11RenderTargetView* GetRenderTargetView() { return m_pRenderTargetView.Get(); }
+  ID3D11ShaderResourceView* GetShaderResourceView() { return m_pShaderResourceView.Get(); }
 
 private:
 
-  TResult CreateRenderTargetView(const TRenderTargetCreateInfo& createInfo);
+  TResult CreateTexture2D(const TRenderTargetCreateInfo& createInfo);
+  TResult CreateRenderTargetView();
+  TResult CreateShaderResourceView();
 
   CInstance& m_instance;
 
-  CComPtr<ID3D11Texture2D> m_pTexture;
-  CComPtr<ID3D11RenderTargetView> m_pRenderTargetView;
+  CComPtr<ID3D11Texture2D>          m_pTexture;
+  CComPtr<ID3D11RenderTargetView>   m_pRenderTargetView;
+  CComPtr<ID3D11ShaderResourceView> m_pShaderResourceView;
 };
 }

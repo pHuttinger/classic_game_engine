@@ -13,7 +13,9 @@ CRenderTarget::CRenderTarget(IInstance& instance)
 
 TResult CRenderTarget::Initialize(const TRenderTargetCreateInfo& createInfo)
 {
-  CGE_TRY(CreateRenderTargetView(createInfo));
+  CGE_TRY(CreateTexture2D(createInfo));
+  CGE_TRY(CreateRenderTargetView());
+  CGE_TRY(CreateShaderResourceView());
   return TResult::Okay();
 }
 
@@ -22,7 +24,7 @@ void CRenderTarget::Clear()
   m_instance.GetDeviceContext()->ClearRenderTargetView(m_pRenderTargetView.Get(), D3DXCOLOR(0.0f, 0.0f, 1.0f, 1.0f));
 }
 
-TResult CRenderTarget::CreateRenderTargetView(const TRenderTargetCreateInfo& createInfo)
+TResult CRenderTarget::CreateTexture2D(const TRenderTargetCreateInfo& createInfo)
 {
   D3D11_TEXTURE2D_DESC textureDesc{};
   textureDesc.Width          = createInfo.m_width;
@@ -39,8 +41,27 @@ TResult CRenderTarget::CreateRenderTargetView(const TRenderTargetCreateInfo& cre
   HRESULT hr = m_instance.GetDevice()->CreateTexture2D(&textureDesc, nullptr, &m_pTexture.Get());
   CGE_HRESULT_CHECK(hr, "Can't create Texture2D");
 
-  hr = m_instance.GetDevice()->CreateRenderTargetView(m_pTexture.Get(), nullptr, &m_pRenderTargetView.Get());
+  return TResult::Okay();
+}
+
+TResult CRenderTarget::CreateRenderTargetView()
+{
+  HRESULT hr = m_instance.GetDevice()->CreateRenderTargetView(m_pTexture.Get(), nullptr, &m_pRenderTargetView.Get());
   CGE_HRESULT_CHECK(hr, "Can't create RenderTargetView");
+
+  return TResult::Okay();
+}
+
+TResult CRenderTarget::CreateShaderResourceView()
+{
+  D3D11_SHADER_RESOURCE_VIEW_DESC shaderResourceViewDesc{};
+  shaderResourceViewDesc.Format                    = DXGI_FORMAT_R8G8B8A8_UNORM;
+  shaderResourceViewDesc.ViewDimension             = D3D11_SRV_DIMENSION_TEXTURE2D;
+  shaderResourceViewDesc.Texture2D.MipLevels       = 1;
+  shaderResourceViewDesc.Texture2D.MostDetailedMip = 0;
+
+  HRESULT hr = m_instance.GetDevice()->CreateShaderResourceView(m_pTexture.Get(), &shaderResourceViewDesc, &m_pShaderResourceView.Get());
+  CGE_HRESULT_CHECK(hr, "Can't create ShaderResourceView");
 
   return TResult::Okay();
 }

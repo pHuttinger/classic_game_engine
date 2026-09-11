@@ -13,19 +13,24 @@ CGeometryPass::CGeometryPass(CBackend& backend)
 
 TResult CGeometryPass::Initialize()
 {
-  CGE_TRY(CreateRenderTarget(m_pRenderTarget_Diffuse));
+  CGE_TRY(CreateRenderTarget(m_pRenderTarget_Albedo));
   CGE_TRY(CreateDepthBuffer());
 
-  m_renderTargets.push_back(m_pRenderTarget_Diffuse.get());
+  m_renderTargets.push_back(m_pRenderTarget_Albedo.get());
 
   return TResult::Okay();
 }
 
-void CGeometryPass::Execute(const CFrameInput& input) const
+std::unordered_map<std::string, rhi::IRenderTarget*> CGeometryPass::Execute(const CFrameInput& input) const
 {
-  m_pRenderTarget_Diffuse->Clear();
+  m_pRenderTarget_Albedo->Clear();
 
   m_backend.GetPipeline().BindRenderTargets(m_renderTargets, m_pDepthBuffer.get());
+
+  return
+  {
+    { "Albedo", m_pRenderTarget_Albedo.get() }
+  };
 }
 
 TResult CGeometryPass::CreateRenderTarget(std::unique_ptr<rhi::IRenderTarget>& renderTarget)

@@ -144,6 +144,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Inc\DX11\DX11VertexShader.h" />
+    <ClInclude Include="Inc\DX11\DX11PixelShader.h" />
     <ClInclude Include="Inc\DX11\DX11DepthBuffer.h" />
     <ClInclude Include="Inc\DepthBuffer.h" />
     <ClInclude Include="Inc\DX11\DX11RenderTarget.h" />
@@ -153,9 +155,13 @@
     <ClInclude Include="Inc\DX11\DX11Instance.h" />
     <ClInclude Include="Inc\Instance.h" />
     <ClInclude Include="Inc\Pipeline.h" />
+    <ClInclude Include="Inc\PixelShader.h" />
     <ClInclude Include="Inc\RenderTarget.h" />
+    <ClInclude Include="Inc\VertexShader.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\DX11\DX11VertexShader.cpp" />
+    <ClCompile Include="Src\DX11\DX11PixelShader.cpp" />
     <ClCompile Include="Src\DX11\DX11DepthBuffer.cpp" />
     <ClCompile Include="Src\DX11\DX11RenderTarget.cpp" />
     <ClCompile Include="Src\DX11\DX11Surface.cpp" />

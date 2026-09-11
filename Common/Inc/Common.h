@@ -25,6 +25,8 @@
 #include <iostream>
 #endif
 
+#include "ComPtr.h"
+
 //TODO
 ////----------------------------------------------------
 //// GLM

@@ -4,13 +4,12 @@
 
 #pragma once
 
-#include <Common/Inc/ComPtr.h>
 #include "../Surface.h"
 #include "DX11Instance.h"
 
 namespace cge::rhi::dx11
 {
-class CSurface : public ISurface
+class CSurface final : public ISurface
 {
 public:
 

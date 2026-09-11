@@ -4,7 +4,6 @@
 
 #pragma once
 
-#include <Common/Inc/ComPtr.h>
 #include "DX11.h"
 #include "../Instance.h"
 
@@ -24,6 +23,8 @@ public:
   TResult CreateSurface(const TSurfaceCreateInfo& createInfo, std::unique_ptr<ISurface>& pSurface) override;
   TResult CreateRenderTarget(const TRenderTargetCreateInfo& createInfo, std::unique_ptr<IRenderTarget>& pRenderTarget) override;
   TResult CreateDepthBuffer(const TDepthBufferCreateInfo& createInfo, std::unique_ptr<IDepthBuffer>& pDepthBuffer) override;
+  TResult CreatePixelShader(const TPixelShaderCreateInfo& createInfo, std::unique_ptr<IPixelShader>& pPixelShader) override;
+  TResult CreateVertexShader(const TVertexShaderCreateInfo& createInfo, std::unique_ptr<IVertexShader>& pVertexShader) override;
 
   ID3D11Device* GetDevice() { return m_pDevice.Get(); }
   ID3D11DeviceContext* GetDeviceContext() { return m_pDeviceContext.Get(); }

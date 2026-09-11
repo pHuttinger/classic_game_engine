@@ -27,6 +27,9 @@
     <ClInclude Include="Inc\Window.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Inc\FileSystem\BinaryFileReader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Common.cpp">
@@ -36,6 +39,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Src\Window.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\FileSystem\BinaryFileReader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

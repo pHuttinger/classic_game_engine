@@ -51,4 +51,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Shader\RenderTarget\PS_RenderTarget.hlsl" />
+    <FxCompile Include="Shader\RenderTarget\VS_RenderTarget.hlsl" />
+    <FxCompile Include="Shader\RenderTarget\RenderTarget.hlsl" />
+  </ItemGroup>
 </Project>
