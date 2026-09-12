@@ -54,6 +54,7 @@ TResult COutputMerger::Initialize()
       .m_bufferDestination = rhi::EBufferDestination::VertexShader,
       .m_size              = sizeof(vertices),
       .m_pData             = vertices,
+      .m_stride            = sizeof(TOutputMergerVertex),
     };
 
     rhi::TBufferCreateInfo indexBufferCreateInfo
