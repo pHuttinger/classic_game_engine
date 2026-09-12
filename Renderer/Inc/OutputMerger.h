@@ -5,6 +5,7 @@
 #pragma once
 
 #include "Backend.h"
+#include "RenderGraph.h"
 
 namespace cge::render
 {
@@ -31,7 +32,7 @@ public:
 
   TResult Initialize();
 
-  void MergeRenderTargets(const std::unordered_map<std::string, rhi::IRenderTarget*>& renderTargets);
+  void Merge(std::vector<rhi::IRenderTarget*>& renderGraphOutput);
 
 private:
 

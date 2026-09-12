@@ -31,4 +31,16 @@ void CPipeline::BindRenderTargets(const std::vector<IRenderTarget*>& renderTarge
 
   m_instance.GetDeviceContext()->OMSetRenderTargets(renderTargets.size(), renderTargetViews.data(), pDepthBuffer->GetDepthStencilView());
 }
+
+void CPipeline::BindShaderResources(const std::vector<IRenderTarget*>& renderTargets)
+{
+  std::vector<ID3D11ShaderResourceView*> shaderResourceViews;
+
+  for (IRenderTarget* renderTarget : renderTargets)
+  {
+    shaderResourceViews.push_back(static_cast<CRenderTarget*>(renderTarget)->GetShaderResourceView());
+  }
+
+  m_instance.GetDeviceContext()->PSSetShaderResources(0U, shaderResourceViews.size(), shaderResourceViews.data());
+}
 }

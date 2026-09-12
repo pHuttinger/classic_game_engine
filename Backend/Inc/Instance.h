@@ -59,6 +59,8 @@ public:
   virtual TResult CreateSampler(std::unique_ptr<ISampler>& pSampler) = 0;
   virtual TResult CreateBuffer(const TBufferCreateInfo& createInfo, std::unique_ptr<IBuffer>& pBuffer) = 0;
   virtual TResult CreateVertexDescriptor(const TVertexDescriptorCreateInfo& createInfo, std::unique_ptr<IVertexDescriptor>& pVertexDescriptor) = 0;
+
+  virtual std::string GetShaderFilename(const std::string& shaderName) = 0;
 };
 
 //----------------------------------------------------

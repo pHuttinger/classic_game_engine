@@ -13,14 +13,29 @@ COutputMerger::COutputMerger(CBackend& backend)
 
 TResult COutputMerger::Initialize()
 {
-  CGE_TRY(m_backend.GetInstance().CreateVertexShader({ "./VS_RenderTarget.cso" }, m_renderResources.m_pVertexShader));
-  CGE_TRY(m_backend.GetInstance().CreatePixelShader({ "./PS_RenderTarget.cso" }, m_renderResources.m_pPixelShader));
+  // Create VertexShader
+  {
+    rhi::TVertexShaderCreateInfo createInfo
+    {
+      .m_filename = m_backend.GetInstance().GetShaderFilename("VS_RenderTarget")
+    };
+    CGE_TRY(m_backend.GetInstance().CreateVertexShader(createInfo, m_renderResources.m_pVertexShader));
+  }
+
+  // Create PixelShader
+  {
+    rhi::TPixelShaderCreateInfo createInfo
+    {
+      .m_filename = m_backend.GetInstance().GetShaderFilename("PS_RenderTarget")
+    };
+    CGE_TRY(m_backend.GetInstance().CreatePixelShader(createInfo, m_renderResources.m_pPixelShader));
+  }
 
   return TResult::Okay();
 }
 
-void COutputMerger::MergeRenderTargets(const std::unordered_map<std::string, rhi::IRenderTarget*>& renderTargets)
+void COutputMerger::Merge(std::vector<rhi::IRenderTarget*>& renderGraphOutput)
 {
-  rhi::IRenderTarget* pAlbedoRenderTarget = renderTargets.at("Albedo");
+  m_backend.GetPipeline().BindShaderResources(renderGraphOutput);
 }
 }

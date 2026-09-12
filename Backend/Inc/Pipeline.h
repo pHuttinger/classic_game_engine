@@ -17,5 +17,6 @@ public:
 
   virtual void Present() = 0;
   virtual void BindRenderTargets(const std::vector<IRenderTarget*>& renderTargets, IDepthBuffer* depthBuffer) = 0;
+  virtual void BindShaderResources(const std::vector<IRenderTarget*>& renderTargets) = 0;
 };
 }

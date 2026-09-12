@@ -17,6 +17,7 @@ public:
 
   void Present() override;
   void BindRenderTargets(const std::vector<IRenderTarget*>& renderTargets, IDepthBuffer* depthBuffer) override;
+  void BindShaderResources(const std::vector<IRenderTarget*>& renderTargets) override;
 
 private:
 

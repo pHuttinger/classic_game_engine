@@ -21,7 +21,7 @@ TResult CGeometryPass::Initialize()
   return TResult::Okay();
 }
 
-std::unordered_map<std::string, rhi::IRenderTarget*> CGeometryPass::Execute(const CFrameInput& input) const
+std::vector<rhi::IRenderTarget*> CGeometryPass::Execute(const CFrameInput& input) const
 {
   m_pRenderTarget_Albedo->Clear();
 
@@ -29,7 +29,7 @@ std::unordered_map<std::string, rhi::IRenderTarget*> CGeometryPass::Execute(cons
 
   return
   {
-    { "Albedo", m_pRenderTarget_Albedo.get() }
+    { m_pRenderTarget_Albedo.get() }
   };
 }
 

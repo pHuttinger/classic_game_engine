@@ -18,7 +18,7 @@ public:
 
   TResult Initialize();
 
-  std::unordered_map<std::string, rhi::IRenderTarget*> Execute(const CFrameInput& input) const override;
+  std::vector<rhi::IRenderTarget*> Execute(const CFrameInput& input) const override;
 
 private:
 

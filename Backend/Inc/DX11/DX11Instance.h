@@ -29,6 +29,8 @@ public:
   TResult CreateBuffer(const TBufferCreateInfo& createInfo, std::unique_ptr<IBuffer>& pBuffer)override;
   TResult CreateVertexDescriptor(const TVertexDescriptorCreateInfo& createInfo, std::unique_ptr<IVertexDescriptor>& pVertexDescriptor) override;
 
+  std::string GetShaderFilename(const std::string& shaderName) override;
+
   ID3D11Device* GetDevice() { return m_pDevice.Get(); }
   ID3D11DeviceContext* GetDeviceContext() { return m_pDeviceContext.Get(); }
   IDXGISwapChain* GetSwapChain() { return m_pSwapChain.Get(); }

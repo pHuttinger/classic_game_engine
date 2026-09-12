@@ -111,4 +111,9 @@ TResult CInstance::CreateVertexDescriptor(const TVertexDescriptorCreateInfo& cre
   pVertexDescriptor = std::make_unique<CVertexDescriptor>(*this);
   return pVertexDescriptor->Initialize(createInfo);
 }
+
+std::string CInstance::GetShaderFilename(const std::string& shaderName)
+{
+  return "./" + shaderName + ".cso";
+}
 }
