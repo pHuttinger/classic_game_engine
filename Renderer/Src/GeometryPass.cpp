@@ -42,7 +42,7 @@ TResult CGeometryPass::CreateRenderTarget(std::unique_ptr<rhi::IRenderTarget>& r
     .m_height = surfaceCreateInfo.m_height  
   };
 
-  return m_backend.CreateRenderTarget(createInfo, renderTarget);
+  return m_backend.GetInstance().CreateRenderTarget(createInfo, renderTarget);
 }
 
 TResult CGeometryPass::CreateDepthBuffer()
@@ -54,6 +54,6 @@ TResult CGeometryPass::CreateDepthBuffer()
     .m_height = surfaceCreateInfo.m_height
   };
 
-  return m_backend.CreateDepthBuffer(createInfo, m_pDepthBuffer);
+  return m_backend.GetInstance().CreateDepthBuffer(createInfo, m_pDepthBuffer);
 }
 }

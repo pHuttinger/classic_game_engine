@@ -161,8 +161,10 @@
     <ClInclude Include="Inc\RenderPass.h" />
     <ClInclude Include="Inc\FrameInput.h" />
     <ClInclude Include="Inc\RenderGraph.h" />
+    <ClInclude Include="Inc\OutputMerger.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\OutputMerger.cpp" />
     <ClCompile Include="Src\GeometryPass.cpp" />
     <ClCompile Include="Src\Backend.cpp" />
     <ClCompile Include="Src\FrameInput.cpp" />

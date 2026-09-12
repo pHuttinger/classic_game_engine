@@ -16,10 +16,9 @@ TResult CVertexShader::Initialize(const TVertexShaderCreateInfo& createInfo)
 {
   filesystem::CBinaryFileReader binaryFileReader;
 
-  std::vector<char> bytecode;
-  CGE_TRY(binaryFileReader.Read(createInfo.m_filename, bytecode));
+  CGE_TRY(binaryFileReader.Read(createInfo.m_filename, m_bytecode));
 
-  HRESULT hr = m_instance.GetDevice()->CreateVertexShader(bytecode.data(), bytecode.size(), nullptr, &m_pVertexShader.Get());
+  HRESULT hr = m_instance.GetDevice()->CreateVertexShader(m_bytecode.data(), m_bytecode.size(), nullptr, &m_pVertexShader.Get());
   CGE_HRESULT_CHECK(hr, "Failed to create VertexShader");
 
   return TResult::Okay();

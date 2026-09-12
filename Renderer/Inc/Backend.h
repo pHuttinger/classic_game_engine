@@ -18,16 +18,14 @@ public:
 
   TResult Create(const rhi::TCreateInfo& createInfo); 
 
-  TResult CreateRenderTarget(const rhi::TRenderTargetCreateInfo& createInfo, std::unique_ptr<rhi::IRenderTarget>& pRenderTarget);
-  TResult CreateDepthBuffer(const rhi::TDepthBufferCreateInfo& createInfo, std::unique_ptr<rhi::IDepthBuffer>& pDepthBuffer);
-
+  rhi::IInstance& GetInstance() { return *m_pInstance; }
   rhi::ISurface& GetSurface() { return *m_pSurface; }
   rhi::IPipeline& GetPipeline() { return *m_pPipeline; }
 
 private:
 
-  std::unique_ptr<rhi::IInstance> m_pInstance = nullptr;
-  std::unique_ptr<rhi::ISurface>  m_pSurface  = nullptr;
-  std::unique_ptr<rhi::IPipeline> m_pPipeline = nullptr;
+  std::unique_ptr<rhi::IInstance> m_pInstance;
+  std::unique_ptr<rhi::ISurface>  m_pSurface;
+  std::unique_ptr<rhi::IPipeline> m_pPipeline;
 };
 }

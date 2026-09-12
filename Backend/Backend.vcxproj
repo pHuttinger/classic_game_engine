@@ -144,6 +144,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Inc\DX11\DX11VertexDescriptor.h" />
+    <ClInclude Include="Inc\DX11\DX11Buffer.h" />
+    <ClInclude Include="Inc\Buffer.h" />
+    <ClInclude Include="Inc\DX11\DX11Sampler.h" />
     <ClInclude Include="Inc\DX11\DX11VertexShader.h" />
     <ClInclude Include="Inc\DX11\DX11PixelShader.h" />
     <ClInclude Include="Inc\DX11\DX11DepthBuffer.h" />
@@ -157,9 +161,14 @@
     <ClInclude Include="Inc\Pipeline.h" />
     <ClInclude Include="Inc\PixelShader.h" />
     <ClInclude Include="Inc\RenderTarget.h" />
+    <ClInclude Include="Inc\Sampler.h" />
     <ClInclude Include="Inc\VertexShader.h" />
+    <ClInclude Include="Inc\VertexDescriptor.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\DX11\DX11VertexDescriptor.cpp" />
+    <ClCompile Include="Src\DX11\DX11Buffer.cpp" />
+    <ClCompile Include="Src\DX11\DX11Sampler.cpp" />
     <ClCompile Include="Src\DX11\DX11VertexShader.cpp" />
     <ClCompile Include="Src\DX11\DX11PixelShader.cpp" />
     <ClCompile Include="Src\DX11\DX11DepthBuffer.cpp" />

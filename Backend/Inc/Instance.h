@@ -11,6 +11,9 @@
 #include "DepthBuffer.h"
 #include "PixelShader.h"
 #include "VertexShader.h"
+#include "Sampler.h"
+#include "Buffer.h"
+#include "VertexDescriptor.h"
 
 namespace cge::rhi
 {
@@ -53,6 +56,9 @@ public:
   virtual TResult CreateDepthBuffer(const TDepthBufferCreateInfo& createInfo, std::unique_ptr<IDepthBuffer>& pDepthBuffer) = 0;
   virtual TResult CreatePixelShader(const TPixelShaderCreateInfo& createInfo, std::unique_ptr<IPixelShader>& pPixelShader) = 0;
   virtual TResult CreateVertexShader(const TVertexShaderCreateInfo& createInfo, std::unique_ptr<IVertexShader>& pVertexShader) = 0; 
+  virtual TResult CreateSampler(std::unique_ptr<ISampler>& pSampler) = 0;
+  virtual TResult CreateBuffer(const TBufferCreateInfo& createInfo, std::unique_ptr<IBuffer>& pBuffer) = 0;
+  virtual TResult CreateVertexDescriptor(const TVertexDescriptorCreateInfo& createInfo, std::unique_ptr<IVertexDescriptor>& pVertexDescriptor) = 0;
 };
 
 //----------------------------------------------------

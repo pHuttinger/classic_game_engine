@@ -6,6 +6,7 @@
 
 #include "Backend.h"
 #include "RenderGraph.h"
+#include "OutputMerger.h"
 
 namespace cge::render
 {
@@ -20,7 +21,8 @@ public:
 
 private:
 
-  CBackend     m_backend;
-  CRenderGraph m_renderGraph;
+  CBackend      m_backend;
+  CRenderGraph  m_renderGraph;
+  COutputMerger m_outputMerger;
 };
 }

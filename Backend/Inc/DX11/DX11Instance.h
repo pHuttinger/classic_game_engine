@@ -25,6 +25,9 @@ public:
   TResult CreateDepthBuffer(const TDepthBufferCreateInfo& createInfo, std::unique_ptr<IDepthBuffer>& pDepthBuffer) override;
   TResult CreatePixelShader(const TPixelShaderCreateInfo& createInfo, std::unique_ptr<IPixelShader>& pPixelShader) override;
   TResult CreateVertexShader(const TVertexShaderCreateInfo& createInfo, std::unique_ptr<IVertexShader>& pVertexShader) override;
+  TResult CreateSampler(std::unique_ptr<ISampler>& pSampler) override;
+  TResult CreateBuffer(const TBufferCreateInfo& createInfo, std::unique_ptr<IBuffer>& pBuffer)override;
+  TResult CreateVertexDescriptor(const TVertexDescriptorCreateInfo& createInfo, std::unique_ptr<IVertexDescriptor>& pVertexDescriptor) override;
 
   ID3D11Device* GetDevice() { return m_pDevice.Get(); }
   ID3D11DeviceContext* GetDeviceContext() { return m_pDeviceContext.Get(); }
