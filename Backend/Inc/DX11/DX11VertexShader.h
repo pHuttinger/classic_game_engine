@@ -17,6 +17,7 @@ public:
 
   TResult Initialize(const TVertexShaderCreateInfo& createInfo) override;
 
+  ID3D11VertexShader* GetVertexShader() { return m_pVertexShader.Get(); }
   std::vector<char>& GetBytecode() { return m_bytecode; }
 
 private:

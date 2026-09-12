@@ -17,6 +17,8 @@ public:
 
   TResult Initialize(const TPixelShaderCreateInfo& createInfo) override;
 
+  ID3D11PixelShader* GetPixelShader() { return m_pPixelShader.Get(); }
+
 private:
 
   CInstance& m_instance;

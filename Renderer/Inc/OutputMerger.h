@@ -32,7 +32,7 @@ public:
 
   TResult Initialize();
 
-  void Merge(std::vector<rhi::IRenderTarget*>& renderGraphOutput);
+  void MergeAndRender(std::vector<rhi::IRenderTarget*>& renderGraphOutput);
 
 private:
 

@@ -21,7 +21,7 @@ TResult CRenderTarget::Initialize(const TRenderTargetCreateInfo& createInfo)
 
 void CRenderTarget::Clear()
 {
-  m_instance.GetDeviceContext()->ClearRenderTargetView(m_pRenderTargetView.Get(), D3DXCOLOR(0.0f, 0.0f, 1.0f, 1.0f));
+  m_instance.GetDeviceContext()->ClearRenderTargetView(m_pRenderTargetView.Get(), D3DXCOLOR(0.0f, 1.0f, 0.0f, 1.0f));
 }
 
 TResult CRenderTarget::CreateTexture2D(const TRenderTargetCreateInfo& createInfo)

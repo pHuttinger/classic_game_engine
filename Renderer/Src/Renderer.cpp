@@ -31,7 +31,7 @@ void CRenderer::RenderFrame(const CFrameInput& input)
   m_backend.GetSurface().Clear();
 
   auto renderTargets = m_renderGraph.Execute(input);
-  m_outputMerger.Merge(renderTargets);
+  m_outputMerger.MergeAndRender(renderTargets);
 
   m_backend.GetPipeline().Present();
 }
