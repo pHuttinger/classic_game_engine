@@ -17,13 +17,16 @@ public:
 
   TResult Initialize(const TBufferCreateInfo& createInfo);
 
+  ID3D11Buffer* GetBuffer() { return m_pBuffer.Get(); }
+  TBufferCreateInfo GetCreateInfo() const { return m_createInfo; }
+
 private:
 
   D3D11_USAGE GetDX11Usage(const EBufferUsage bufferUsage) const;
   D3D11_BIND_FLAG GetDX11BindFlag(const EBufferType bufferType) const;
 
   CInstance& m_instance;
-
+  TBufferCreateInfo m_createInfo;
   CComPtr<ID3D11Buffer> m_pBuffer;
 };
 }

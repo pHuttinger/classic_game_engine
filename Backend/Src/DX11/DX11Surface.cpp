@@ -22,7 +22,20 @@ TResult CSurface::Initialize(const TSurfaceCreateInfo& createInfo)
 
 void CSurface::Clear()
 {
+  ID3D11RenderTargetView* renderTargets[] = { m_pRenderTargetView.Get() };
   m_instance.GetDeviceContext()->ClearRenderTargetView(m_pRenderTargetView.Get(), D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f));
+  m_instance.GetDeviceContext()->OMSetRenderTargets(1, renderTargets, nullptr);
+  m_instance.GetDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+  D3D11_VIEWPORT viewport;
+  ZeroMemory(&viewport, sizeof(D3D11_VIEWPORT));
+
+  viewport.TopLeftX = 0;
+  viewport.TopLeftY = 0;
+  viewport.Width    = m_createInfo.m_width;
+  viewport.Height   = m_createInfo.m_height;
+
+  m_instance.GetDeviceContext()->RSSetViewports(1U, &viewport);
 }
 
 TResult CSurface::InitializeRenderTargetView(const TSurfaceCreateInfo& createInfo)

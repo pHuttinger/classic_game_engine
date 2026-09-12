@@ -19,6 +19,16 @@ struct TOutputMergerRenderResources final
   std::unique_ptr<rhi::IVertexDescriptor> m_pVertexDescriptor;
   std::unique_ptr<rhi::IBuffer>           m_pVertexBuffer;
   std::unique_ptr<rhi::IBuffer>           m_pIndexBuffer;
+  std::unique_ptr<rhi::ISampler>          m_pSampler;
+};
+
+//----------------------------------------------------
+// TOutputMergerVertex TODO: switch to GLM
+//----------------------------------------------------
+struct TOutputMergerVertex final
+{
+  float x, y, z;
+  float u, v;
 };
 
 //----------------------------------------------------

@@ -46,6 +46,7 @@ struct TBufferCreateInfo final
   EBufferDestination m_bufferDestination = EBufferDestination::VertexShader;
   size_t             m_size              = 0U;
   void*              m_pData             = nullptr;
+  size_t             m_stride            = 0U;
 };
 
 //----------------------------------------------------

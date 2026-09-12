@@ -17,6 +17,8 @@ public:
 
   TResult Initialize(const TVertexDescriptorCreateInfo& createInfo) override;
 
+  ID3D11InputLayout* GetInputLayout() { return m_pInputLayout.Get(); }
+
 private:
 
   CInstance& m_instance;

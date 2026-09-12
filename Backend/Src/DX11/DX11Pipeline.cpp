@@ -7,6 +7,9 @@
 #include "../../Inc/DX11/DX11DepthBuffer.h"
 #include "../../Inc/DX11/DX11VertexShader.h"
 #include "../../Inc/DX11/DX11PixelShader.h"
+#include "../../Inc/DX11/DX11Sampler.h"
+#include "../../Inc/DX11/DX11Buffer.h"
+#include "../../Inc/DX11/DX11VertexDescriptor.h"
 
 namespace cge::rhi::dx11
 {
@@ -51,5 +54,38 @@ void CPipeline::BindShaderResources(const std::vector<IRenderTarget*>& renderTar
     shaderResourceViews.push_back(static_cast<CRenderTarget*>(renderTarget)->GetShaderResourceView());
   }
   m_instance.GetDeviceContext()->PSSetShaderResources(0U, shaderResourceViews.size(), shaderResourceViews.data());
+}
+
+void CPipeline::BindSampler(ISampler* sampler)
+{
+  CSampler* pSampler = static_cast<CSampler*>(sampler);
+  ID3D11SamplerState* samplers[] = { pSampler->GetSamplerState() };
+  m_instance.GetDeviceContext()->PSSetSamplers(0U, 1U, samplers);
+}
+
+void CPipeline::BindVertexDescriptor(IVertexDescriptor* vertexDescriptor)
+{
+  CVertexDescriptor* pVertexDescriptor = static_cast<CVertexDescriptor*>(vertexDescriptor);
+  m_instance.GetDeviceContext()->IASetInputLayout(pVertexDescriptor->GetInputLayout());
+}
+
+void CPipeline::BindVertexBuffer(IBuffer* vertexBuffer)
+{
+  CBuffer* pBuffer = static_cast<CBuffer*>(vertexBuffer);
+  UINT stride = pBuffer->GetCreateInfo().m_stride;
+  UINT offset = 0;
+  ID3D11Buffer* buffers[] = { pBuffer->GetBuffer() };
+  m_instance.GetDeviceContext()->IASetVertexBuffers(0U, 1U, buffers, &stride, &offset);
+}
+
+void CPipeline::BindIndexBuffer(IBuffer* indexBuffer)
+{
+  CBuffer* pBuffer = static_cast<CBuffer*>(indexBuffer);
+  m_instance.GetDeviceContext()->IASetIndexBuffer(pBuffer->GetBuffer(), DXGI_FORMAT_R32_UINT, 0);
+}
+
+void CPipeline::DrawIndexed(uint32_t indexCount)
+{
+  m_instance.GetDeviceContext()->DrawIndexed(indexCount, 0, 0);
 }
 }

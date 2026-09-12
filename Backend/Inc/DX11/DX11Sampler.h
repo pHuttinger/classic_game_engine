@@ -17,6 +17,8 @@ public:
 
   TResult Initialize() override;
 
+  ID3D11SamplerState* GetSamplerState() { return m_pSamplerState.Get(); }
+
 private:
 
   CInstance& m_instance;

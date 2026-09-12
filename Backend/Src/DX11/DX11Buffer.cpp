@@ -13,6 +13,8 @@ CBuffer::CBuffer(IInstance& instance)
 
 TResult CBuffer::Initialize(const TBufferCreateInfo& createInfo)
 {
+  m_createInfo = createInfo;
+
   D3D11_BUFFER_DESC bufferDesc{};
   bufferDesc.Usage          = GetDX11Usage(createInfo.m_usage);
   bufferDesc.BindFlags      = GetDX11BindFlag(createInfo.m_bufferType);

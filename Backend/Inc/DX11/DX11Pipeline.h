@@ -20,6 +20,11 @@ public:
   void BindVertexShader(IVertexShader* vertexShader) override;
   void BindPixelShader(IPixelShader* pixelShader) override;
   void BindShaderResources(const std::vector<IRenderTarget*>& renderTargets) override;
+  void BindSampler(ISampler* sampler) override;
+  void BindVertexDescriptor(IVertexDescriptor* vertexDescriptor) override;
+  void BindVertexBuffer(IBuffer* vertexBuffer) override;
+  void BindIndexBuffer(IBuffer* indexBuffer) override;
+  void DrawIndexed(uint32_t indexCount) override;
 
 private:
 
