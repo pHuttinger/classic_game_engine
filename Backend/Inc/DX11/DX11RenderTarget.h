@@ -17,7 +17,7 @@ public:
 
   TResult Initialize(const TRenderTargetCreateInfo& createInfo) override;
 
-  void Clear() override;
+  void Clear(const glm::vec4& color) override;
 
   ID3D11RenderTargetView* GetRenderTargetView() { return m_pRenderTargetView.Get(); }
   ID3D11ShaderResourceView* GetShaderResourceView() { return m_pShaderResourceView.Get(); }

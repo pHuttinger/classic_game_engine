@@ -6,3 +6,7 @@
 /TestApp/x64
 /x64
 /Testing/x64
+/ExternLibs/glm-master/doc
+/ExternLibs/glm-master/cmake
+/ExternLibs/glm-master/.github
+ExternLibs/glm-master/glm/CMakeLists.txt

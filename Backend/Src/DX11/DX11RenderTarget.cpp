@@ -19,9 +19,9 @@ TResult CRenderTarget::Initialize(const TRenderTargetCreateInfo& createInfo)
   return TResult::Okay();
 }
 
-void CRenderTarget::Clear()
+void CRenderTarget::Clear(const glm::vec4& color)
 {
-  m_instance.GetDeviceContext()->ClearRenderTargetView(m_pRenderTargetView.Get(), D3DXCOLOR(0.0f, 1.0f, 0.0f, 1.0f));
+  m_instance.GetDeviceContext()->ClearRenderTargetView(m_pRenderTargetView.Get(), D3DXCOLOR(color.r, color.g, color.b, color.a));
 }
 
 TResult CRenderTarget::CreateTexture2D(const TRenderTargetCreateInfo& createInfo)

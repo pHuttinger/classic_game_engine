@@ -4,6 +4,8 @@
 			<AdditionalIncludeDirectories>
 				$(MSBuildThisFileDirectory);
 				C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include;
+				$(SolutionDir)ExternLibs;
+				$(SolutionDir)ExternLibs\glm-master;
 				%(AdditionalIncludeDirectories)
 			</AdditionalIncludeDirectories>
 		</ClCompile>

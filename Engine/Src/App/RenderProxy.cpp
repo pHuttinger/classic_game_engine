@@ -19,6 +19,6 @@ TResult CRenderProxy::Initialize(const rhi::TCreateInfo& createInfo)
 
 void CRenderProxy::RenderFrame()
 {
-  m_renderer.RenderFrame(CFrameInput());
+  m_renderer.RenderFrame(render::CFrameInput());
 }
 }

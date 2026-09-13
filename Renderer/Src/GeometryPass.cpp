@@ -23,7 +23,7 @@ TResult CGeometryPass::Initialize()
 
 std::vector<rhi::IRenderTarget*> CGeometryPass::Execute(const CFrameInput& input) const
 {
-  m_pRenderTarget_Albedo->Clear();
+  m_pRenderTarget_Albedo->Clear(input.m_clearColor);
 
   m_backend.GetPipeline().BindRenderTargets(m_renderTargets, m_pDepthBuffer.get());
 

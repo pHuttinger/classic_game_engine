@@ -28,6 +28,6 @@ public:
 
   virtual TResult Initialize(const TRenderTargetCreateInfo& createInfo) = 0;
 
-  virtual void Clear() = 0;
+  virtual void Clear(const glm::vec4& color) = 0;
 };
 }
