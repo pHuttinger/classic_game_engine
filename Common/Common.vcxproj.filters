@@ -30,6 +30,9 @@
     <ClInclude Include="Inc\FileSystem\BinaryFileReader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Inc\FileSystem\ImageLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Common.cpp">
@@ -42,6 +45,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Src\FileSystem\BinaryFileReader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\FileSystem\ImageLoader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

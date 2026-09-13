@@ -62,7 +62,12 @@ TResult COutputMerger::CreateVertexDescriptor()
 {
   rhi::TVertexDescriptorCreateInfo createInfo
   {
-    .pVertexShader = m_renderResources.m_pVertexShader.get()
+    .pVertexShader = m_renderResources.m_pVertexShader.get(),
+    .m_vertexAttributeInfos =
+    {
+      {rhi::EVertexAttributeUsage::Position, rhi::EVertexAttributeFormat::Float3},
+      {rhi::EVertexAttributeUsage::Texcoord, rhi::EVertexAttributeFormat::Float2},
+    }
   };
   CGE_TRY(m_backend.GetInstance().CreateVertexDescriptor(createInfo, m_renderResources.m_pVertexDescriptor));
   return TResult::Okay();

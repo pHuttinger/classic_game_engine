@@ -21,6 +21,11 @@ public:
 
 private:
 
+  const char* GetInputLayoutSemanticName(EVertexAttributeUsage usage) const;
+  DXGI_FORMAT GetDxgiFormat(EVertexAttributeFormat format) const;
+  size_t GetFormatSize(EVertexAttributeFormat format) const;
+  std::vector<D3D11_INPUT_ELEMENT_DESC> CreateInputLayoutDesc(const std::vector<TVertexAttributeInfo>& vertexAttributeInfos) const;
+
   CInstance& m_instance;
 
   CComPtr<ID3D11InputLayout> m_pInputLayout;

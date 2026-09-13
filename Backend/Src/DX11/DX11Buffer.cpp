@@ -43,9 +43,8 @@ D3D11_USAGE CBuffer::GetDX11Usage(const EBufferUsage bufferUsage) const
 {
   switch (bufferUsage)
   {
-    case EBufferUsage::Undefined:
-    case EBufferUsage::Default  : return D3D11_USAGE_DEFAULT;
-    case EBufferUsage::Dynamic  : return D3D11_USAGE_DYNAMIC;
+    case EBufferUsage::Default: return D3D11_USAGE_DEFAULT;
+    case EBufferUsage::Dynamic: return D3D11_USAGE_DYNAMIC;
   }
 }
 
@@ -53,7 +52,6 @@ D3D11_BIND_FLAG CBuffer::GetDX11BindFlag(const EBufferType bufferType) const
 {
   switch (bufferType)
   {
-    case EBufferType::Undefined     :
     case EBufferType::VertexBuffer  : return D3D11_BIND_VERTEX_BUFFER;
     case EBufferType::IndexBuffer   : return D3D11_BIND_INDEX_BUFFER;
     case EBufferType::ConstantBuffer: return D3D11_BIND_CONSTANT_BUFFER;

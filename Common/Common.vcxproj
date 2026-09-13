@@ -139,6 +139,7 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Inc\FileSystem\ImageLoader.h" />
     <ClInclude Include="Inc\FileSystem\BinaryFileReader.h" />
     <ClInclude Include="Inc\Common.h" />
     <ClInclude Include="Inc\ComPtr.h" />
@@ -146,6 +147,7 @@
     <ClInclude Include="Inc\Window.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\FileSystem\ImageLoader.cpp" />
     <ClCompile Include="Src\FileSystem\BinaryFileReader.cpp" />
     <ClCompile Include="Src\Common.cpp" />
     <ClCompile Include="Src\Timer.cpp" />
