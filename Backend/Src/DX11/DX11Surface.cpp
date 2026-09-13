@@ -22,16 +22,19 @@ TResult CSurface::Initialize(const TSurfaceCreateInfo& createInfo)
 
 void CSurface::Clear()
 {
-  ID3D11RenderTargetView* renderTargets[] = { m_pRenderTargetView.Get() };
   m_instance.GetDeviceContext()->ClearRenderTargetView(m_pRenderTargetView.Get(), D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f));
-  m_instance.GetDeviceContext()->OMSetRenderTargets(1, renderTargets, nullptr);
-  m_instance.GetDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+}
+
+void CSurface::SetAsRenderTarget()
+{
+  ID3D11RenderTargetView* renderTargets[] = { m_pRenderTargetView.Get() };
+  m_instance.GetDeviceContext()->OMSetRenderTargets(1U, renderTargets, nullptr);
 
   D3D11_VIEWPORT viewport;
   ZeroMemory(&viewport, sizeof(D3D11_VIEWPORT));
 
-  viewport.TopLeftX = 0;
-  viewport.TopLeftY = 0;
+  viewport.TopLeftX = 0.0f;
+  viewport.TopLeftY = 0.0f;
   viewport.Width    = m_createInfo.m_width;
   viewport.Height   = m_createInfo.m_height;
 
@@ -41,18 +44,14 @@ void CSurface::Clear()
 TResult CSurface::InitializeRenderTargetView(const TSurfaceCreateInfo& createInfo)
 {
   ID3D11Texture2D* backBuffer = nullptr;
-
-  m_instance.GetSwapChain()->GetBuffer(0, __uuidof(ID3D11Texture2D), (void**)&backBuffer);
-
+  m_instance.GetSwapChain()->GetBuffer(0U, __uuidof(ID3D11Texture2D), (void**)&backBuffer);
   if (backBuffer == nullptr)
   {
     return TResult::Error("Failed to get BackBuffer");
   }
 
   HRESULT hr = m_instance.GetDevice()->CreateRenderTargetView(backBuffer, nullptr, &m_pRenderTargetView.Get());
-
   backBuffer->Release();
-
   CGE_HRESULT_CHECK(hr, "Can't create RenderTargetView");
 
   return TResult::Okay();

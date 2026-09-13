@@ -46,6 +46,13 @@ public:
 
 private:
 
+  TResult CreateVertexShader();
+  TResult CreatePixelShader();
+  TResult CreateVertexDescriptor();
+  TResult CreateVertexBuffer();
+  TResult CreateIndexBuffer();
+  TResult CreateSampler();
+
   CBackend& m_backend;
   TOutputMergerRenderResources m_renderResources;
 };

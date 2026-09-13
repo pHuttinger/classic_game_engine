@@ -17,6 +17,7 @@ public:
 
   TResult Initialize(const TSurfaceCreateInfo& createInfo) override;
   void Clear() override;
+  void SetAsRenderTarget() override;
 
   TSurfaceCreateInfo GetCreateInfo() const override { return m_createInfo; }
 

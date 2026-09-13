@@ -14,20 +14,22 @@ CRenderer::CRenderer()
 
 TResult CRenderer::Initialize(const rhi::TCreateInfo& createInfo)
 {
-  CGE_TRY(m_backend.Create(createInfo));
-  CGE_MILESTONE("backend initialized...");
+  CGE_TRY(m_backend.Initialize(createInfo));
+  CGE_MILESTONE("backend created...");
 
   CGE_TRY(m_renderGraph.Initialize());
-  CGE_MILESTONE("renderGraph initialized...");
+  CGE_MILESTONE("renderGraph created...");
 
   CGE_TRY(m_outputMerger.Initialize());
-  CGE_MILESTONE("outputMerger initialized...");
+  CGE_MILESTONE("outputMerger created...");
 
   return TResult::Okay();
 }
 
 void CRenderer::RenderFrame(const CFrameInput& input)
 {
+  m_backend.GetSurface().Clear();
+
   auto renderTargets = m_renderGraph.Execute(input);
   m_outputMerger.MergeAndRender(renderTargets);
 

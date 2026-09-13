@@ -13,6 +13,7 @@ namespace cge::rhi
 //----------------------------------------------------
 enum class EBufferUsage
 {
+  Undefined,
   Default,
   Dynamic,
 };
@@ -22,6 +23,7 @@ enum class EBufferUsage
 //----------------------------------------------------
 enum class EBufferType
 {
+  Undefined,
   VertexBuffer,
   IndexBuffer,
   ConstantBuffer,
@@ -32,6 +34,7 @@ enum class EBufferType
 //----------------------------------------------------
 enum class EBufferDestination
 {
+  Undefined,
   VertexShader,
   PixelShader
 };
@@ -41,9 +44,9 @@ enum class EBufferDestination
 //----------------------------------------------------
 struct TBufferCreateInfo final
 {
-  EBufferUsage       m_usage             = EBufferUsage::Default;
-  EBufferType        m_bufferType        = EBufferType::VertexBuffer;
-  EBufferDestination m_bufferDestination = EBufferDestination::VertexShader;
+  EBufferUsage       m_usage             = EBufferUsage::Undefined;
+  EBufferType        m_bufferType        = EBufferType::Undefined;
+  EBufferDestination m_bufferDestination = EBufferDestination::Undefined;
   size_t             m_size              = 0U;
   void*              m_pData             = nullptr;
   size_t             m_stride            = 0U;

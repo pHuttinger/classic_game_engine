@@ -29,6 +29,7 @@ public:
   virtual TResult Initialize(const TSurfaceCreateInfo& createInfo) = 0;
 
   virtual void Clear() = 0;
+  virtual void SetAsRenderTarget() = 0;
 
   virtual TSurfaceCreateInfo GetCreateInfo() const = 0;
 };

@@ -6,7 +6,7 @@
 
 namespace cge::render
 {
-TResult CBackend::Create(const rhi::TCreateInfo& createInfo)
+TResult CBackend::Initialize(const rhi::TCreateInfo& createInfo)
 {
   CGE_TRY(rhi::CreateInstance(createInfo, m_pInstance));
 
@@ -19,6 +19,7 @@ TResult CBackend::Create(const rhi::TCreateInfo& createInfo)
   CGE_TRY(m_pInstance->CreateSurface(surfaceCreateInfo, m_pSurface));
 
   m_pPipeline = m_pInstance->CreatePipeline();
+  m_pPipeline->SetVertexTopology(rhi::EVertexTopology::TriangleList);
 
   return TResult::Okay();
 }

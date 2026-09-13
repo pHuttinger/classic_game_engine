@@ -16,7 +16,7 @@ public:
   CBackend() = default;
   ~CBackend() = default;
 
-  TResult Create(const rhi::TCreateInfo& createInfo); 
+  TResult Initialize(const rhi::TCreateInfo& createInfo); 
 
   rhi::IInstance& GetInstance() { return *m_pInstance; }
   rhi::ISurface& GetSurface() { return *m_pSurface; }

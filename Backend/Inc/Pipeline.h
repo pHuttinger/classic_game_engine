@@ -14,6 +14,22 @@
 
 namespace cge::rhi
 {
+//----------------------------------------------------
+// EVertexTopology
+//----------------------------------------------------
+enum class EVertexTopology
+{
+  Undefined,
+  PointList,
+  LineList,
+  LineStrip,
+  TriangleList,
+  TriangleStrip
+};
+
+//----------------------------------------------------
+// IPipeline
+//----------------------------------------------------
 class IPipeline
 {
 public:
@@ -21,6 +37,7 @@ public:
   virtual ~IPipeline() = default;
 
   virtual void Present() = 0;
+  virtual void SetVertexTopology(EVertexTopology topology) = 0;
   virtual void BindRenderTargets(const std::vector<IRenderTarget*>& renderTargets, IDepthBuffer* depthBuffer) = 0;
   virtual void BindVertexShader(IVertexShader* vertexShader) = 0;
   virtual void BindPixelShader(IPixelShader* pixelShader) = 0;

@@ -23,6 +23,21 @@ void CPipeline::Present()
   m_instance.GetSwapChain()->Present(0, 0);
 }
 
+void CPipeline::SetVertexTopology(EVertexTopology topology)
+{
+  D3D11_PRIMITIVE_TOPOLOGY dx11Topology;
+  switch (topology)
+  {
+    case EVertexTopology::PointList    : dx11Topology = D3D11_PRIMITIVE_TOPOLOGY_POINTLIST    ; break;
+    case EVertexTopology::LineList     : dx11Topology = D3D11_PRIMITIVE_TOPOLOGY_LINELIST     ; break;
+    case EVertexTopology::LineStrip    : dx11Topology = D3D11_PRIMITIVE_TOPOLOGY_LINESTRIP    ; break;
+    case EVertexTopology::TriangleList : dx11Topology = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST ; break;
+    case EVertexTopology::TriangleStrip: dx11Topology = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP; break;
+    default                            : dx11Topology = D3D11_PRIMITIVE_TOPOLOGY_UNDEFINED    ; break;
+  }
+  m_instance.GetDeviceContext()->IASetPrimitiveTopology(dx11Topology);
+}
+
 void CPipeline::BindRenderTargets(const std::vector<IRenderTarget*>& renderTargets, IDepthBuffer* depthBuffer)
 {
   CDepthBuffer* pDepthBuffer = static_cast<CDepthBuffer*>(depthBuffer);
