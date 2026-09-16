@@ -52,7 +52,7 @@ size_t CVertexDescriptor::GetFormatSize(EVertexAttributeFormat format) const
   }
 }
 
-std::vector<D3D11_INPUT_ELEMENT_DESC> CVertexDescriptor::CreateInputLayoutDesc(const std::vector<TVertexAttributeInfo>& vertexAttributeInfos) const
+std::vector<D3D11_INPUT_ELEMENT_DESC> CVertexDescriptor::CreateInputLayoutDesc(const std::vector<TVertexAttribute>& vertexAttributeInfos) const
 {
   std::vector<D3D11_INPUT_ELEMENT_DESC> inputLayoutDesc;
 

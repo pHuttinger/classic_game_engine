@@ -10,6 +10,7 @@ CRenderer::CRenderer()
   : m_renderGraph(m_backend)
   , m_outputMerger(m_backend)
   , m_resourceManager(m_backend)
+  , m_meshFactory(*this)
 {
 }
 

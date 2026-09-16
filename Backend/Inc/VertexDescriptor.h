@@ -28,9 +28,9 @@ enum class EVertexAttributeFormat
 };
 
 //---------------------------------------------------
-// TVertexAttributeInfo
+// TVertexAttribute
 //---------------------------------------------------
-struct TVertexAttributeInfo final
+struct TVertexAttribute final
 {
   EVertexAttributeUsage m_usage   = EVertexAttributeUsage::Position;
   EVertexAttributeFormat m_format = EVertexAttributeFormat::Float2;
@@ -42,7 +42,7 @@ struct TVertexAttributeInfo final
 struct TVertexDescriptorCreateInfo final
 {
   IVertexShader* m_pVertexShader = nullptr;
-  std::vector<TVertexAttributeInfo> m_vertexAttributeInfos;
+  std::vector<TVertexAttribute> m_vertexAttributeInfos;
 };
 
 //----------------------------------------------------

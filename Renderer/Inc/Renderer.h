@@ -8,6 +8,7 @@
 #include "RenderGraph.h"
 #include "OutputMerger.h"
 #include "ResourceManager.h"
+#include "Mesh.h"
 
 namespace cge::render
 {
@@ -22,6 +23,7 @@ public:
 
   CBackend& GetBackend() { return m_backend; }
   CResourceManager& GetResourceManager() { return m_resourceManager; }
+  CMeshFactory& GetMeshFactory() { return m_meshFactory; }
 
 private:
 
@@ -29,5 +31,6 @@ private:
   CRenderGraph     m_renderGraph;
   COutputMerger    m_outputMerger;
   CResourceManager m_resourceManager;
+  CMeshFactory     m_meshFactory;
 };
 }

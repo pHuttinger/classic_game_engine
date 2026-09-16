@@ -35,7 +35,7 @@ TResult CResourceManager::GetVertexDescriptor(const EVertexType vertexType, rhi:
     rhi::TVertexDescriptorCreateInfo createInfo
     {
       .m_pVertexShader = pVertexShader,
-      .m_vertexAttributeInfos = GetVertexAttributeInfosByVertexType(vertexType)
+      .m_vertexAttributeInfos = GetVertexAttributesByVertexType(vertexType)
     };
 
     std::unique_ptr<rhi::IVertexDescriptor> pVertexDescriptor;
@@ -117,7 +117,7 @@ TResult CResourceManager::GetTexture(const std::string& textureName, std::shared
   return TResult::Okay();
 }
 
-std::vector<rhi::TVertexAttributeInfo> CResourceManager::GetVertexAttributeInfosByVertexType(const EVertexType vertexType) const
+std::vector<rhi::TVertexAttribute> CResourceManager::GetVertexAttributesByVertexType(const EVertexType vertexType) const
 {
   switch (vertexType)
   {

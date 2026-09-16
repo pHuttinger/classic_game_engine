@@ -23,7 +23,7 @@ public:
 
 private:
 
-  std::vector<rhi::TVertexAttributeInfo> GetVertexAttributeInfosByVertexType(const EVertexType vertexType) const;
+  std::vector<rhi::TVertexAttribute> GetVertexAttributesByVertexType(const EVertexType vertexType) const;
 
   CBackend& m_backend;
 
