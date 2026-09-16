@@ -16,7 +16,7 @@ TResult CVertexDescriptor::Initialize(const TVertexDescriptorCreateInfo& createI
 {
   std::vector<D3D11_INPUT_ELEMENT_DESC> layoutDesc = CreateInputLayoutDesc(createInfo.m_vertexAttributeInfos);
 
-  CVertexShader* vertexShader = static_cast<CVertexShader*>(createInfo.pVertexShader);
+  CVertexShader* vertexShader = static_cast<CVertexShader*>(createInfo.m_pVertexShader);
   std::vector<char> vsBytecode = vertexShader->GetBytecode();
 
   HRESULT hr = m_instance.GetDevice()->CreateInputLayout(layoutDesc.data(), layoutDesc.size(), vsBytecode.data(), vsBytecode.size(), &m_pInputLayout.Get());

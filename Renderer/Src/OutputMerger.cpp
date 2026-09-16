@@ -6,6 +6,8 @@
 
 namespace cge::render
 {
+constexpr const size_t PLANE_INDEX_COUNT = 6U;
+
 COutputMerger::COutputMerger(CBackend& backend)
   : m_backend(backend)
 {
@@ -35,16 +37,18 @@ void COutputMerger::MergeAndRender(std::vector<rhi::IRenderTarget*>& renderGraph
   m_backend.GetPipeline().BindVertexBuffer    (m_renderResources.m_pVertexBuffer.get());
   m_backend.GetPipeline().BindIndexBuffer     (m_renderResources.m_pIndexBuffer.get());
 
-  m_backend.GetPipeline().DrawIndexed(6U);
+  m_backend.GetPipeline().DrawIndexed(PLANE_INDEX_COUNT);
 }
 
 TResult COutputMerger::CreateVertexShader()
 {
   rhi::TVertexShaderCreateInfo createInfo
   {
-    .m_filename = m_backend.GetInstance().GetShaderFilename("VS_RenderTarget")
+    .m_shaderName = "VS_RenderTarget"
   };
+
   CGE_TRY(m_backend.GetInstance().CreateVertexShader(createInfo, m_renderResources.m_pVertexShader));
+
   return TResult::Okay();
 }
 
@@ -52,9 +56,11 @@ TResult COutputMerger::CreatePixelShader()
 {
   rhi::TPixelShaderCreateInfo createInfo
   {
-    .m_filename = m_backend.GetInstance().GetShaderFilename("PS_RenderTarget")
+    .m_shaderName = "PS_RenderTarget"
   };
+
   CGE_TRY(m_backend.GetInstance().CreatePixelShader(createInfo, m_renderResources.m_pPixelShader));
+
   return TResult::Okay();
 }
 
@@ -62,14 +68,16 @@ TResult COutputMerger::CreateVertexDescriptor()
 {
   rhi::TVertexDescriptorCreateInfo createInfo
   {
-    .pVertexShader = m_renderResources.m_pVertexShader.get(),
+    .m_pVertexShader = m_renderResources.m_pVertexShader.get(),
     .m_vertexAttributeInfos =
     {
-      {rhi::EVertexAttributeUsage::Position, rhi::EVertexAttributeFormat::Float3},
+      {rhi::EVertexAttributeUsage::Position, rhi::EVertexAttributeFormat::Float2},
       {rhi::EVertexAttributeUsage::Texcoord, rhi::EVertexAttributeFormat::Float2},
     }
   };
+
   CGE_TRY(m_backend.GetInstance().CreateVertexDescriptor(createInfo, m_renderResources.m_pVertexDescriptor));
+
   return TResult::Okay();
 }
 
@@ -77,23 +85,23 @@ TResult COutputMerger::CreateVertexBuffer()
 {
   TOutputMergerVertex vertices[] =
   {
-    TOutputMergerVertex(-1.0f, -1.0f, 1.0f, 0.0f, 0.0f),
-    TOutputMergerVertex(-1.0f,  1.0f, 1.0f, 0.0f, 0.0f),
-    TOutputMergerVertex( 1.0f,  1.0f, 1.0f, 0.0f, 0.0f),
-    TOutputMergerVertex( 1.0f, -1.0f, 1.0f, 0.0f, 0.0f),
+    TOutputMergerVertex(glm::vec2(-1.0f, -1.0f), glm::vec2(1.0f, 0.0f)),
+    TOutputMergerVertex(glm::vec2(-1.0f,  1.0f), glm::vec2(0.0f, 0.0f)),
+    TOutputMergerVertex(glm::vec2( 1.0f,  1.0f), glm::vec2(0.0f, 1.0f)),
+    TOutputMergerVertex(glm::vec2( 1.0f, -1.0f), glm::vec2(1.0f, 1.0f)),
   };
 
-  rhi::TBufferCreateInfo vertexBufferCreateInfo
+  rhi::TBufferCreateInfo createInfo
   {
-    .m_usage             = rhi::EBufferUsage::Default,
-    .m_bufferType        = rhi::EBufferType::VertexBuffer,
-    .m_bufferDestination = rhi::EBufferDestination::VertexShader,
-    .m_size              = sizeof(vertices),
-    .m_pData             = vertices,
-    .m_stride            = sizeof(TOutputMergerVertex),
+    .m_usage      = rhi::EBufferUsage::Default,
+    .m_bufferType = rhi::EBufferType::VertexBuffer,
+    .m_size       = sizeof(vertices),
+    .m_pData      = vertices,
+    .m_stride     = sizeof(TOutputMergerVertex),
   };
 
-  CGE_TRY(m_backend.GetInstance().CreateBuffer(vertexBufferCreateInfo, m_renderResources.m_pVertexBuffer));
+  CGE_TRY(m_backend.GetInstance().CreateBuffer(createInfo, m_renderResources.m_pVertexBuffer));
+
   return TResult::Okay();
 }
 
@@ -107,20 +115,21 @@ TResult COutputMerger::CreateIndexBuffer()
 
   rhi::TBufferCreateInfo indexBufferCreateInfo
   {
-    .m_usage             = rhi::EBufferUsage::Default,
-    .m_bufferType        = rhi::EBufferType::IndexBuffer,
-    .m_bufferDestination = rhi::EBufferDestination::VertexShader,
-    .m_size              = sizeof(indices),
-    .m_pData             = indices,
+    .m_usage      = rhi::EBufferUsage::Default,
+    .m_bufferType = rhi::EBufferType::IndexBuffer,
+    .m_size       = sizeof(indices),
+    .m_pData      = indices,
   };
 
   CGE_TRY(m_backend.GetInstance().CreateBuffer(indexBufferCreateInfo, m_renderResources.m_pIndexBuffer));
+
   return TResult::Okay();
 }
 
 TResult COutputMerger::CreateSampler()
 {
   CGE_TRY(m_backend.GetInstance().CreateSampler(m_renderResources.m_pSampler));
+
   return TResult::Okay();
 }
 }

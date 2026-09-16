@@ -17,7 +17,7 @@ TResult CPixelShader::Initialize(const TPixelShaderCreateInfo& createInfo)
   filesystem::CBinaryFileReader binaryFileReader;
 
   std::vector<char> bytecode;
-  CGE_TRY(binaryFileReader.Read(createInfo.m_filename, bytecode));
+  CGE_TRY(binaryFileReader.Read(m_instance.GetShaderFilename(createInfo.m_shaderName), bytecode));
 
   HRESULT hr = m_instance.GetDevice()->CreatePixelShader(bytecode.data(), bytecode.size(), nullptr, &m_pPixelShader.Get());
   CGE_HRESULT_CHECK(hr, "Failed to create PixelShader");

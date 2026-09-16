@@ -27,8 +27,8 @@ struct TOutputMergerRenderResources final
 //----------------------------------------------------
 struct TOutputMergerVertex final
 {
-  float x, y, z;
-  float u, v;
+  glm::vec2 m_position;
+  glm::vec2 m_texcoord;
 };
 
 //----------------------------------------------------

@@ -28,6 +28,7 @@ public:
   TResult CreateSampler(std::unique_ptr<ISampler>& pSampler) override;
   TResult CreateBuffer(const TBufferCreateInfo& createInfo, std::unique_ptr<IBuffer>& pBuffer)override;
   TResult CreateVertexDescriptor(const TVertexDescriptorCreateInfo& createInfo, std::unique_ptr<IVertexDescriptor>& pVertexDescriptor) override;
+  TResult CreateTexture(const TTextureCreateInfo& createInfo, std::unique_ptr<ITexture>& pTexture) override;
 
   std::string GetShaderFilename(const std::string& shaderName) override;
 
@@ -36,6 +37,8 @@ public:
   IDXGISwapChain* GetSwapChain() { return m_pSwapChain.Get(); }
 
 private:
+
+  TResult CreateDeviceAndSwapchain(const TCreateInfo& createInfo);
 
   CComPtr<ID3D11Device>        m_pDevice;
   CComPtr<ID3D11DeviceContext> m_pDeviceContext;

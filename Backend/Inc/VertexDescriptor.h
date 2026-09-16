@@ -36,13 +36,12 @@ struct TVertexAttributeInfo final
   EVertexAttributeFormat m_format = EVertexAttributeFormat::Float2;
 };
 
-
 //----------------------------------------------------
 // TVertexDescriptorCreateInfo
 //----------------------------------------------------
 struct TVertexDescriptorCreateInfo final
 {
-  IVertexShader* pVertexShader = nullptr;
+  IVertexShader* m_pVertexShader = nullptr;
   std::vector<TVertexAttributeInfo> m_vertexAttributeInfos;
 };
 

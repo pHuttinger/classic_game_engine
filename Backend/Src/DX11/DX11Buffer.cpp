@@ -19,9 +19,9 @@ TResult CBuffer::Initialize(const TBufferCreateInfo& createInfo)
   bufferDesc.Usage          = GetDX11Usage(createInfo.m_usage);
   bufferDesc.BindFlags      = GetDX11BindFlag(createInfo.m_bufferType);
   bufferDesc.ByteWidth      = createInfo.m_size;
-  bufferDesc.CPUAccessFlags = 0;
-  bufferDesc.MiscFlags      = 0;
-
+  bufferDesc.CPUAccessFlags = 0U;
+  bufferDesc.MiscFlags      = 0U;
+                               
   HRESULT hr = S_OK;
   if (createInfo.m_pData == nullptr)
   {

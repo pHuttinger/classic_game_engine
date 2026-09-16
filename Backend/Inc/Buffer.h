@@ -28,25 +28,15 @@ enum class EBufferType
 };
 
 //----------------------------------------------------
-// EBufferDestination
-//----------------------------------------------------
-enum class EBufferDestination
-{
-  VertexShader,
-  PixelShader
-};
-
-//----------------------------------------------------
 // TBufferCreateInfo
 //----------------------------------------------------
 struct TBufferCreateInfo final
 {
-  EBufferUsage       m_usage             = EBufferUsage::Default;
-  EBufferType        m_bufferType        = EBufferType::VertexBuffer;
-  EBufferDestination m_bufferDestination = EBufferDestination::VertexShader;
-  size_t             m_size              = 0U;
-  void*              m_pData             = nullptr;
-  size_t             m_stride            = 0U;
+  EBufferUsage m_usage      = EBufferUsage::Default;
+  EBufferType  m_bufferType = EBufferType::VertexBuffer;
+  size_t       m_size       = 0U;
+  void*        m_pData      = nullptr;
+  size_t       m_stride     = 0U;
 };
 
 //----------------------------------------------------

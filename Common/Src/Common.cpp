@@ -68,9 +68,9 @@ void CgeErrorExit(const std::string& text)
 bool CgeWasErrorRaised()
 {
   static bool wasErrorRaised = false;
-  const bool _wasErrorRaised = wasErrorRaised;
+  const bool returnValue = wasErrorRaised;
   wasErrorRaised = true;
-  return _wasErrorRaised;
+  return returnValue;
 }
 
 //----------------------------------------------------

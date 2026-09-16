@@ -13,7 +13,7 @@ namespace cge::rhi
 //------------------------------------------------
 struct TVertexShaderCreateInfo final
 {
-  std::filesystem::path m_filename;
+  std::string m_shaderName;
 };
 
 //------------------------------------------------

@@ -35,7 +35,9 @@ int main()
   cge::CInstance instance;
   cge::TResult result = instance.Create(createInfo);
   if (result.IsError())
+  {
     return -1;
+  }
 
   instance.Run();
 
