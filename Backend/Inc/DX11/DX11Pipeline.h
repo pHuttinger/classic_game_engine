@@ -25,6 +25,7 @@ public:
   void BindVertexDescriptor(IVertexDescriptor* vertexDescriptor) override;
   void BindVertexBuffer(IBuffer* vertexBuffer) override;
   void BindIndexBuffer(IBuffer* indexBuffer) override;
+  void UpdateBufferData(IBuffer* buffer, const TDataHandle& dataHandle) override;
   void DrawIndexed(uint32_t indexCount) override;
 
 private:

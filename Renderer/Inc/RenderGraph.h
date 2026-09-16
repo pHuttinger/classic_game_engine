@@ -9,11 +9,13 @@
 
 namespace cge::render
 {
+class CRenderer;
+
 class CRenderGraph final
 {
 public:
 
-  CRenderGraph(CBackend& backend);
+  CRenderGraph(CRenderer& renderer);
 
   TResult Initialize();
 
@@ -23,7 +25,7 @@ private:
 
   TResult CreateGeometryPass();
 
-  CBackend& m_backend;
+  CRenderer& m_renderer;
   std::vector<std::unique_ptr<IRenderPass>> m_renderPasses;
 };
 }

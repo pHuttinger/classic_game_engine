@@ -46,6 +46,7 @@ public:
   virtual void BindVertexDescriptor(IVertexDescriptor* vertexDescriptor) = 0;
   virtual void BindVertexBuffer(IBuffer* vertexBuffer) = 0;
   virtual void BindIndexBuffer(IBuffer* indexBuffer) = 0;
+  virtual void UpdateBufferData(IBuffer* buffer, const TDataHandle& dataHandle) = 0;
   virtual void DrawIndexed(uint32_t indexCount) = 0;
 };
 }

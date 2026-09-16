@@ -24,7 +24,6 @@ TResult CMeshFactory::CreateMesh(const TMeshCreateInfo& createInfo, std::unique_
   TSharedMeshResources resources;
 
   CResourceManager& resourceManager = m_renderer.GetResourceManager();
-  CGE_TRY(resourceManager.GetSampler(resources.m_pSampler));
   CGE_TRY(resourceManager.GetVertexShader(createInfo.m_vertexShaderName, resources.m_pVertexShader));
   CGE_TRY(resourceManager.GetPixelShader(createInfo.m_pixelShaderName, resources.m_pPixelShader));
   CGE_TRY(resourceManager.GetVertexDescriptor(createInfo.m_vertexType, createInfo.m_vertexShaderName, resources.m_pVertexDescriptor));

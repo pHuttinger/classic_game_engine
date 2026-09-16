@@ -7,8 +7,8 @@
 
 namespace cge::render
 {
-CRenderGraph::CRenderGraph(CBackend& backend)
-  : m_backend(backend)
+CRenderGraph::CRenderGraph(CRenderer& renderer)
+  : m_renderer(renderer)
 {
 }
 
@@ -34,12 +34,9 @@ std::vector<rhi::IRenderTarget*> CRenderGraph::Execute(const CFrameInput& input)
 
 TResult CRenderGraph::CreateGeometryPass()
 {
-  auto geometryPass = std::make_unique<CGeometryPass>(m_backend);
+  auto geometryPass = std::make_unique<CGeometryPass>(m_renderer);
 
-  if (auto result = geometryPass->Initialize(); result.IsError())
-  {
-    return result;
-  }
+  CGE_TRY(geometryPass->Initialize());
 
   m_renderPasses.push_back(std::move(geometryPass));
 

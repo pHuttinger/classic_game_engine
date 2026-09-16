@@ -99,6 +99,12 @@ void CPipeline::BindIndexBuffer(IBuffer* indexBuffer)
   m_instance.GetDeviceContext()->IASetIndexBuffer(pBuffer->GetBuffer(), DXGI_FORMAT_R32_UINT, 0);
 }
 
+void CPipeline::UpdateBufferData(IBuffer* buffer, const TDataHandle& dataHandle)
+{
+  CBuffer* pBuffer = static_cast<CBuffer*>(buffer);
+  m_instance.GetDeviceContext()->UpdateSubresource(pBuffer->GetBuffer(), 0U, nullptr, dataHandle.m_pData, 0U, 0U);
+}
+
 void CPipeline::DrawIndexed(uint32_t indexCount)
 {
   m_instance.GetDeviceContext()->DrawIndexed(indexCount, 0, 0);

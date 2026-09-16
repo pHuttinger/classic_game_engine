@@ -83,6 +83,15 @@ private:
 }
 
 //----------------------------------------------------
+// TDataHandle
+//----------------------------------------------------
+struct TDataHandle final
+{
+  size_t m_size  = 0U;
+  void*  m_pData = nullptr;
+};
+
+//----------------------------------------------------
 
 #ifdef _DEBUG
 #define CGE_INIT()

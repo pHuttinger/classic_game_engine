@@ -45,6 +45,9 @@
     <ClInclude Include="Inc\Common.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Inc\ShaderData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Renderer.cpp">
@@ -71,10 +74,16 @@
     <ClCompile Include="Src\ResourceManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Src\ShaderData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\RenderTarget\PS_RenderTarget.hlsl" />
     <FxCompile Include="Shader\RenderTarget\VS_RenderTarget.hlsl" />
     <FxCompile Include="Shader\RenderTarget\RenderTarget.hlsl" />
+    <FxCompile Include="Shader\StaticMesh\PS_StaticMesh.hlsl" />
+    <FxCompile Include="Shader\StaticMesh\VS_StaticMesh.hlsl" />
+    <FxCompile Include="Shader\StaticMesh\StaticMesh.hlsl" />
   </ItemGroup>
 </Project>

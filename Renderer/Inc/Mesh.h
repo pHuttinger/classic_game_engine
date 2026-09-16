@@ -20,6 +20,7 @@ struct TMeshCreateInfo final
   std::string m_vertexShaderName;
   std::string m_pixelShaderName;
   std::string m_textureName; //TODO this should'nt be done like this
+  uint32_t    m_indexCount = 0U;
 };
 
 //----------------------------------------------------
@@ -27,7 +28,6 @@ struct TMeshCreateInfo final
 //----------------------------------------------------
 struct TSharedMeshResources final
 {
-  std::shared_ptr<rhi::ISampler>          m_pSampler;
   std::shared_ptr<rhi::IVertexShader>     m_pVertexShader;
   std::shared_ptr<rhi::IPixelShader>      m_pPixelShader;
   std::shared_ptr<rhi::IVertexDescriptor> m_pVertexDescriptor;
@@ -53,6 +53,10 @@ friend class CMeshFactory;
 public:
 
   CMesh(const TMeshCreateInfo& createInfo);
+
+  TMeshCreateInfo& GetCreateInfo() { return m_createInfo; }
+  TGeometryBuffer& GetGeometryBuffer() { return m_geometryBuffer; }
+  TSharedMeshResources& GetSharedMeshResources() { return m_sharedResources; }
 
 private:
 
