@@ -11,7 +11,7 @@ CResourceManager::CResourceManager(CBackend& backend)
 {
 }
 
-TResult CResourceManager::GetSampler(std::shared_ptr<rhi::ISampler> pSampler)
+TResult CResourceManager::GetSampler(std::shared_ptr<rhi::ISampler>& pSampler)
 {
   if (m_pSampler == nullptr)
   {
@@ -28,13 +28,19 @@ TResult CResourceManager::GetSampler(std::shared_ptr<rhi::ISampler> pSampler)
   return TResult::Okay();
 }
 
-TResult CResourceManager::GetVertexDescriptor(const EVertexType vertexType, rhi::IVertexShader* pVertexShader, std::shared_ptr<rhi::IVertexDescriptor> pVertexDescriptor)
+TResult CResourceManager::GetVertexDescriptor(const EVertexType vertexType, const std::string& vertexShaderName, std::shared_ptr<rhi::IVertexDescriptor>& pVertexDescriptor)
 {
+  std::shared_ptr<rhi::IVertexShader> pVertexShader;
+  if (TResult result = GetVertexShader(vertexShaderName, pVertexShader); result.IsError())
+  {
+    return result;
+  }
+
   if (m_vertexDescriptors.find(vertexType) == m_vertexDescriptors.end())
   {
     rhi::TVertexDescriptorCreateInfo createInfo
     {
-      .m_pVertexShader = pVertexShader,
+      .m_pVertexShader = pVertexShader.get(),
       .m_vertexAttributeInfos = GetVertexAttributesByVertexType(vertexType)
     };
 
@@ -51,7 +57,7 @@ TResult CResourceManager::GetVertexDescriptor(const EVertexType vertexType, rhi:
   return TResult::Okay();
 }
 
-TResult CResourceManager::GetVertexShader(const std::string& shaderName, std::shared_ptr<rhi::IVertexShader> pVertexShader)
+TResult CResourceManager::GetVertexShader(const std::string& shaderName, std::shared_ptr<rhi::IVertexShader>& pVertexShader)
 {
   if (m_vertexShaders.find(shaderName) == m_vertexShaders.end())
   {
@@ -73,7 +79,7 @@ TResult CResourceManager::GetVertexShader(const std::string& shaderName, std::sh
   return TResult::Okay();
 }
 
-TResult CResourceManager::GetPixelShader(const std::string& shaderName, std::shared_ptr<rhi::IPixelShader> pPixelShader)
+TResult CResourceManager::GetPixelShader(const std::string& shaderName, std::shared_ptr<rhi::IPixelShader>& pPixelShader)
 {
   if (m_pixelShaders.find(shaderName) == m_pixelShaders.end())
   {
@@ -95,7 +101,7 @@ TResult CResourceManager::GetPixelShader(const std::string& shaderName, std::sha
   return TResult::Okay();
 }
 
-TResult CResourceManager::GetTexture(const std::string& textureName, std::shared_ptr<rhi::ITexture> pTexture)
+TResult CResourceManager::GetTexture(const std::string& textureName, std::shared_ptr<rhi::ITexture>& pTexture)
 {
   if (m_textures.find(textureName) == m_textures.end())
   {

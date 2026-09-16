@@ -15,11 +15,11 @@ public:
 
   CResourceManager(CBackend& backend);
 
-  TResult GetSampler(std::shared_ptr<rhi::ISampler> pSampler);
-  TResult GetVertexDescriptor(const EVertexType vertexType, rhi::IVertexShader* pVertexShader, std::shared_ptr<rhi::IVertexDescriptor> pVertexDescriptor);
-  TResult GetVertexShader(const std::string& shaderName, std::shared_ptr<rhi::IVertexShader> pVertexShader);
-  TResult GetPixelShader(const std::string& shaderName, std::shared_ptr<rhi::IPixelShader> pVixelShader);
-  TResult GetTexture(const std::string& textureName, std::shared_ptr<rhi::ITexture> pTexture);
+  TResult GetSampler(std::shared_ptr<rhi::ISampler>& pSampler);
+  TResult GetVertexDescriptor(const EVertexType vertexType, const std::string& vertexShaderName, std::shared_ptr<rhi::IVertexDescriptor>& pVertexDescriptor);
+  TResult GetVertexShader(const std::string& shaderName, std::shared_ptr<rhi::IVertexShader>& pVertexShader);
+  TResult GetPixelShader(const std::string& shaderName, std::shared_ptr<rhi::IPixelShader>& pVixelShader);
+  TResult GetTexture(const std::string& textureName, std::shared_ptr<rhi::ITexture>& pTexture);
 
 private:
 
