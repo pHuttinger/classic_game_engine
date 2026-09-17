@@ -6,7 +6,12 @@
 
 namespace cge::render
 {
-TResult CShaderData::Initialize(CRenderer& renderer, const TShaderDataCreateInfo& createInfo)
+CShaderData::CShaderData(CRenderer& renderer)
+  : m_renderer(renderer)
+{
+}
+
+TResult CShaderData::Initialize(const TShaderDataCreateInfo& createInfo)
 {
   rhi::TBufferCreateInfo bufferCreateInfo
   {
@@ -15,16 +20,16 @@ TResult CShaderData::Initialize(CRenderer& renderer, const TShaderDataCreateInfo
     .m_size       = createInfo.m_size
   };
 
-  rhi::IInstance& rhi = renderer.GetBackend().GetInstance();
+  rhi::IInstance& rhi = m_renderer.GetBackend().GetInstance();
 
   CGE_TRY(rhi.CreateBuffer(bufferCreateInfo, m_pBuffer));
 
   return TResult::Okay();
 }
 
-void CShaderData::UpdateData(CRenderer& renderer, const TDataHandle& dataHandle)
+void CShaderData::UpdateData(const TDataHandle& dataHandle)
 {
-  rhi::IPipeline& pipeline = renderer.GetBackend().GetPipeline();
+  rhi::IPipeline& pipeline = m_renderer.GetBackend().GetPipeline();
   pipeline.UpdateBufferData(m_pBuffer.get(), dataHandle);
 }
 }

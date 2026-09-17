@@ -23,11 +23,15 @@ class CShaderData final
 {
 public:
 
-  TResult Initialize(CRenderer& renderer, const TShaderDataCreateInfo& createInfo);
+  CShaderData(CRenderer& renderer);
 
-  void UpdateData(CRenderer& renderer, const TDataHandle& dataHandle);
+  TResult Initialize(const TShaderDataCreateInfo& createInfo);
+
+  void UpdateData(const TDataHandle& dataHandle);
 
 private:
+
+  CRenderer& m_renderer;
 
   std::unique_ptr<rhi::IBuffer> m_pBuffer;
 };
