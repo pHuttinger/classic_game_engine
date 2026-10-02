@@ -14,6 +14,7 @@ namespace cge
 struct TStaticMeshShaderData final
 {
   glm::mat4 m_mvp;
+  glm::mat4 m_model;
 };
 
 //----------------------------------------------------

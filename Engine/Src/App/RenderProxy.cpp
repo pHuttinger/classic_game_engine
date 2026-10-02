@@ -15,12 +15,72 @@ TResult CRenderProxy::Initialize(const rhi::TCreateInfo& createInfo)
   CGE_TRY(m_renderer.Initialize(createInfo));
 
   //TODO remove
+  std::vector<render::TVertexStaticMesh> vertices =
+  {
+    render::TVertexStaticMesh{{-1.0f, -1.0f, -1.0f}, {0.0f,  0.0f, -1.0f}, {0.0f, 1.0f}},
+    render::TVertexStaticMesh{{-1.0f,  1.0f, -1.0f}, {0.0f,  0.0f, -1.0f}, {0.0f, 0.0f}},
+    render::TVertexStaticMesh{{ 1.0f,  1.0f, -1.0f}, {0.0f,  0.0f, -1.0f}, {1.0f, 0.0f}},
+    render::TVertexStaticMesh{{ 1.0f, -1.0f, -1.0f}, {0.0f,  0.0f, -1.0f}, {1.0f, 1.0f}},
+
+    render::TVertexStaticMesh{{-1.0f, -1.0f,  1.0f}, {0.0f,  0.0f,  1.0f}, {1.0f, 1.0f}},
+    render::TVertexStaticMesh{{ 1.0f, -1.0f,  1.0f}, {0.0f,  0.0f,  1.0f}, {0.0f, 1.0f}},
+    render::TVertexStaticMesh{{ 1.0f,  1.0f,  1.0f}, {0.0f,  0.0f,  1.0f}, {0.0f, 0.0f}},
+    render::TVertexStaticMesh{{-1.0f,  1.0f,  1.0f}, {0.0f,  0.0f,  1.0f}, {1.0f, 0.0f}},
+
+    render::TVertexStaticMesh{{-1.0f,  1.0f, -1.0f}, {0.0f,  1.0f,  0.0f}, {0.0f, 1.0f}},
+    render::TVertexStaticMesh{{-1.0f,  1.0f,  1.0f}, {0.0f,  1.0f,  0.0f}, {0.0f, 0.0f}},
+    render::TVertexStaticMesh{{ 1.0f,  1.0f,  1.0f}, {0.0f,  1.0f,  0.0f}, {1.0f, 0.0f}},
+    render::TVertexStaticMesh{{ 1.0f,  1.0f, -1.0f}, {0.0f,  1.0f,  0.0f}, {1.0f, 1.0f}},
+
+    render::TVertexStaticMesh{{-1.0f, -1.0f, -1.0f}, {0.0f, -1.0f,  0.0f}, {0.0f, 1.0f}},
+    render::TVertexStaticMesh{{ 1.0f, -1.0f, -1.0f}, {0.0f, -1.0f,  0.0f}, {1.0f, 1.0f}},
+    render::TVertexStaticMesh{{ 1.0f, -1.0f,  1.0f}, {0.0f, -1.0f,  0.0f}, {1.0f, 0.0f}},
+    render::TVertexStaticMesh{{-1.0f, -1.0f,  1.0f}, {0.0f, -1.0f,  0.0f}, {0.0f, 0.0f}},
+
+    render::TVertexStaticMesh{{-1.0f, -1.0f,  1.0f}, {1.0f,  0.0f,  0.0f}, {0.0f, 1.0f}},
+    render::TVertexStaticMesh{{-1.0f,  1.0f,  1.0f}, {1.0f,  0.0f,  0.0f}, {0.0f, 0.0f}},
+    render::TVertexStaticMesh{{-1.0f,  1.0f, -1.0f}, {1.0f,  0.0f,  0.0f}, {1.0f, 0.0f}},
+    render::TVertexStaticMesh{{-1.0f, -1.0f, -1.0f}, {1.0f,  0.0f,  0.0f}, {1.0f, 1.0f}},
+
+    render::TVertexStaticMesh{{ 1.0f, -1.0f, -1.0f}, {1.0f,  0.0f,  0.0f}, {0.0f, 1.0f}},
+    render::TVertexStaticMesh{{ 1.0f,  1.0f, -1.0f}, {1.0f,  0.0f,  0.0f}, {0.0f, 0.0f}},
+    render::TVertexStaticMesh{{ 1.0f,  1.0f,  1.0f}, {1.0f,  0.0f,  0.0f}, {1.0f, 0.0f}},
+    render::TVertexStaticMesh{{ 1.0f, -1.0f,  1.0f}, {1.0f,  0.0f,  0.0f}, {1.0f, 1.0f}}
+  };
+
+
+  std::vector<uint32_t> indices =
+  {
+    0,  1,  2,
+    0,  2,  3,
+
+    4,  5,  6,
+    4,  6,  7,
+
+    8,  9, 10,
+    8, 10, 11,
+
+    12, 13, 14,
+    12, 14, 15,
+
+    16, 17, 18,
+    16, 18, 19,
+
+    20, 21, 22,
+    20, 22, 23
+  };
+
   render::TMeshCreateInfo mci;
-  mci.m_pixelShaderName  = "PS_RenderTarget";
-  mci.m_vertexShaderName = "VS_RenderTarget";
-  mci.m_vertexType       = render::EVertexType::PositionNormalTexcoord;
-  mci.m_indexCount       = 6U;
-  mci.m_textureName      = "image.png";
+  mci.m_pixelShaderName    = "PS_RenderTarget";
+  mci.m_vertexShaderName   = "VS_RenderTarget";
+  mci.m_vertexType         = render::EVertexType::StaticMesh;
+  mci.m_indexCount         = 6U;
+  mci.m_textureName        = "image.png";
+  mci.m_indexCount         = static_cast<uint32_t>(indices.size());
+  mci.m_vertexData.m_size  = vertices.size() * sizeof(render::TVertexStaticMesh);
+  mci.m_vertexData.m_pData = vertices.data();
+  mci.m_indexData.m_size   = indices.size() * sizeof(uint32_t);
+  mci.m_indexData.m_pData  = indices.data();
   CGE_TRY(CreateStaticMesh(mci, m_pStaticMesh));
   //TODO remove
 

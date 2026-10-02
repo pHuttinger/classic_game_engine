@@ -48,14 +48,16 @@ TResult CMeshFactory::CreateGeometryBuffer(const TMeshCreateInfo& createInfo, TG
   {
     .m_usage      = rhi::EBufferUsage::Default,
     .m_bufferType = rhi::EBufferType::VertexBuffer,
-    .m_size       = createInfo.m_vertexData.m_size
+    .m_size       = createInfo.m_vertexData.m_size,
+    .m_pData      = createInfo.m_vertexData.m_pData,
   };
 
   rhi::TBufferCreateInfo indexBufferCreateInfo
   {
     .m_usage      = rhi::EBufferUsage::Default,
     .m_bufferType = rhi::EBufferType::IndexBuffer,
-    .m_size       = createInfo.m_indexData.m_size
+    .m_size       = createInfo.m_indexData.m_size,
+    .m_pData      = createInfo.m_indexData.m_pData,
   };  
 
   CBackend& backend = m_renderer.GetBackend();

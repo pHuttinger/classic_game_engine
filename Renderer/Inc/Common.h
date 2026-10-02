@@ -12,6 +12,16 @@ namespace cge::render
 enum class EVertexType
 {
   Undefined,
-  PositionNormalTexcoord,
+  StaticMesh,
+};
+
+//----------------------------------------------------
+// TVertexStaticMesh
+//----------------------------------------------------
+struct TVertexStaticMesh final
+{
+  glm::vec3 m_position;
+  glm::vec3 m_normal;
+  glm::vec2 m_texcoord;
 };
 }

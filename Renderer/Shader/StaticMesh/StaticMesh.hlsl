@@ -28,14 +28,14 @@ SamplerState samplerState1;
 struct VS_INPUT
 {
   float4 inPos : POSITION;
-  float2 inTexCoord : TEXCOORD;
   float3 normal : NORMAL;
+  float2 inTexCoord : TEXCOORD;
 };
 
 struct PS_INPUT
 {
   float4 Pos : SV_POSITION;
   float3 WorldPos : POSITION1;
-  float2 TexCoord : TEXCOORD;
   float3 normal : NORMAL;
+  float2 TexCoord : TEXCOORD;
 };

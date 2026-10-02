@@ -127,7 +127,7 @@ std::vector<rhi::TVertexAttribute> CResourceManager::GetVertexAttributesByVertex
 {
   switch (vertexType)
   {
-    case EVertexType::PositionNormalTexcoord:
+    case EVertexType::StaticMesh:
     return
     {
       {rhi::EVertexAttributeUsage::Position, rhi::EVertexAttributeFormat::Float3},
