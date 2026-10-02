@@ -3,6 +3,7 @@
 //////////////////////////////////////////////////////
 
 #include "../Inc/ShaderData.h"
+#include "../Inc/Renderer.h"
 
 namespace cge::render
 {
@@ -13,6 +14,8 @@ CShaderData::CShaderData(CRenderer& renderer)
 
 TResult CShaderData::Initialize(const TShaderDataCreateInfo& createInfo)
 {
+  m_createInfo = createInfo;
+
   rhi::TBufferCreateInfo bufferCreateInfo
   {
     .m_usage      = rhi::EBufferUsage::Default,
@@ -27,9 +30,9 @@ TResult CShaderData::Initialize(const TShaderDataCreateInfo& createInfo)
   return TResult::Okay();
 }
 
-void CShaderData::UpdateData(const TDataHandle& dataHandle)
+void CShaderData::UpdateData(const rhi::TBufferUpdateInfo& updateInfo)
 {
   rhi::IPipeline& pipeline = m_renderer.GetBackend().GetPipeline();
-  pipeline.UpdateBufferData(m_pBuffer.get(), dataHandle);
+  pipeline.UpdateBuffer(m_pBuffer.get(), updateInfo);
 }
 }

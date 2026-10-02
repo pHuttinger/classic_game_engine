@@ -18,7 +18,7 @@ TResult CBuffer::Initialize(const TBufferCreateInfo& createInfo)
   D3D11_BUFFER_DESC bufferDesc{};
   bufferDesc.Usage          = GetDX11Usage(createInfo.m_usage);
   bufferDesc.BindFlags      = GetDX11BindFlag(createInfo.m_bufferType);
-  bufferDesc.ByteWidth      = createInfo.m_size;
+  bufferDesc.ByteWidth      = static_cast<UINT>(createInfo.m_size);
   bufferDesc.CPUAccessFlags = 0U;
   bufferDesc.MiscFlags      = 0U;
                                
@@ -46,6 +46,8 @@ D3D11_USAGE CBuffer::GetDX11Usage(const EBufferUsage bufferUsage) const
     case EBufferUsage::Default: return D3D11_USAGE_DEFAULT;
     case EBufferUsage::Dynamic: return D3D11_USAGE_DYNAMIC;
   }
+
+  return D3D11_USAGE_DEFAULT;
 }
 
 D3D11_BIND_FLAG CBuffer::GetDX11BindFlag(const EBufferType bufferType) const
@@ -56,5 +58,7 @@ D3D11_BIND_FLAG CBuffer::GetDX11BindFlag(const EBufferType bufferType) const
     case EBufferType::IndexBuffer   : return D3D11_BIND_INDEX_BUFFER;
     case EBufferType::ConstantBuffer: return D3D11_BIND_CONSTANT_BUFFER;
   }
+
+  return D3D11_BIND_VERTEX_BUFFER;
 }
 }

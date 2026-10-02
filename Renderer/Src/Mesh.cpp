@@ -7,7 +7,7 @@
 
 namespace cge::render
 {
-CMesh::CMesh(const TMeshCreateInfo& createInfo)
+CMeshData::CMeshData(const TMeshCreateInfo& createInfo)
   : m_createInfo(createInfo)
 {
 }
@@ -17,10 +17,18 @@ CMeshFactory::CMeshFactory(CRenderer& renderer)
 {
 }
 
-TResult CMeshFactory::CreateMesh(const TMeshCreateInfo& createInfo, std::unique_ptr<CMesh>& pMesh)
+TResult CMeshFactory::CreateMesh(const TMeshCreateInfo& createInfo, std::unique_ptr<CMeshData>& pMeshData)
 {
-  pMesh = std::make_unique<CMesh>(createInfo);
+  pMeshData = std::make_unique<CMeshData>(createInfo);
 
+  CGE_TRY(CreateSharedMeshResources(createInfo, pMeshData->m_sharedResources));
+  CGE_TRY(CreateGeometryBuffer(createInfo, pMeshData->m_geometryBuffer));
+
+  return TResult::Okay();
+}
+
+TResult CMeshFactory::CreateSharedMeshResources(const TMeshCreateInfo& createInfo, TSharedMeshResources& sharedResources)
+{
   TSharedMeshResources resources;
 
   CResourceManager& resourceManager = m_renderer.GetResourceManager();
@@ -29,7 +37,31 @@ TResult CMeshFactory::CreateMesh(const TMeshCreateInfo& createInfo, std::unique_
   CGE_TRY(resourceManager.GetVertexDescriptor(createInfo.m_vertexType, createInfo.m_vertexShaderName, resources.m_pVertexDescriptor));
   CGE_TRY(resourceManager.GetTexture(createInfo.m_textureName, resources.m_pTexture));
 
-  pMesh->m_sharedResources = resources;
+  sharedResources = resources;
+
+  return TResult::Okay();
+}
+
+TResult CMeshFactory::CreateGeometryBuffer(const TMeshCreateInfo& createInfo, TGeometryBuffer& geometryBuffer)
+{
+  rhi::TBufferCreateInfo vertexBufferCreateInfo
+  {
+    .m_usage      = rhi::EBufferUsage::Default,
+    .m_bufferType = rhi::EBufferType::VertexBuffer,
+    .m_size       = createInfo.m_vertexData.m_size
+  };
+
+  rhi::TBufferCreateInfo indexBufferCreateInfo
+  {
+    .m_usage      = rhi::EBufferUsage::Default,
+    .m_bufferType = rhi::EBufferType::IndexBuffer,
+    .m_size       = createInfo.m_indexData.m_size
+  };  
+
+  CBackend& backend = m_renderer.GetBackend();
+
+  CGE_TRY(backend.GetInstance().CreateBuffer(vertexBufferCreateInfo, geometryBuffer.m_pVertexBuffer));
+  CGE_TRY(backend.GetInstance().CreateBuffer(indexBufferCreateInfo, geometryBuffer.m_pIndexBuffer));
 
   return TResult::Okay();
 }

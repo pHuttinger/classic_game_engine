@@ -41,12 +41,14 @@ public:
   virtual void BindRenderTargets(const std::vector<IRenderTarget*>& renderTargets, IDepthBuffer* depthBuffer) = 0;
   virtual void BindVertexShader(IVertexShader* vertexShader) = 0;
   virtual void BindPixelShader(IPixelShader* pixelShader) = 0;
-  virtual void BindShaderResources(const std::vector<IRenderTarget*>& renderTargets) = 0;
+  virtual void BindPixelShaderResources(const std::vector<IRenderTarget*>& renderTargets) = 0;
+  virtual void BindPixelShaderResources(size_t slot, IBuffer* pBuffer) = 0;
+  virtual void BindVertexShaderResources(size_t slot, IBuffer* pBuffer) = 0;
   virtual void BindSampler(ISampler* sampler) = 0;
   virtual void BindVertexDescriptor(IVertexDescriptor* vertexDescriptor) = 0;
   virtual void BindVertexBuffer(IBuffer* vertexBuffer) = 0;
   virtual void BindIndexBuffer(IBuffer* indexBuffer) = 0;
-  virtual void UpdateBufferData(IBuffer* buffer, const TDataHandle& dataHandle) = 0;
+  virtual void UpdateBuffer(IBuffer* buffer, const TBufferUpdateInfo& updateInfo) = 0;
   virtual void DrawIndexed(uint32_t indexCount) = 0;
 };
 }

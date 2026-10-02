@@ -24,13 +24,13 @@ TResult CGeometryPass::Initialize()
 
 std::vector<rhi::IRenderTarget*> CGeometryPass::Execute(const CFrameInput& input)
 {
-  m_pRenderTarget_Albedo->Clear(input.m_clearColor);
+  m_pRenderTarget_Albedo->Clear(input.GetClearColor());
   m_renderer.GetBackend().GetPipeline().BindRenderTargets(m_renderTargets, m_pDepthBuffer.get());
   m_renderer.GetBackend().GetPipeline().BindSampler(m_pSampler.get());
 
-  for (auto& pMesh : input.m_pMeshes)
+  for (auto& drawCall : input.GetDrawCalls())
   {
-    RenderMesh(*pMesh);
+    RenderMesh(*drawCall.m_pMeshData, drawCall.m_shaderData);
   }
 
   return
@@ -65,15 +65,30 @@ TResult CGeometryPass::CreateDepthBuffer()
   return backend.GetInstance().CreateDepthBuffer(createInfo, m_pDepthBuffer);
 }
 
-void CGeometryPass::RenderMesh(CMesh& mesh)
+void CGeometryPass::RenderMesh(CMeshData& meshData, const std::vector<CShaderData*> shaderData)
 {
   rhi::IPipeline& pipeline = m_renderer.GetBackend().GetPipeline();
 
-  pipeline.BindVertexDescriptor(mesh.GetSharedMeshResources().m_pVertexDescriptor.get());
-  pipeline.BindVertexBuffer(mesh.GetGeometryBuffer().m_pVertexBuffer.get());
-  pipeline.BindIndexBuffer(mesh.GetGeometryBuffer().m_pIndexBuffer.get());
-  pipeline.BindVertexShader(mesh.GetSharedMeshResources().m_pVertexShader.get());
-  pipeline.BindPixelShader(mesh.GetSharedMeshResources().m_pPixelShader.get());
-  pipeline.DrawIndexed(mesh.GetCreateInfo().m_indexCount);
+  size_t vertexShaderIndex = 0U, pixelShaderIndex = 0U;
+  for(auto* data: shaderData)
+  {
+    if (data->GetCreateInfo().m_destination == EShaderDataDestination::Vertex)
+    {
+      pipeline.BindVertexShaderResources(vertexShaderIndex, data->GetBuffer());
+      vertexShaderIndex++;
+    }
+    else if (data->GetCreateInfo().m_destination == EShaderDataDestination::Pixel)
+    {
+      pipeline.BindPixelShaderResources(pixelShaderIndex, data->GetBuffer());
+      pixelShaderIndex++;
+    }
+  }
+
+  pipeline.BindVertexDescriptor(meshData.GetSharedMeshResources().m_pVertexDescriptor.get());
+  pipeline.BindVertexBuffer(meshData.GetGeometryBuffer().m_pVertexBuffer.get());
+  pipeline.BindIndexBuffer(meshData.GetGeometryBuffer().m_pIndexBuffer.get());
+  pipeline.BindVertexShader(meshData.GetSharedMeshResources().m_pVertexShader.get());
+  pipeline.BindPixelShader(meshData.GetSharedMeshResources().m_pPixelShader.get());
+  pipeline.DrawIndexed(meshData.GetCreateInfo().m_indexCount);
 }
 }

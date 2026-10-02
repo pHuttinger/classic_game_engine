@@ -61,7 +61,7 @@ void CPipeline::BindPixelShader(IPixelShader* pixelShader)
   m_instance.GetDeviceContext()->PSSetShader(pPixelShader->GetPixelShader(), nullptr, 0);
 }
 
-void CPipeline::BindShaderResources(const std::vector<IRenderTarget*>& renderTargets)
+void CPipeline::BindPixelShaderResources(const std::vector<IRenderTarget*>& renderTargets)
 {
   std::vector<ID3D11ShaderResourceView*> shaderResourceViews;
   for (IRenderTarget* renderTarget : renderTargets)
@@ -69,6 +69,18 @@ void CPipeline::BindShaderResources(const std::vector<IRenderTarget*>& renderTar
     shaderResourceViews.push_back(static_cast<CRenderTarget*>(renderTarget)->GetShaderResourceView());
   }
   m_instance.GetDeviceContext()->PSSetShaderResources(0U, shaderResourceViews.size(), shaderResourceViews.data());
+}
+
+void CPipeline::BindPixelShaderResources(size_t slot, IBuffer* pBuffer)
+{
+  ID3D11Buffer* buffer = static_cast<CBuffer*>(pBuffer)->GetBuffer();
+  m_instance.GetDeviceContext()->PSSetConstantBuffers(slot, 1U, &buffer);
+}
+
+void CPipeline::BindVertexShaderResources(size_t slot, IBuffer* pBuffer)
+{
+  ID3D11Buffer* buffer = static_cast<CBuffer*>(pBuffer)->GetBuffer();
+  m_instance.GetDeviceContext()->VSSetConstantBuffers(slot, 1U, &buffer);
 }
 
 void CPipeline::BindSampler(ISampler* sampler)
@@ -99,10 +111,10 @@ void CPipeline::BindIndexBuffer(IBuffer* indexBuffer)
   m_instance.GetDeviceContext()->IASetIndexBuffer(pBuffer->GetBuffer(), DXGI_FORMAT_R32_UINT, 0);
 }
 
-void CPipeline::UpdateBufferData(IBuffer* buffer, const TDataHandle& dataHandle)
+void CPipeline::UpdateBuffer(IBuffer* buffer, const TBufferUpdateInfo& updateInfo)
 {
   CBuffer* pBuffer = static_cast<CBuffer*>(buffer);
-  m_instance.GetDeviceContext()->UpdateSubresource(pBuffer->GetBuffer(), 0U, nullptr, dataHandle.m_pData, 0U, 0U);
+  m_instance.GetDeviceContext()->UpdateSubresource(pBuffer->GetBuffer(), 0U, nullptr, updateInfo.m_pData, 0U, 0U);
 }
 
 void CPipeline::DrawIndexed(uint32_t indexCount)

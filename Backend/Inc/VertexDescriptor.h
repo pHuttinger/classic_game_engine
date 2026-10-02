@@ -9,6 +9,7 @@
 
 namespace cge::rhi
 {
+//TODO maybe move enums to Common
 //---------------------------------------------------
 // EVertexAttributeUsage
 //---------------------------------------------------
@@ -16,6 +17,7 @@ enum class EVertexAttributeUsage
 {
   Position,
   Texcoord,
+  Normal,
 };
 
 //---------------------------------------------------
@@ -32,7 +34,7 @@ enum class EVertexAttributeFormat
 //---------------------------------------------------
 struct TVertexAttribute final
 {
-  EVertexAttributeUsage m_usage   = EVertexAttributeUsage::Position;
+  EVertexAttributeUsage  m_usage  = EVertexAttributeUsage::Position;
   EVertexAttributeFormat m_format = EVertexAttributeFormat::Float2;
 };
 
@@ -46,7 +48,7 @@ struct TVertexDescriptorCreateInfo final
 };
 
 //----------------------------------------------------
-// TBufferCreateInfo
+// IVertexDescriptor
 //----------------------------------------------------
 class IVertexDescriptor
 {

@@ -21,12 +21,18 @@
     <ClInclude Include="Inc\App\RenderProxy.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Inc\StaticMesh.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Instance.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Src\App\RenderProxy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\StaticMesh.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

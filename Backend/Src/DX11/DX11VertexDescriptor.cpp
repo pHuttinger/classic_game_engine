@@ -31,7 +31,10 @@ const char* CVertexDescriptor::GetInputLayoutSemanticName(EVertexAttributeUsage 
   {
     case EVertexAttributeUsage::Position: return "POSITION";
     case EVertexAttributeUsage::Texcoord: return "TEXCOORD";
+    case EVertexAttributeUsage::Normal  : return "NORMAL";
   }
+
+  return "";
 }
 
 DXGI_FORMAT CVertexDescriptor::GetDxgiFormat(EVertexAttributeFormat format) const
@@ -41,6 +44,8 @@ DXGI_FORMAT CVertexDescriptor::GetDxgiFormat(EVertexAttributeFormat format) cons
     case EVertexAttributeFormat::Float2: return DXGI_FORMAT_R32G32_FLOAT;
     case EVertexAttributeFormat::Float3: return DXGI_FORMAT_R32G32B32_FLOAT;
   }
+
+  return DXGI_FORMAT_UNKNOWN;
 }
 
 size_t CVertexDescriptor::GetFormatSize(EVertexAttributeFormat format) const
@@ -50,6 +55,8 @@ size_t CVertexDescriptor::GetFormatSize(EVertexAttributeFormat format) const
     case EVertexAttributeFormat::Float2: return sizeof(glm::vec2);
     case EVertexAttributeFormat::Float3: return sizeof(glm::vec3);
   }
+
+  return 0U;
 }
 
 std::vector<D3D11_INPUT_ELEMENT_DESC> CVertexDescriptor::CreateInputLayoutDesc(const std::vector<TVertexAttribute>& vertexAttributeInfos) const

@@ -20,12 +20,14 @@ public:
   void BindRenderTargets(const std::vector<IRenderTarget*>& renderTargets, IDepthBuffer* depthBuffer) override;
   void BindVertexShader(IVertexShader* vertexShader) override;
   void BindPixelShader(IPixelShader* pixelShader) override;
-  void BindShaderResources(const std::vector<IRenderTarget*>& renderTargets) override;
+  void BindPixelShaderResources(const std::vector<IRenderTarget*>& renderTargets) override;
+  void BindPixelShaderResources(size_t slot, IBuffer* pBuffer) override;
+  void BindVertexShaderResources(size_t slot, IBuffer* pBuffer) override;
   void BindSampler(ISampler* sampler) override;
   void BindVertexDescriptor(IVertexDescriptor* vertexDescriptor) override;
   void BindVertexBuffer(IBuffer* vertexBuffer) override;
   void BindIndexBuffer(IBuffer* indexBuffer) override;
-  void UpdateBufferData(IBuffer* buffer, const TDataHandle& dataHandle) override;
+  void UpdateBuffer(IBuffer* buffer, const TBufferUpdateInfo& updateInfo) override;
   void DrawIndexed(uint32_t indexCount) override;
 
 private:

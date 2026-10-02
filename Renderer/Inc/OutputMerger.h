@@ -23,7 +23,7 @@ struct TOutputMergerRenderResources final
 };
 
 //----------------------------------------------------
-// TOutputMergerVertex TODO: switch to GLM
+// TOutputMergerVertex
 //----------------------------------------------------
 struct TOutputMergerVertex final
 {

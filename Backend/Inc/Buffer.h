@@ -42,6 +42,14 @@ struct TBufferCreateInfo final
 //----------------------------------------------------
 // TBufferCreateInfo
 //----------------------------------------------------
+struct TBufferUpdateInfo final
+{
+  void* m_pData = nullptr;
+};
+
+//----------------------------------------------------
+// TBufferCreateInfo
+//----------------------------------------------------
 class IBuffer
 {
 public:

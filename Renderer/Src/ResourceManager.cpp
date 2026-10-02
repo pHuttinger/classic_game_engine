@@ -131,7 +131,7 @@ std::vector<rhi::TVertexAttribute> CResourceManager::GetVertexAttributesByVertex
     return
     {
       {rhi::EVertexAttributeUsage::Position, rhi::EVertexAttributeFormat::Float3},
-      //TODO add type for Normal {rhi::EVertexAttributeUsage::No, rhi::EVertexAttributeFormat::Float2},
+      {rhi::EVertexAttributeUsage::Normal  , rhi::EVertexAttributeFormat::Float3},
       {rhi::EVertexAttributeUsage::Texcoord, rhi::EVertexAttributeFormat::Float2},
     };
   }

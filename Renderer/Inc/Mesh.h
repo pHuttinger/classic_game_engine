@@ -20,6 +20,8 @@ struct TMeshCreateInfo final
   std::string m_vertexShaderName;
   std::string m_pixelShaderName;
   std::string m_textureName; //TODO this should'nt be done like this
+  TDataHandle m_vertexData;
+  TDataHandle m_indexData;
   uint32_t    m_indexCount = 0U;
 };
 
@@ -44,15 +46,15 @@ struct TGeometryBuffer final
 };
 
 //----------------------------------------------------
-// CMesh
+// CMeshData
 //----------------------------------------------------
-class CMesh final
+class CMeshData final
 {
 friend class CMeshFactory;
 
 public:
 
-  CMesh(const TMeshCreateInfo& createInfo);
+  CMeshData(const TMeshCreateInfo& createInfo);
 
   TMeshCreateInfo& GetCreateInfo() { return m_createInfo; }
   TGeometryBuffer& GetGeometryBuffer() { return m_geometryBuffer; }
@@ -66,6 +68,7 @@ private:
 };
 
 //----------------------------------------------------
+// 
 // CMeshFactory
 //----------------------------------------------------
 class CMeshFactory final
@@ -74,9 +77,12 @@ public:
 
   CMeshFactory(CRenderer& renderer);
 
-  TResult CreateMesh(const TMeshCreateInfo& createInfo, std::unique_ptr<CMesh>& pMesh);
+  TResult CreateMesh(const TMeshCreateInfo& createInfo, std::unique_ptr<CMeshData>& pMeshData);
 
 private:
+
+  TResult CreateSharedMeshResources(const TMeshCreateInfo& createInfo, TSharedMeshResources& sharedResources);
+  TResult CreateGeometryBuffer(const TMeshCreateInfo& createInfo, TGeometryBuffer& geometryBuffer);
 
   CRenderer& m_renderer;
 };

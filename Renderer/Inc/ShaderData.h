@@ -4,16 +4,28 @@
 
 #pragma once
 
-#include "Renderer.h"
+#include "Backend.h"
 
 namespace cge::render
 {
+class CRenderer;
+
+//----------------------------------------------------
+// EShaderDataDestination
+//----------------------------------------------------
+enum class EShaderDataDestination : uint32_t
+{
+  Vertex,
+  Pixel
+};
+
 //----------------------------------------------------
 // TShaderDataCreateInfo
 //----------------------------------------------------
 struct TShaderDataCreateInfo final
 {
   size_t m_size = 0U;
+  EShaderDataDestination m_destination = EShaderDataDestination::Vertex;
 };
 
 //----------------------------------------------------
@@ -27,12 +39,15 @@ public:
 
   TResult Initialize(const TShaderDataCreateInfo& createInfo);
 
-  void UpdateData(const TDataHandle& dataHandle);
+  void UpdateData(const rhi::TBufferUpdateInfo& updateInfo);
+
+  TShaderDataCreateInfo& GetCreateInfo() { return m_createInfo; }
+  rhi::IBuffer* GetBuffer() { return m_pBuffer.get(); }
 
 private:
 
   CRenderer& m_renderer;
-
+  TShaderDataCreateInfo m_createInfo;
   std::unique_ptr<rhi::IBuffer> m_pBuffer;
 };
 }

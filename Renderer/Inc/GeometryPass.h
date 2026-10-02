@@ -26,7 +26,7 @@ private:
   TResult CreateRenderTarget(std::unique_ptr<rhi::IRenderTarget>& renderTarget);
   TResult CreateDepthBuffer();
 
-  void RenderMesh(CMesh& mesh);
+  void RenderMesh(CMeshData& meshData, const std::vector<CShaderData*> shaderData);
 
   CRenderer& m_renderer;
   std::unique_ptr<rhi::IRenderTarget> m_pRenderTarget_Albedo;

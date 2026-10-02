@@ -9,6 +9,7 @@
 #include "OutputMerger.h"
 #include "ResourceManager.h"
 #include "Mesh.h"
+#include "ShaderData.h"
 
 namespace cge::render
 {

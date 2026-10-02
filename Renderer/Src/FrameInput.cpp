@@ -16,6 +16,11 @@ CFrameInput::CFrameInput()
 void CFrameInput::Reset()
 {
   m_clearColor = DEFAULT_CLEAR_COLOR;
-  m_pMeshes.clear();
+  m_drawCalls.clear();
+}
+
+void CFrameInput::AddDrawCall(const TDrawCall& drawCall)
+{
+  m_drawCalls.push_back(drawCall);
 }
 }

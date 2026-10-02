@@ -2,7 +2,7 @@
 // Copyright (C) P.Huttinger 2026 - CGE game engine //
 //////////////////////////////////////////////////////
 
-#include "../../Inc/FileSystem/ImageLoader.h""
+#include "../../Inc/FileSystem/ImageLoader.h"
 
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image/stb_image.h>
