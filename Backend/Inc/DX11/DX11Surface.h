@@ -24,9 +24,11 @@ public:
 private:
 
   TResult InitializeRenderTargetView(const TSurfaceCreateInfo& createInfo);
+  void InitializeViewport(const TSurfaceCreateInfo& createInfo);
 
   CInstance&                      m_instance;
   TSurfaceCreateInfo              m_createInfo;
   CComPtr<ID3D11RenderTargetView> m_pRenderTargetView;
+  D3D11_VIEWPORT                  m_viewport;
 };
 }

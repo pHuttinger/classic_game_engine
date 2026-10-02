@@ -69,8 +69,23 @@ void CGeometryPass::RenderMesh(CMeshData& meshData, const std::vector<CShaderDat
 {
   rhi::IPipeline& pipeline = m_renderer.GetBackend().GetPipeline();
 
+  BindShaderData(shaderData);
+
+  pipeline.BindVertexDescriptor(meshData.GetSharedMeshResources().m_pVertexDescriptor.get());
+  pipeline.BindVertexBuffer    (meshData.GetGeometryBuffer().m_pVertexBuffer.get());
+  pipeline.BindIndexBuffer     (meshData.GetGeometryBuffer().m_pIndexBuffer.get());
+  pipeline.BindVertexShader    (meshData.GetSharedMeshResources().m_pVertexShader.get());
+  pipeline.BindPixelShader     (meshData.GetSharedMeshResources().m_pPixelShader.get());
+
+  pipeline.DrawIndexed         (meshData.GetCreateInfo().m_indexCount);
+}
+
+void CGeometryPass::BindShaderData(const std::vector<CShaderData*>& shaderData)
+{
+  rhi::IPipeline& pipeline = m_renderer.GetBackend().GetPipeline();
+
   size_t vertexShaderIndex = 0U, pixelShaderIndex = 0U;
-  for(auto* data: shaderData)
+  for (auto* data : shaderData)
   {
     if (data->GetCreateInfo().m_destination == EShaderDataDestination::Vertex)
     {
@@ -83,12 +98,5 @@ void CGeometryPass::RenderMesh(CMeshData& meshData, const std::vector<CShaderDat
       pixelShaderIndex++;
     }
   }
-
-  pipeline.BindVertexDescriptor(meshData.GetSharedMeshResources().m_pVertexDescriptor.get());
-  pipeline.BindVertexBuffer(meshData.GetGeometryBuffer().m_pVertexBuffer.get());
-  pipeline.BindIndexBuffer(meshData.GetGeometryBuffer().m_pIndexBuffer.get());
-  pipeline.BindVertexShader(meshData.GetSharedMeshResources().m_pVertexShader.get());
-  pipeline.BindPixelShader(meshData.GetSharedMeshResources().m_pPixelShader.get());
-  pipeline.DrawIndexed(meshData.GetCreateInfo().m_indexCount);
 }
 }

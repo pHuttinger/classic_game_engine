@@ -18,8 +18,8 @@
 
 cbuffer cbPerObject
 {
-  float4x4 MVP;
-  float4x4 World;
+  float4x4 mvp;
+  float4x4 model;
 };
 
 Texture2D texture1;
@@ -27,15 +27,15 @@ SamplerState samplerState1;
 
 struct VS_INPUT
 {
-  float4 inPos : POSITION;
-  float3 normal : NORMAL;
-  float2 inTexCoord : TEXCOORD;
+  float4 position : POSITION;
+  float3 normal   : NORMAL;
+  float2 texcoord : TEXCOORD;
 };
 
 struct PS_INPUT
 {
-  float4 Pos : SV_POSITION;
-  float3 WorldPos : POSITION1;
-  float3 normal : NORMAL;
-  float2 TexCoord : TEXCOORD;
+  float4 position : SV_POSITION;
+  float3 model    : POSITION1;
+  float3 normal   : NORMAL;
+  float2 texcoord : TEXCOORD;
 };

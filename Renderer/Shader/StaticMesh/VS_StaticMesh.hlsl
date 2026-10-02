@@ -8,10 +8,10 @@ PS_INPUT VSMain(VS_INPUT input)
 {
   PS_INPUT output;
 
-  output.Pos      = mul(input.inPos, MVP);
-  output.normal   = mul(input.normal, (float3x4) World);
-  output.TexCoord = input.inTexCoord;
-  output.WorldPos = mul(input.inPos, World);
+  output.position = mul(input.position, mvp);
+  output.normal   = mul(input.normal, (float3x4) model);
+  output.texcoord = input.texcoord;
+  output.model    = mul(input.position, model);
 	
   return output;
 }

@@ -8,6 +8,7 @@ namespace cge::rhi::dx11
 {
 CSurface::CSurface(IInstance& instance)
   : m_instance(static_cast<CInstance&>(instance))
+  , m_viewport()
 {
 }
 
@@ -16,6 +17,7 @@ TResult CSurface::Initialize(const TSurfaceCreateInfo& createInfo)
   m_createInfo = createInfo;
 
   CGE_TRY(InitializeRenderTargetView(createInfo));
+  InitializeViewport(createInfo);
 
   return TResult::Okay();
 }
@@ -29,16 +31,7 @@ void CSurface::SetAsRenderTarget()
 {
   ID3D11RenderTargetView* renderTargets[] = { m_pRenderTargetView.Get() };
   m_instance.GetDeviceContext()->OMSetRenderTargets(1U, renderTargets, nullptr);
-
-  D3D11_VIEWPORT viewport;
-  ZeroMemory(&viewport, sizeof(D3D11_VIEWPORT));
-
-  viewport.TopLeftX = 0.0f;
-  viewport.TopLeftY = 0.0f;
-  viewport.Width    = m_createInfo.m_width;
-  viewport.Height   = m_createInfo.m_height;
-
-  m_instance.GetDeviceContext()->RSSetViewports(1U, &viewport);
+  m_instance.GetDeviceContext()->RSSetViewports(1U, &m_viewport);
 }
 
 TResult CSurface::InitializeRenderTargetView(const TSurfaceCreateInfo& createInfo)
@@ -55,5 +48,15 @@ TResult CSurface::InitializeRenderTargetView(const TSurfaceCreateInfo& createInf
   CGE_HRESULT_CHECK(hr, "Can't create RenderTargetView");
 
   return TResult::Okay();
+}
+
+void CSurface::InitializeViewport(const TSurfaceCreateInfo& createInfo)
+{
+  ZeroMemory(&m_viewport, sizeof(D3D11_VIEWPORT));
+
+  m_viewport.TopLeftX = 0.0f;
+  m_viewport.TopLeftY = 0.0f;
+  m_viewport.Width    = m_createInfo.m_width;
+  m_viewport.Height   = m_createInfo.m_height;
 }
 }
