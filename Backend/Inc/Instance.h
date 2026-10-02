@@ -15,6 +15,7 @@
 #include "Buffer.h"
 #include "VertexDescriptor.h"
 #include "Texture.h"
+#include "RasterizerState.h"
 
 namespace cge::rhi
 {
@@ -61,6 +62,7 @@ public:
   virtual TResult CreateBuffer(const TBufferCreateInfo& createInfo, std::unique_ptr<IBuffer>& pBuffer) = 0;
   virtual TResult CreateVertexDescriptor(const TVertexDescriptorCreateInfo& createInfo, std::unique_ptr<IVertexDescriptor>& pVertexDescriptor) = 0;
   virtual TResult CreateTexture(const TTextureCreateInfo& createInfo, std::unique_ptr<ITexture>& pTexture) = 0;
+  virtual TResult CreateRasterizerState(const TRasterizerStateCreateInfo& createInfo, std::unique_ptr<IRasterizerState>& pRasterizerState) = 0;
 
   virtual std::string GetShaderFilename(const std::string& shaderName) = 0;
 };

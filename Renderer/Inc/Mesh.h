@@ -23,6 +23,7 @@ struct TMeshCreateInfo final
   TDataHandle m_vertexData;
   TDataHandle m_indexData;
   uint32_t    m_indexCount = 0U;
+  size_t      m_stride     = 0U;
 };
 
 //----------------------------------------------------

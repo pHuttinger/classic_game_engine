@@ -28,6 +28,7 @@ public:
   void BindVertexBuffer(IBuffer* vertexBuffer) override;
   void BindIndexBuffer(IBuffer* indexBuffer) override;
   void UpdateBuffer(IBuffer* buffer, const TBufferUpdateInfo& updateInfo) override;
+  void BindRasterizerState(IRasterizerState* rasterizerState) override;
   void DrawIndexed(uint32_t indexCount) override;
 
 private:

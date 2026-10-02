@@ -11,6 +11,7 @@
 #include "Sampler.h"
 #include "VertexDescriptor.h"
 #include "Buffer.h"
+#include "RasterizerState.h"
 
 namespace cge::rhi
 {
@@ -49,6 +50,7 @@ public:
   virtual void BindVertexBuffer(IBuffer* vertexBuffer) = 0;
   virtual void BindIndexBuffer(IBuffer* indexBuffer) = 0;
   virtual void UpdateBuffer(IBuffer* buffer, const TBufferUpdateInfo& updateInfo) = 0;
+  virtual void BindRasterizerState(IRasterizerState* rasterizerState) = 0;
   virtual void DrawIndexed(uint32_t indexCount) = 0;
 };
 }

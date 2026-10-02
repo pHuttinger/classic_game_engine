@@ -29,6 +29,7 @@ public:
   TResult CreateBuffer(const TBufferCreateInfo& createInfo, std::unique_ptr<IBuffer>& pBuffer)override;
   TResult CreateVertexDescriptor(const TVertexDescriptorCreateInfo& createInfo, std::unique_ptr<IVertexDescriptor>& pVertexDescriptor) override;
   TResult CreateTexture(const TTextureCreateInfo& createInfo, std::unique_ptr<ITexture>& pTexture) override;
+  TResult CreateRasterizerState(const TRasterizerStateCreateInfo& createInfo, std::unique_ptr<IRasterizerState>& pRasterizerState) override;
 
   std::string GetShaderFilename(const std::string& shaderName) override;
 

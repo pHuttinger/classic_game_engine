@@ -144,6 +144,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Inc\DX11\DX11RasterizerState.h" />
     <ClInclude Include="Inc\DX11\DX11Texture.h" />
     <ClInclude Include="Inc\DX11\DX11VertexDescriptor.h" />
     <ClInclude Include="Inc\DX11\DX11Buffer.h" />
@@ -161,6 +162,7 @@
     <ClInclude Include="Inc\Instance.h" />
     <ClInclude Include="Inc\Pipeline.h" />
     <ClInclude Include="Inc\PixelShader.h" />
+    <ClInclude Include="Inc\RasterizerState.h" />
     <ClInclude Include="Inc\RenderTarget.h" />
     <ClInclude Include="Inc\Sampler.h" />
     <ClInclude Include="Inc\VertexShader.h" />
@@ -168,6 +170,7 @@
     <ClInclude Include="Inc\Texture.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\DX11\DX11RasterizerState.cpp" />
     <ClCompile Include="Src\DX11\DX11Texture.cpp" />
     <ClCompile Include="Src\DX11\DX11VertexDescriptor.cpp" />
     <ClCompile Include="Src\DX11\DX11Buffer.cpp" />

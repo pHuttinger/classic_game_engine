@@ -27,7 +27,7 @@ SamplerState samplerState1;
 
 struct VS_INPUT
 {
-  float4 position : POSITION;
+  float3 position : POSITION;
   float3 normal   : NORMAL;
   float2 texcoord : TEXCOORD;
 };

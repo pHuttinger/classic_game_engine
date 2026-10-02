@@ -81,6 +81,12 @@
     <ClInclude Include="Inc\DX11\DX11Texture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Inc\RasterizerState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\DX11\DX11RasterizerState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\DX11\DX11Instance.cpp">
@@ -120,6 +126,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Src\DX11\DX11Texture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\DX11\DX11RasterizerState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

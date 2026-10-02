@@ -21,6 +21,7 @@ TResult COutputMerger::Initialize()
   CGE_TRY(CreateVertexBuffer());
   CGE_TRY(CreateIndexBuffer());
   CGE_TRY(CreateSampler());
+  CGE_TRY(CreateRasterizerState());
 
   return TResult::Okay();
 }
@@ -36,6 +37,7 @@ void COutputMerger::MergeAndRender(std::vector<rhi::IRenderTarget*>& renderGraph
   m_backend.GetPipeline().BindIndexBuffer          (m_renderResources.m_pIndexBuffer.get());
   m_backend.GetPipeline().BindVertexShader         (m_renderResources.m_pVertexShader.get());
   m_backend.GetPipeline().BindPixelShader          (m_renderResources.m_pPixelShader.get());
+  m_backend.GetPipeline().BindRasterizerState      (m_renderResources.m_pRasterizerState.get());
 
   m_backend.GetPipeline().DrawIndexed(PLANE_INDEX_COUNT);
 }
@@ -85,9 +87,9 @@ TResult COutputMerger::CreateVertexBuffer()
 {
   TOutputMergerVertex vertices[] =
   {
-    TOutputMergerVertex(glm::vec2(-1.0f, -1.0f), glm::vec2(1.0f, 0.0f)),
+    TOutputMergerVertex(glm::vec2(-1.0f, -1.0f), glm::vec2(0.0f, 1.0f)),
     TOutputMergerVertex(glm::vec2(-1.0f,  1.0f), glm::vec2(0.0f, 0.0f)),
-    TOutputMergerVertex(glm::vec2( 1.0f,  1.0f), glm::vec2(0.0f, 1.0f)),
+    TOutputMergerVertex(glm::vec2( 1.0f,  1.0f), glm::vec2(1.0f, 0.0f)),
     TOutputMergerVertex(glm::vec2( 1.0f, -1.0f), glm::vec2(1.0f, 1.0f)),
   };
 
@@ -129,6 +131,20 @@ TResult COutputMerger::CreateIndexBuffer()
 TResult COutputMerger::CreateSampler()
 {
   CGE_TRY(m_backend.GetInstance().CreateSampler(m_renderResources.m_pSampler));
+
+  return TResult::Okay();
+}
+
+TResult COutputMerger::CreateRasterizerState()
+{
+  rhi::TRasterizerStateCreateInfo createInfo
+  {
+    .m_fillMode  = rhi::EFillMode::Solid,
+    .m_cullMode  = rhi::ECullMode::None,
+    .m_frontFace = rhi::EFrontFace::Clockwise
+  };
+
+  CGE_TRY(m_backend.GetInstance().CreateRasterizerState(createInfo, m_renderResources.m_pRasterizerState));
 
   return TResult::Okay();
 }

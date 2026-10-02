@@ -20,6 +20,7 @@ struct TOutputMergerRenderResources final
   std::unique_ptr<rhi::IBuffer>           m_pVertexBuffer;
   std::unique_ptr<rhi::IBuffer>           m_pIndexBuffer;
   std::unique_ptr<rhi::ISampler>          m_pSampler;
+  std::unique_ptr<rhi::IRasterizerState>  m_pRasterizerState;
 };
 
 //----------------------------------------------------
@@ -52,6 +53,7 @@ private:
   TResult CreateVertexBuffer();
   TResult CreateIndexBuffer();
   TResult CreateSampler();
+  TResult CreateRasterizerState();
 
   CBackend& m_backend;
   TOutputMergerRenderResources m_renderResources;

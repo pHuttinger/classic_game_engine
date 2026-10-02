@@ -13,6 +13,7 @@
 #include "../../Inc/DX11/DX11Buffer.h"
 #include "../../Inc/DX11/DX11VertexDescriptor.h"
 #include "../../Inc/DX11/DX11Texture.h"
+#include "../../Inc/DX11/DX11RasterizerState.h"
 
 namespace cge::rhi::dx11
 {
@@ -86,6 +87,12 @@ TResult CInstance::CreateTexture(const TTextureCreateInfo& createInfo, std::uniq
   return pTexture->Initialize(createInfo);
 }
 
+TResult CInstance::CreateRasterizerState(const TRasterizerStateCreateInfo& createInfo, std::unique_ptr<IRasterizerState>& pRasterizerState)
+{
+  pRasterizerState = std::make_unique<CRasterizerState>(*this);
+  return pRasterizerState->Initialize(createInfo);
+}
+
 std::string CInstance::GetShaderFilename(const std::string& shaderName)
 {
   return "./" + shaderName + ".cso";
@@ -103,14 +110,14 @@ TResult CInstance::CreateDeviceAndSwapchain(const TCreateInfo& createInfo)
   bufferDesc.Scaling                 = DXGI_MODE_SCALING_UNSPECIFIED;
 
   DXGI_SWAP_CHAIN_DESC swapChainDesc{};
-  swapChainDesc.BufferDesc         = bufferDesc;
-  swapChainDesc.SampleDesc.Count   = 1;
-  swapChainDesc.SampleDesc.Quality = 0;
-  swapChainDesc.BufferUsage        = DXGI_USAGE_RENDER_TARGET_OUTPUT;
-  swapChainDesc.BufferCount        = 1;
-  swapChainDesc.OutputWindow       = createInfo.m_hwnd;
-  swapChainDesc.Windowed           = !createInfo.m_fullscreen;
-  swapChainDesc.SwapEffect         = DXGI_SWAP_EFFECT_DISCARD;
+  swapChainDesc.BufferDesc           = bufferDesc;
+  swapChainDesc.SampleDesc.Count     = 1;
+  swapChainDesc.SampleDesc.Quality   = 0;
+  swapChainDesc.BufferUsage          = DXGI_USAGE_RENDER_TARGET_OUTPUT;
+  swapChainDesc.BufferCount          = 1;
+  swapChainDesc.OutputWindow         = createInfo.m_hwnd;
+  swapChainDesc.Windowed             = !createInfo.m_fullscreen;
+  swapChainDesc.SwapEffect           = DXGI_SWAP_EFFECT_DISCARD;
 
   HRESULT hr = D3D11CreateDeviceAndSwapChain(nullptr,
                                              D3D_DRIVER_TYPE_HARDWARE,

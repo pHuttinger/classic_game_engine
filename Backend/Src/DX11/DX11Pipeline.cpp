@@ -10,6 +10,7 @@
 #include "../../Inc/DX11/DX11Sampler.h"
 #include "../../Inc/DX11/DX11Buffer.h"
 #include "../../Inc/DX11/DX11VertexDescriptor.h"
+#include "../../Inc/DX11/DX11RasterizerState.h"
 
 namespace cge::rhi::dx11
 {
@@ -115,6 +116,12 @@ void CPipeline::UpdateBuffer(IBuffer* buffer, const TBufferUpdateInfo& updateInf
 {
   CBuffer* pBuffer = static_cast<CBuffer*>(buffer);
   m_instance.GetDeviceContext()->UpdateSubresource(pBuffer->GetBuffer(), 0U, nullptr, updateInfo.m_pData, 0U, 0U);
+}
+
+void CPipeline::BindRasterizerState(IRasterizerState* rasterizerState)
+{
+  CRasterizerState* pRasterizerState = static_cast<CRasterizerState*>(rasterizerState);
+  m_instance.GetDeviceContext()->RSSetState(pRasterizerState->GetRasterizerState());
 }
 
 void CPipeline::DrawIndexed(uint32_t indexCount)

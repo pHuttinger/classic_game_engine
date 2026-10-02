@@ -44,12 +44,15 @@ TResult CMeshFactory::CreateSharedMeshResources(const TMeshCreateInfo& createInf
 
 TResult CMeshFactory::CreateGeometryBuffer(const TMeshCreateInfo& createInfo, TGeometryBuffer& geometryBuffer)
 {
+  CBackend& backend = m_renderer.GetBackend();
+
   rhi::TBufferCreateInfo vertexBufferCreateInfo
   {
     .m_usage      = rhi::EBufferUsage::Default,
     .m_bufferType = rhi::EBufferType::VertexBuffer,
     .m_size       = createInfo.m_vertexData.m_size,
     .m_pData      = createInfo.m_vertexData.m_pData,
+    .m_stride     = createInfo.m_stride,
   };
 
   rhi::TBufferCreateInfo indexBufferCreateInfo
@@ -58,9 +61,7 @@ TResult CMeshFactory::CreateGeometryBuffer(const TMeshCreateInfo& createInfo, TG
     .m_bufferType = rhi::EBufferType::IndexBuffer,
     .m_size       = createInfo.m_indexData.m_size,
     .m_pData      = createInfo.m_indexData.m_pData,
-  };  
-
-  CBackend& backend = m_renderer.GetBackend();
+  };
 
   CGE_TRY(backend.GetInstance().CreateBuffer(vertexBufferCreateInfo, geometryBuffer.m_pVertexBuffer));
   CGE_TRY(backend.GetInstance().CreateBuffer(indexBufferCreateInfo, geometryBuffer.m_pIndexBuffer));
