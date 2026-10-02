@@ -15,12 +15,12 @@ COutputMerger::COutputMerger(CBackend& backend)
 
 TResult COutputMerger::Initialize()
 {
+  CGE_TRY(CreateSampler());
+  CGE_TRY(CreateVertexBuffer());
+  CGE_TRY(CreateIndexBuffer());
   CGE_TRY(CreateVertexShader());
   CGE_TRY(CreatePixelShader());
   CGE_TRY(CreateVertexDescriptor());
-  CGE_TRY(CreateVertexBuffer());
-  CGE_TRY(CreateIndexBuffer());
-  CGE_TRY(CreateSampler());
   CGE_TRY(CreateRasterizerState());
 
   return TResult::Okay();

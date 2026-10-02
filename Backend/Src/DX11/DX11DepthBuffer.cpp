@@ -17,6 +17,11 @@ TResult CDepthBuffer::Initialize(const TDepthBufferCreateInfo& createInfo)
   return TResult::Okay();
 }
 
+void CDepthBuffer::Clear()
+{
+  m_instance.GetDeviceContext()->ClearDepthStencilView(m_pDepthStencilView.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
+}
+
 TResult CDepthBuffer::CreateDepthStencilView(const TDepthBufferCreateInfo& createInfo)
 {
   D3D11_TEXTURE2D_DESC depthStencilDesc{};

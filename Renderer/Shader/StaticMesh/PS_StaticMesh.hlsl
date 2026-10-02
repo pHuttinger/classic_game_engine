@@ -6,9 +6,9 @@
 
 float4 PSMain(PS_INPUT input) : SV_TARGET
 {
-  //float4 diffuse = texture1.Sample(samplerState1, input.TexCoord);
+  float4 diffuse = texture1.Sample(samplerState1, input.texcoord);
   
-  //clip(1.0 - all(diffuse.rgb == 1.0));
+  clip(1.0 - all(diffuse.rgb == 1.0));
 
-  return float4(1.0f, 0.0f, 1.0f, 1.0f);
+  return diffuse;
 }

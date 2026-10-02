@@ -25,6 +25,7 @@ TResult CGeometryPass::Initialize()
 std::vector<rhi::IRenderTarget*> CGeometryPass::Execute(const CFrameInput& input)
 {
   m_pRenderTarget_Albedo->Clear(input.GetClearColor());
+  m_pDepthBuffer->Clear();
   m_renderer.GetBackend().GetPipeline().BindRenderTargets(m_renderTargets, m_pDepthBuffer.get());
   m_renderer.GetBackend().GetPipeline().BindSampler(m_pSampler.get());
 

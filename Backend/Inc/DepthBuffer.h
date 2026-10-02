@@ -27,5 +27,7 @@ public:
   virtual ~IDepthBuffer() = default;
 
   virtual TResult Initialize(const TDepthBufferCreateInfo& createInfo) = 0;
+
+  virtual void Clear() = 0;
 };
 }

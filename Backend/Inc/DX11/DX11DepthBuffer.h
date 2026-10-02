@@ -17,6 +17,8 @@ public:
 
   TResult Initialize(const TDepthBufferCreateInfo& createInfo) override;
 
+  void Clear() override;
+
   ID3D11DepthStencilView* GetDepthStencilView() { return m_pDepthStencilView.Get(); }
 
 private:
