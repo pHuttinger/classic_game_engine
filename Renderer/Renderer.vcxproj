@@ -162,7 +162,7 @@
     <ClInclude Include="Inc\RenderPass.h" />
     <ClInclude Include="Inc\FrameInput.h" />
     <ClInclude Include="Inc\RenderGraph.h" />
-    <ClInclude Include="Inc\OutputMerger.h" />
+    <ClInclude Include="Inc\Composer.h" />
     <ClInclude Include="Inc\Mesh.h" />
     <ClInclude Include="Inc\ResourceManager.h" />
     <ClInclude Include="Inc\ShaderData.h" />
@@ -170,7 +170,7 @@
   <ItemGroup>
     <ClCompile Include="Src\ShaderData.cpp" />
     <ClCompile Include="Src\ResourceManager.cpp" />
-    <ClCompile Include="Src\OutputMerger.cpp" />
+    <ClCompile Include="Src\Composer.cpp" />
     <ClCompile Include="Src\GeometryPass.cpp" />
     <ClCompile Include="Src\Backend.cpp" />
     <ClCompile Include="Src\FrameInput.cpp" />
@@ -179,7 +179,7 @@
     <ClCompile Include="Src\Mesh.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="Shader\RenderTarget\PS_RenderTarget.hlsl">
+    <FxCompile Include="Shader\Composer\PS_Composer.hlsl">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
@@ -197,13 +197,13 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
     </FxCompile>
-    <FxCompile Include="Shader\RenderTarget\RenderTarget.hlsl">
+    <FxCompile Include="Shader\Composer\Composer.hlsl">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </FxCompile>
-    <FxCompile Include="Shader\RenderTarget\VS_RenderTarget.hlsl">
+    <FxCompile Include="Shader\Composer\VS_Composer.hlsl">
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VSMain</EntryPointName>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">5.0</ShaderModel>

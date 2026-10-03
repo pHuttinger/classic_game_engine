@@ -2,7 +2,7 @@
 // Copyright (C) P.Huttinger 2026 - CGE game engine //
 //////////////////////////////////////////////////////
 
-#include "RenderTarget.hlsl"
+#include "Composer.hlsl"
 
 PS_INPUT VSMain(VS_INPUT input)
 {

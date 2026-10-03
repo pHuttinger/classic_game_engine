@@ -33,7 +33,7 @@
     <ClInclude Include="Inc\GeometryPass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Inc\OutputMerger.h">
+    <ClInclude Include="Inc\Composer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Inc\Mesh.h">
@@ -65,7 +65,7 @@
     <ClCompile Include="Src\GeometryPass.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Src\OutputMerger.cpp">
+    <ClCompile Include="Src\Composer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Src\Mesh.cpp">
@@ -79,9 +79,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="Shader\RenderTarget\PS_RenderTarget.hlsl" />
-    <FxCompile Include="Shader\RenderTarget\VS_RenderTarget.hlsl" />
-    <FxCompile Include="Shader\RenderTarget\RenderTarget.hlsl" />
+    <FxCompile Include="Shader\Composer\PS_Composer.hlsl" />
+    <FxCompile Include="Shader\Composer\VS_Composer.hlsl" />
+    <FxCompile Include="Shader\Composer\Composer.hlsl" />
     <FxCompile Include="Shader\StaticMesh\PS_StaticMesh.hlsl" />
     <FxCompile Include="Shader\StaticMesh\VS_StaticMesh.hlsl" />
     <FxCompile Include="Shader\StaticMesh\StaticMesh.hlsl" />

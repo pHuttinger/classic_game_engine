@@ -2,7 +2,7 @@
 // Copyright (C) P.Huttinger 2026 - CGE game engine //
 //////////////////////////////////////////////////////
 
-#include "RenderTarget.hlsl"
+#include "Composer.hlsl"
 
 SamplerState samplerState : register(s0);
 

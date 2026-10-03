@@ -10,9 +10,9 @@
 namespace cge::render
 {
 //----------------------------------------------------
-// TOutputMergerRenderResources
+// TComposerRenderResources
 //----------------------------------------------------
-struct TOutputMergerRenderResources final
+struct TComposerRenderResources final
 {
   std::unique_ptr<rhi::IVertexShader>     m_pVertexShader;
   std::unique_ptr<rhi::IPixelShader>      m_pPixelShader;
@@ -24,22 +24,22 @@ struct TOutputMergerRenderResources final
 };
 
 //----------------------------------------------------
-// TOutputMergerVertex
+// TComposerVertex
 //----------------------------------------------------
-struct TOutputMergerVertex final
+struct TComposerVertex final
 {
   glm::vec2 m_position;
   glm::vec2 m_texcoord;
 };
 
 //----------------------------------------------------
-// COutputMerger
+// CComposer
 //----------------------------------------------------
-class COutputMerger final
+class CComposer final
 {
 public:
 
-  COutputMerger(CBackend& backend);
+  CComposer(CBackend& backend);
 
   TResult Initialize();
 
@@ -56,6 +56,6 @@ private:
   TResult CreateRasterizerState();
 
   CBackend& m_backend;
-  TOutputMergerRenderResources m_renderResources;
+  TComposerRenderResources m_renderResources;
 };
 }

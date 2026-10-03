@@ -2,18 +2,18 @@
 // Copyright (C) P.Huttinger 2026 - CGE game engine //
 //////////////////////////////////////////////////////
 
-#include "../Inc/OutputMerger.h"
+#include "../Inc/Composer.h"
 
 namespace cge::render
 {
 constexpr const size_t PLANE_INDEX_COUNT = 6U;
 
-COutputMerger::COutputMerger(CBackend& backend)
+CComposer::CComposer(CBackend& backend)
   : m_backend(backend)
 {
 }
 
-TResult COutputMerger::Initialize()
+TResult CComposer::Initialize()
 {
   CGE_TRY(CreateSampler());
   CGE_TRY(CreateVertexBuffer());
@@ -26,7 +26,7 @@ TResult COutputMerger::Initialize()
   return TResult::Okay();
 }
 
-void COutputMerger::MergeAndRender(std::vector<rhi::IRenderTarget*>& renderGraphOutput)
+void CComposer::MergeAndRender(std::vector<rhi::IRenderTarget*>& renderGraphOutput)
 {
   m_backend.GetSurface().SetAsRenderTarget();
 
@@ -42,7 +42,7 @@ void COutputMerger::MergeAndRender(std::vector<rhi::IRenderTarget*>& renderGraph
   m_backend.GetPipeline().DrawIndexed(PLANE_INDEX_COUNT);
 }
 
-TResult COutputMerger::CreateVertexShader()
+TResult CComposer::CreateVertexShader()
 {
   rhi::TVertexShaderCreateInfo createInfo
   {
@@ -54,7 +54,7 @@ TResult COutputMerger::CreateVertexShader()
   return TResult::Okay();
 }
 
-TResult COutputMerger::CreatePixelShader()
+TResult CComposer::CreatePixelShader()
 {
   rhi::TPixelShaderCreateInfo createInfo
   {
@@ -66,7 +66,7 @@ TResult COutputMerger::CreatePixelShader()
   return TResult::Okay();
 }
 
-TResult COutputMerger::CreateVertexDescriptor()
+TResult CComposer::CreateVertexDescriptor()
 {
   rhi::TVertexDescriptorCreateInfo createInfo
   {
@@ -83,14 +83,14 @@ TResult COutputMerger::CreateVertexDescriptor()
   return TResult::Okay();
 }
 
-TResult COutputMerger::CreateVertexBuffer()
+TResult CComposer::CreateVertexBuffer()
 {
-  TOutputMergerVertex vertices[] =
+  TComposerVertex vertices[] =
   {
-    TOutputMergerVertex(glm::vec2(-1.0f, -1.0f), glm::vec2(0.0f, 1.0f)),
-    TOutputMergerVertex(glm::vec2(-1.0f,  1.0f), glm::vec2(0.0f, 0.0f)),
-    TOutputMergerVertex(glm::vec2( 1.0f,  1.0f), glm::vec2(1.0f, 0.0f)),
-    TOutputMergerVertex(glm::vec2( 1.0f, -1.0f), glm::vec2(1.0f, 1.0f)),
+    TComposerVertex(glm::vec2(-1.0f, -1.0f), glm::vec2(0.0f, 1.0f)),
+    TComposerVertex(glm::vec2(-1.0f,  1.0f), glm::vec2(0.0f, 0.0f)),
+    TComposerVertex(glm::vec2( 1.0f,  1.0f), glm::vec2(1.0f, 0.0f)),
+    TComposerVertex(glm::vec2( 1.0f, -1.0f), glm::vec2(1.0f, 1.0f)),
   };
 
   rhi::TBufferCreateInfo createInfo
@@ -99,7 +99,7 @@ TResult COutputMerger::CreateVertexBuffer()
     .m_bufferType = rhi::EBufferType::VertexBuffer,
     .m_size       = sizeof(vertices),
     .m_pData      = vertices,
-    .m_stride     = sizeof(TOutputMergerVertex),
+    .m_stride     = sizeof(TComposerVertex),
   };
 
   CGE_TRY(m_backend.GetInstance().CreateBuffer(createInfo, m_renderResources.m_pVertexBuffer));
@@ -107,7 +107,7 @@ TResult COutputMerger::CreateVertexBuffer()
   return TResult::Okay();
 }
 
-TResult COutputMerger::CreateIndexBuffer()
+TResult CComposer::CreateIndexBuffer()
 {
   uint32_t indices[] =
   {
@@ -128,14 +128,14 @@ TResult COutputMerger::CreateIndexBuffer()
   return TResult::Okay();
 }
 
-TResult COutputMerger::CreateSampler()
+TResult CComposer::CreateSampler()
 {
   CGE_TRY(m_backend.GetInstance().CreateSampler(m_renderResources.m_pSampler));
 
   return TResult::Okay();
 }
 
-TResult COutputMerger::CreateRasterizerState()
+TResult CComposer::CreateRasterizerState()
 {
   rhi::TRasterizerStateCreateInfo createInfo
   {

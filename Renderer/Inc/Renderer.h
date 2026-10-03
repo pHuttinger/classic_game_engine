@@ -6,7 +6,7 @@
 
 #include "Backend.h"
 #include "RenderGraph.h"
-#include "OutputMerger.h"
+#include "Composer.h"
 #include "ResourceManager.h"
 #include "Mesh.h"
 #include "ShaderData.h"
@@ -30,7 +30,7 @@ private:
 
   CBackend         m_backend;
   CRenderGraph     m_renderGraph;
-  COutputMerger    m_outputMerger;
+  CComposer        m_outputMerger;
   CResourceManager m_resourceManager;
   CMeshFactory     m_meshFactory;
 };
