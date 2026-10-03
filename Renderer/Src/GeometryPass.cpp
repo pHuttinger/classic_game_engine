@@ -6,6 +6,8 @@
 
 namespace cge::render
 {
+constexpr glm::vec4 CLEAR_COLOR_TRANSPARENT = glm::vec4(0.0f, 0.0f, 0.0f, 0.0f);
+
 CGeometryPass::CGeometryPass(CRenderer& renderer)
   : m_renderer(renderer)
 {
@@ -13,11 +15,14 @@ CGeometryPass::CGeometryPass(CRenderer& renderer)
 
 TResult CGeometryPass::Initialize()
 {
-  CGE_TRY(CreateRenderTarget(m_pRenderTarget_Albedo));
   CGE_TRY(CreateDepthBuffer());
   CGE_TRY(m_renderer.GetResourceManager().GetSampler(m_pSampler));
 
+  CGE_TRY(CreateRenderTarget(m_pRenderTarget_Albedo));
+  CGE_TRY(CreateRenderTarget(m_pRenderTarget_Normal));
+
   m_renderTargets.push_back(m_pRenderTarget_Albedo.get());
+  m_renderTargets.push_back(m_pRenderTarget_Normal.get());
 
   return TResult::Okay();
 }
@@ -25,6 +30,8 @@ TResult CGeometryPass::Initialize()
 std::vector<rhi::IRenderTarget*> CGeometryPass::Execute(const CFrameInput& input)
 {
   m_pRenderTarget_Albedo->Clear(input.GetClearColor());
+  m_pRenderTarget_Normal->Clear(CLEAR_COLOR_TRANSPARENT);
+
   m_pDepthBuffer->Clear();
   m_renderer.GetBackend().GetPipeline().BindRenderTargets(m_renderTargets, m_pDepthBuffer.get());
   m_renderer.GetBackend().GetPipeline().BindSampler(m_pSampler.get());
@@ -36,7 +43,8 @@ std::vector<rhi::IRenderTarget*> CGeometryPass::Execute(const CFrameInput& input
 
   return
   {
-    { m_pRenderTarget_Albedo.get() }
+    m_pRenderTarget_Albedo.get(),
+    m_pRenderTarget_Normal.get(),
   };
 }
 

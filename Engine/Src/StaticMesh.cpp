@@ -18,7 +18,13 @@ TResult CStaticMesh::Initialize(render::CRenderer& renderer, const render::TMesh
   m_pShaderData = std::make_unique<render::CShaderData>(renderer);
   CGE_TRY(m_pShaderData->Initialize(shaderDataCreateInfo));
 
-  //TODO remove
+  return TResult::Okay();
+}
+
+void CStaticMesh::OnTick()
+{
+  static float rotX = 0.0f;
+
   constexpr const float FOV        = 60.0f;
   constexpr const float NEAR_PLANE = 0.1f;
   constexpr const float FAR_PLANE  = 1000.0f;
@@ -33,7 +39,7 @@ TResult CStaticMesh::Initialize(render::CRenderer& renderer, const render::TMesh
   glm::vec3 target   = position + forward;
 
   glm::mat4 viewMatrix  = glm::lookAtRH(position, target, up);
-  glm::mat4 modelMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.0f));
+  glm::mat4 modelMatrix = glm::rotate(glm::mat4(1.0f), glm::radians(rotX+=0.01f), glm::vec3(1.0f, 1.0f, 1.0f));
 
   TStaticMeshShaderData cbData{};
   cbData.m_mvp   = glm::transpose(projectionMatrix * viewMatrix * modelMatrix);
@@ -45,8 +51,5 @@ TResult CStaticMesh::Initialize(render::CRenderer& renderer, const render::TMesh
   };
 
   m_pShaderData->UpdateData(updateInfo);
-  //TODO remove
-
-  return TResult::Okay();
 }
 }

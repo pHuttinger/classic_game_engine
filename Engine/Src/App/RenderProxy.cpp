@@ -98,6 +98,7 @@ TResult CRenderProxy::CreateStaticMesh(const render::TMeshCreateInfo& createInfo
 void CRenderProxy::RenderFrame()
 {
   //TODO remove
+  m_pStaticMesh->OnTick();
   m_frameInput.AddDrawCall({ m_pStaticMesh->GetMeshData(), { m_pStaticMesh->GetShaderData() } });
   //TODO remove
   m_renderer.RenderFrame(m_frameInput);

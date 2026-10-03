@@ -39,3 +39,9 @@ struct PS_INPUT
   float3 normal   : NORMAL;
   float2 texcoord : TEXCOORD;
 };
+
+struct PS_OUTPUT
+{
+  float4 albedo : SV_Target0;
+  float4 normal : SV_Target1;
+};

@@ -26,6 +26,8 @@ public:
 
   TResult Initialize(render::CRenderer& renderer, const render::TMeshCreateInfo& createInfo);
 
+  void OnTick();
+
   render::CMeshData* GetMeshData() const { return m_pMeshData.get(); };
   render::CShaderData* GetShaderData() const { return m_pShaderData.get(); }
 
