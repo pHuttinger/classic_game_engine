@@ -30,7 +30,7 @@ TResult CRenderer::Initialize(const rhi::TCreateInfo& createInfo)
 
 void CRenderer::RenderFrame(const CFrameInput& input)
 {
-  m_backend.GetSurface().Clear();
+  m_backend.GetSurface().Clear(input.GetClearColor());
 
   auto renderTargets = m_renderGraph.Execute(input);
   m_outputMerger.MergeAndRender(renderTargets);

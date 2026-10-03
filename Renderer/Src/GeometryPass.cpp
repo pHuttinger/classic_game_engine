@@ -29,7 +29,7 @@ TResult CGeometryPass::Initialize()
 
 std::vector<rhi::IRenderTarget*> CGeometryPass::Execute(const CFrameInput& input)
 {
-  m_pRenderTarget_Albedo->Clear(input.GetClearColor());
+  m_pRenderTarget_Albedo->Clear(CLEAR_COLOR_TRANSPARENT);
   m_pRenderTarget_Normal->Clear(CLEAR_COLOR_TRANSPARENT);
 
   m_pDepthBuffer->Clear();

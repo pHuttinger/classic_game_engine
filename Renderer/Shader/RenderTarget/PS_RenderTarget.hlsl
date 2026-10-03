@@ -14,7 +14,11 @@ float4 PSMain(PS_INPUT input) : SV_TARGET
   float4 albedo = textureAlbedo.Sample(samplerState, input.texcoord);
   float4 normal = textureNormal.Sample(samplerState, input.texcoord);
   
-  float NdotL = saturate(dot(float3(0.3f, 0.5f, 0.7f), float3(normal.x, normal.y, normal.z)));
+  clip(albedo.a == 0.0f ? -1 : 1);
+  
+  float NdotL = saturate(dot(normalize(float3(0.5f, 0.25f, 1.0f)), float3(normal.x, normal.y, normal.z)));
 
-  return albedo * NdotL;
+  float3 finalColor = albedo.rgb * (NdotL + 0.1f);
+  
+  return float4(finalColor, albedo.a);
 }

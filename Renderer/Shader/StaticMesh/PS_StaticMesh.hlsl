@@ -4,7 +4,7 @@
 
 #include "StaticMesh.hlsl"
 
-PS_OUTPUT PSMain(PS_INPUT input) : SV_TARGET
+PS_OUTPUT PSMain(PS_INPUT input)
 {
   PS_OUTPUT output;
   

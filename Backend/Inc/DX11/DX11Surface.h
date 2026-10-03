@@ -16,7 +16,7 @@ public:
   CSurface(IInstance& instance);
 
   TResult Initialize(const TSurfaceCreateInfo& createInfo) override;
-  void Clear() override;
+  void Clear(const glm::vec4& color) override;
   void SetAsRenderTarget() override;
 
   TSurfaceCreateInfo GetCreateInfo() const override { return m_createInfo; }
