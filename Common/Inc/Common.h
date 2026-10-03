@@ -50,12 +50,13 @@ enum class ETerminalColor
   Yellow
 };
 
-void CgeInit();
-void CgeWriteImpl(std::ostream& stream, const std::string& text, ETerminalColor color);
-void CgeWrite(const std::string& text, ETerminalColor color = ETerminalColor::White);
-void CgeWriteError(const std::string& text, const std::string& file, const uint32_t line);
-void CgeErrorExit(const std::string& text);
-bool CgeWasErrorRaised();
+void Init();
+void WriteImpl(std::ostream& stream, const std::string& text, ETerminalColor color);
+void Write(const std::string& text, ETerminalColor color = ETerminalColor::White);
+void WriteError(const std::string& text, const std::string& file, const uint32_t line);
+void ErrorExit(const std::string& text);
+bool WasErrorRaised();
+bool IsDebugging();
 
 //----------------------------------------------------
 // TResult
@@ -80,7 +81,6 @@ private:
   std::string m_file;
   uint16_t    m_line = 0;
 };
-}
 
 //----------------------------------------------------
 // TDataHandle
@@ -90,20 +90,21 @@ struct TDataHandle final
   size_t m_size  = 0U;
   void*  m_pData = nullptr;
 };
+}
 
 //----------------------------------------------------
 
 #ifdef _DEBUG
 #define CGE_INIT()
 #else
-#define CGE_INIT() cge::CgeInit()
+#define CGE_INIT() cge::Init()
 #endif
 
-#define CGE_ERROR(msg) cge::CgeWriteError(msg, __FILE__, __LINE__)
+#define CGE_ERROR(msg) cge::WriteError(msg, __FILE__, __LINE__)
 #ifdef _DEBUG
-#define CGE_INFO(msg) cge::CgeWrite(msg, cge::ETerminalColor::Blue)
-#define CGE_MILESTONE(msg) cge::CgeWrite(msg, cge::ETerminalColor::Green)
-#define CGE_WARN(msg) cge::CgeWrite(msg, cge::ETerminalColor::Yellow)
+#define CGE_INFO(msg) cge::Write(msg, cge::ETerminalColor::Blue)
+#define CGE_MILESTONE(msg) cge::Write(msg, cge::ETerminalColor::Green)
+#define CGE_WARN(msg) cge::Write(msg, cge::ETerminalColor::Yellow)
 #else
 #define CGE_INFO(msg)
 #define CGE_MILESTONE(msg)
@@ -123,7 +124,7 @@ struct TDataHandle final
 #define CGE_TRY(fct) \
 if (TResult result = fct; result.IsError()) \
 { \
-  if(!cge::CgeWasErrorRaised()) \
+  if(!cge::WasErrorRaised()) \
   { \
     CGE_ERROR(result.GetText()); \
     CGE_DEBUG_BREAK(); \
@@ -134,4 +135,4 @@ if (TResult result = fct; result.IsError()) \
 //----------------------------------------------------
 
 #define CGE_HRESULT_CHECK(hr, msg) \
-if(hr != S_OK) return TResult::Error(msg);
+if(hr != S_OK) return cge::TResult::Error(msg);

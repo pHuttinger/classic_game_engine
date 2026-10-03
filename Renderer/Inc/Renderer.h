@@ -30,7 +30,7 @@ private:
 
   CBackend         m_backend;
   CRenderGraph     m_renderGraph;
-  CComposer        m_outputMerger;
+  CComposer        m_composer;
   CResourceManager m_resourceManager;
   CMeshFactory     m_meshFactory;
 };

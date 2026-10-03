@@ -26,10 +26,16 @@ public:
 //----------------------------------------------------
 int main()
 {
+  cge::TWindowCreateInfo windowCreateInfo
+  {
+    .m_title = "Test Application",
+  };
+
   cge::TInstanceCreateInfo createInfo
   {
-    .m_backend = cge::rhi::EBackend::DX11,
-    .m_pGame   = std::make_unique<CTestGame>(),
+    .m_windowCreateInfo = windowCreateInfo,
+    .m_backend          = cge::rhi::EBackend::DX11,
+    .m_pGame            = std::make_unique<CTestGame>(),
   };
 
   cge::CInstance instance;

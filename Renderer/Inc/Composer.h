@@ -43,7 +43,7 @@ public:
 
   TResult Initialize();
 
-  void MergeAndRender(std::vector<rhi::IRenderTarget*>& renderGraphOutput);
+  void ComposeFrame(std::vector<rhi::IRenderTarget*>& renderGraphOutput);
 
 private:
 

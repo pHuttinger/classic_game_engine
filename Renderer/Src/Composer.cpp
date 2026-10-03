@@ -26,7 +26,7 @@ TResult CComposer::Initialize()
   return TResult::Okay();
 }
 
-void CComposer::MergeAndRender(std::vector<rhi::IRenderTarget*>& renderGraphOutput)
+void CComposer::ComposeFrame(std::vector<rhi::IRenderTarget*>& renderGraphOutput)
 {
   m_backend.GetSurface().SetAsRenderTarget();
 
@@ -46,7 +46,7 @@ TResult CComposer::CreateVertexShader()
 {
   rhi::TVertexShaderCreateInfo createInfo
   {
-    .m_shaderName = "VS_RenderTarget"
+    .m_shaderName = "VS_Composer"
   };
 
   CGE_TRY(m_backend.GetInstance().CreateVertexShader(createInfo, m_renderResources.m_pVertexShader));
@@ -58,7 +58,7 @@ TResult CComposer::CreatePixelShader()
 {
   rhi::TPixelShaderCreateInfo createInfo
   {
-    .m_shaderName = "PS_RenderTarget"
+    .m_shaderName = "PS_Composer"
   };
 
   CGE_TRY(m_backend.GetInstance().CreatePixelShader(createInfo, m_renderResources.m_pPixelShader));

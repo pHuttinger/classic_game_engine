@@ -9,13 +9,13 @@ namespace cge
 //----------------------------------------------------
 // Common
 //----------------------------------------------------
-void CgeInit()
+void Init()
 {
   HWND hwnd = GetConsoleWindow();
   ShowWindow(hwnd, SW_HIDE);
 }
 
-void CgeWriteImpl(std::ostream& stream, const std::string& text, ETerminalColor color)
+void WriteImpl(std::ostream& stream, const std::string& text, ETerminalColor color)
 {
   auto now = std::chrono::system_clock::now();
   std::string timestamp = std::format("{:%Y-%m-%d %H:%M:%S}", now);
@@ -42,35 +42,48 @@ void CgeWriteImpl(std::ostream& stream, const std::string& text, ETerminalColor 
   stream << start + text + end << std::endl;
 }
 
-void CgeWrite(const std::string& text, ETerminalColor color)
+void Write(const std::string& text, ETerminalColor color)
 {
-#ifdef _DEBUG
-  CgeWriteImpl(std::cout, text, color);
-#endif
+  if (IsDebugging())
+  {
+    WriteImpl(std::cout, text, color);
+  }
 }
 
-void CgeWriteError(const std::string& text, const std::string& file, const uint32_t line)
+void WriteError(const std::string& text, const std::string& file, const uint32_t line)
 {
   std::string output = std::format("Error --> '{}' [{}:{}]", text, file, line);
-#ifdef _DEBUG
-  CgeWriteImpl(std::cerr, output, ETerminalColor::Red);
-#else
-  MessageBox(NULL, output.c_str(), "Error", MB_OK | MB_ICONERROR);
-#endif
+  if(IsDebugging())
+  {
+    WriteImpl(std::cerr, output, ETerminalColor::Red);
+  }
+  else
+  {
+    MessageBox(NULL, output.c_str(), "Error", MB_OK | MB_ICONERROR);
+  }
 }
 
-void CgeErrorExit(const std::string& text)
+void ErrorExit(const std::string& text)
 {
   MessageBox(nullptr, text.c_str(), "Error!", MB_ICONERROR | MB_OK);
   PostQuitMessage(-1);
 }
 
-bool CgeWasErrorRaised()
+bool WasErrorRaised()
 {
   static bool wasErrorRaised = false;
-  const bool returnValue = wasErrorRaised;
+  const bool result = wasErrorRaised;
   wasErrorRaised = true;
-  return returnValue;
+  return result;
+}
+
+bool IsDebugging()
+{
+#ifdef _DEBUG
+  return true;
+#else
+  return false;
+#endif
 }
 
 //----------------------------------------------------

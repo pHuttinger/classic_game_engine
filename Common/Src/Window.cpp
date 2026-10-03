@@ -37,7 +37,9 @@ TResult CWindow::Create(const TWindowCreateInfo& windowCreateInfo)
   wc.hIconSm       = LoadIcon(nullptr, IDI_WINLOGO);
 
   if (!RegisterClassEx(&wc))
+  {
     return TResult::Error("can't create window class");
+  }
 
   m_windowData.m_hwnd = CreateWindowEx(
     0L,
@@ -54,7 +56,9 @@ TResult CWindow::Create(const TWindowCreateInfo& windowCreateInfo)
   );
 
   if (m_windowData.m_hwnd == nullptr)
+  {
     return TResult::Error("can't create window");
+  }
 
   return TResult::Okay();
 }
@@ -75,7 +79,9 @@ void CWindow::StartLoop()
     if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
     {
       if (msg.message == WM_QUIT)
+      {
         break;
+      }
 
       TranslateMessage(&msg);
       DispatchMessage(&msg);
@@ -100,7 +106,7 @@ LRESULT CALLBACK CWindow::WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lPa
   {
     case WM_KEYDOWN:
     {
-      if (wParam == VK_ESCAPE)
+      if (IsDebugging() && wParam == VK_ESCAPE)
       {
         ExitApplication();
         return 0;
