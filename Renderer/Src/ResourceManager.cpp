@@ -123,6 +123,23 @@ TResult CResourceManager::GetTexture(const std::string& textureName, std::shared
   return TResult::Okay();
 }
 
+TResult CResourceManager::GetRasterizerState(const ERasterizerState rasterizerState, std::shared_ptr<rhi::IRasterizerState>& pRasterizerState)
+{
+  if (m_rasterizerStates.find(rasterizerState) == m_rasterizerStates.end())
+  {
+    rhi::TRasterizerStateCreateInfo createInfo = GetRasterizerStateCreateInfo(rasterizerState);
+    std::unique_ptr<rhi::IRasterizerState> pRasterizerState;
+    if (TResult result = m_backend.GetInstance().CreateRasterizerState(createInfo, pRasterizerState); result.IsError())
+    {
+      return result;
+    }
+    m_rasterizerStates[rasterizerState] = std::move(pRasterizerState);
+  }
+
+  pRasterizerState = m_rasterizerStates[rasterizerState];
+  return TResult::Okay();
+}
+
 std::vector<rhi::TVertexAttribute> CResourceManager::GetVertexAttributesByVertexType(const EVertexType vertexType) const
 {
   switch (vertexType)
@@ -137,5 +154,34 @@ std::vector<rhi::TVertexAttribute> CResourceManager::GetVertexAttributesByVertex
   }
 
   return {};
+}
+
+rhi::TRasterizerStateCreateInfo CResourceManager::GetRasterizerStateCreateInfo(const ERasterizerState rasterizerState) const
+{
+  if (ERasterizerState::SolidNoCull == rasterizerState)
+  {
+    return
+    {
+      .m_fillMode  = rhi::EFillMode::Solid,
+      .m_cullMode  = rhi::ECullMode::None,
+      .m_frontFace = rhi::EFrontFace::Clockwise
+    };
+  }
+  else if (ERasterizerState::Wireframe == rasterizerState)
+  {
+    return
+    {
+      .m_fillMode  = rhi::EFillMode::Wireframe,
+      .m_cullMode  = rhi::ECullMode::None,
+      .m_frontFace = rhi::EFrontFace::Clockwise
+    };
+  }
+
+  return
+  {
+    .m_fillMode = rhi::EFillMode::Solid,
+    .m_cullMode = rhi::ECullMode::Back,
+    .m_frontFace = rhi::EFrontFace::Clockwise
+  };
 }
 }

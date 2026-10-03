@@ -81,6 +81,7 @@ TResult CRenderProxy::Initialize(const rhi::TCreateInfo& createInfo)
   mci.m_indexData.m_pData  = indices.data();
   mci.m_indexCount         = static_cast<uint32_t>(indices.size());
   mci.m_stride             = sizeof(render::TVertexStaticMesh);
+  mci.m_rasterizerState    = render::ERasterizerState::Solid;
   CGE_TRY(CreateStaticMesh(mci, m_pStaticMesh));
   //TODO remove
 

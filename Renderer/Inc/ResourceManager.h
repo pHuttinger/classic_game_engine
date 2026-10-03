@@ -20,10 +20,12 @@ public:
   TResult GetVertexShader(const std::string& shaderName, std::shared_ptr<rhi::IVertexShader>& pVertexShader);
   TResult GetPixelShader(const std::string& shaderName, std::shared_ptr<rhi::IPixelShader>& pVixelShader);
   TResult GetTexture(const std::string& textureName, std::shared_ptr<rhi::ITexture>& pTexture);
+  TResult GetRasterizerState(const ERasterizerState rasterizerState, std::shared_ptr<rhi::IRasterizerState>& pRasterizerState);
 
 private:
 
   std::vector<rhi::TVertexAttribute> GetVertexAttributesByVertexType(const EVertexType vertexType) const;
+  rhi::TRasterizerStateCreateInfo GetRasterizerStateCreateInfo(const ERasterizerState rasterizerState) const;
 
   CBackend& m_backend;
 
@@ -32,5 +34,6 @@ private:
   std::unordered_map<std::string, std::shared_ptr<rhi::IVertexShader>> m_vertexShaders;
   std::unordered_map<std::string, std::shared_ptr<rhi::IPixelShader>> m_pixelShaders;
   std::unordered_map<std::string, std::shared_ptr<rhi::ITexture>> m_textures;
+  std::unordered_map<ERasterizerState, std::shared_ptr<rhi::IRasterizerState>> m_rasterizerStates;
 };
 }

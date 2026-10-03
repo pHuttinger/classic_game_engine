@@ -16,6 +16,16 @@ enum class EVertexType
 };
 
 //----------------------------------------------------
+// ERasterizerState
+//----------------------------------------------------
+enum class ERasterizerState
+{
+  Solid,
+  SolidNoCull,
+  Wireframe,
+};
+
+//----------------------------------------------------
 // TVertexStaticMesh
 //----------------------------------------------------
 struct TVertexStaticMesh final

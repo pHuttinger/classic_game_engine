@@ -36,6 +36,7 @@ TResult CMeshFactory::CreateSharedMeshResources(const TMeshCreateInfo& createInf
   CGE_TRY(resourceManager.GetPixelShader(createInfo.m_pixelShaderName, resources.m_pPixelShader));
   CGE_TRY(resourceManager.GetVertexDescriptor(createInfo.m_vertexType, createInfo.m_vertexShaderName, resources.m_pVertexDescriptor));
   CGE_TRY(resourceManager.GetTexture(createInfo.m_textureName, resources.m_pTexture));
+  CGE_TRY(resourceManager.GetRasterizerState(createInfo.m_rasterizerState, resources.m_pRasterizerState));
 
   sharedResources = resources;
 

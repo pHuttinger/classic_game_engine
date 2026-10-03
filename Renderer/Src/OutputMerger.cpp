@@ -140,8 +140,8 @@ TResult COutputMerger::CreateRasterizerState()
   rhi::TRasterizerStateCreateInfo createInfo
   {
     .m_fillMode  = rhi::EFillMode::Solid,
-    .m_cullMode  = rhi::ECullMode::None,
-    .m_frontFace = rhi::EFrontFace::Clockwise
+    .m_cullMode  = rhi::ECullMode::Back,
+    .m_frontFace = rhi::EFrontFace::CounterClockwise
   };
 
   CGE_TRY(m_backend.GetInstance().CreateRasterizerState(createInfo, m_renderResources.m_pRasterizerState));

@@ -11,6 +11,7 @@
 #include "../../Inc/DX11/DX11Buffer.h"
 #include "../../Inc/DX11/DX11VertexDescriptor.h"
 #include "../../Inc/DX11/DX11RasterizerState.h"
+#include "../../Inc/DX11/DX11Texture.h"
 
 namespace cge::rhi::dx11
 {
@@ -122,6 +123,13 @@ void CPipeline::BindRasterizerState(IRasterizerState* rasterizerState)
 {
   CRasterizerState* pRasterizerState = static_cast<CRasterizerState*>(rasterizerState);
   m_instance.GetDeviceContext()->RSSetState(pRasterizerState->GetRasterizerState());
+}
+
+void CPipeline::BindTexture(size_t slot, ITexture* texture)
+{
+  CTexture* pTexture = static_cast<CTexture*>(texture);
+  ID3D11ShaderResourceView* shaderResourceViews[] = { pTexture->GetShaderResourceView() };
+  m_instance.GetDeviceContext()->PSSetShaderResources(slot, 1U, shaderResourceViews);
 }
 
 void CPipeline::DrawIndexed(uint32_t indexCount)

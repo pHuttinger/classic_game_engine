@@ -16,14 +16,15 @@ class CRenderer;
 //----------------------------------------------------
 struct TMeshCreateInfo final
 {
-  EVertexType m_vertexType = EVertexType::Undefined;
-  std::string m_vertexShaderName;
-  std::string m_pixelShaderName;
-  std::string m_textureName; //TODO this should'nt be done like this
-  TDataHandle m_vertexData;
-  TDataHandle m_indexData;
-  uint32_t    m_indexCount = 0U;
-  size_t      m_stride     = 0U;
+  EVertexType      m_vertexType      = EVertexType::Undefined;
+  std::string      m_vertexShaderName;
+  std::string      m_pixelShaderName;
+  std::string      m_textureName;    //TODO this should'nt be done like this
+  TDataHandle      m_vertexData;
+  TDataHandle      m_indexData;
+  uint32_t         m_indexCount      = 0U;
+  size_t           m_stride          = 0U;
+  ERasterizerState m_rasterizerState = ERasterizerState::Solid; //TODO this should'nt be done like this
 };
 
 //----------------------------------------------------
@@ -35,6 +36,7 @@ struct TSharedMeshResources final
   std::shared_ptr<rhi::IPixelShader>      m_pPixelShader;
   std::shared_ptr<rhi::IVertexDescriptor> m_pVertexDescriptor;
   std::shared_ptr<rhi::ITexture>          m_pTexture;
+  std::shared_ptr<rhi::IRasterizerState>  m_pRasterizerState;
 };
 
 //----------------------------------------------------

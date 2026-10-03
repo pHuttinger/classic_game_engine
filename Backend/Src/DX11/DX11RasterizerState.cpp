@@ -23,7 +23,7 @@ TResult CRasterizerState::Initialize(const TRasterizerStateCreateInfo& createInf
   rasterDesc.MultisampleEnable     = true;
   rasterDesc.AntialiasedLineEnable = true;
 
-  auto* pRasterizerState = m_pRasterizerState.Get();
+  auto*& pRasterizerState = m_pRasterizerState.Get();
   HRESULT hr = m_instance.GetDevice()->CreateRasterizerState(&rasterDesc, &pRasterizerState);
   CGE_HRESULT_CHECK(hr, "Failed to initialize RasterizerState");
 

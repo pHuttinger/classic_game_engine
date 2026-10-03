@@ -29,6 +29,7 @@ public:
   void BindIndexBuffer(IBuffer* indexBuffer) override;
   void UpdateBuffer(IBuffer* buffer, const TBufferUpdateInfo& updateInfo) override;
   void BindRasterizerState(IRasterizerState* rasterizerState) override;
+  void BindTexture(size_t slot, ITexture* texture) override;
   void DrawIndexed(uint32_t indexCount) override;
 
 private:
