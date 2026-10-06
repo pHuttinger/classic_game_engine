@@ -21,25 +21,11 @@ TResult CStaticMesh::Initialize(render::CRenderer& renderer, const render::TMesh
   return TResult::Okay();
 }
 
-void CStaticMesh::OnTick()
+void CStaticMesh::Update(const CCamera& camera, CTransform& transform)
 {
-  static float rotX = 0.0f;
-
-  constexpr const float FOV        = 60.0f;
-  constexpr const float NEAR_PLANE = 0.1f;
-  constexpr const float FAR_PLANE  = 1000.0f;
-
-  glm::mat4 projectionMatrix = glm::perspectiveRH_ZO(glm::radians(FOV), static_cast<float>(1024) / static_cast<float>(720), NEAR_PLANE, FAR_PLANE);
-  glm::mat4 rotationMatrix   = glm::mat4_cast(glm::quat());
-
-  glm::vec3 position = glm::vec3(0.0f, 0.0f, -5.0f);
-  glm::vec3 forward  = glm::vec3(rotationMatrix * glm::vec4(0.0f, 0.0f, 1.0f, 0.0f));
-  glm::vec3 right    = glm::vec3(rotationMatrix * glm::vec4(1.0f, 0.0f, 0.0f, 0.0f));
-  glm::vec3 up       = glm::cross(forward, right);
-  glm::vec3 target   = position + forward;
-
-  glm::mat4 viewMatrix  = glm::lookAtRH(position, target, up);
-  glm::mat4 modelMatrix = glm::rotate(glm::mat4(1.0f), glm::radians(rotX+=0.01f), glm::vec3(1.0f, 1.0f, 1.0f));
+  glm::mat4 projectionMatrix = camera.GetProjectionMatrix();
+  glm::mat4 viewMatrix       = camera.GetViewMatrix();
+  glm::mat4 modelMatrix      = transform.GetModelMatrix();
 
   TStaticMeshShaderData cbData{};
   cbData.m_mvp   = glm::transpose(projectionMatrix * viewMatrix * modelMatrix);

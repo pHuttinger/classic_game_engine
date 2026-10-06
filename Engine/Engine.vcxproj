@@ -118,7 +118,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>ENGINE_API_EXPORTS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp23</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -136,7 +136,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>ENGINE_API_EXPORTS;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp23</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -155,14 +155,26 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Inc\Camera.h" />
+    <ClInclude Include="Inc\Scene.h" />
+    <ClInclude Include="Inc\Actor.h" />
+    <ClInclude Include="Inc\AssetManager.h" />
     <ClInclude Include="Inc\Instance.h" />
     <ClInclude Include="Inc\RenderProxy.h" />
     <ClInclude Include="Inc\StaticMesh.h" />
+    <ClInclude Include="Inc\SceneManager.h" />
+    <ClInclude Include="Inc\Transform.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Camera.cpp" />
+    <ClCompile Include="Src\Scene.cpp" />
+    <ClCompile Include="Src\Actor.cpp" />
+    <ClCompile Include="Src\AssetManager.cpp" />
+    <ClCompile Include="Src\SceneManager.cpp" />
     <ClCompile Include="Src\RenderProxy.cpp" />
     <ClCompile Include="Src\Instance.cpp" />
     <ClCompile Include="Src\StaticMesh.cpp" />
+    <ClCompile Include="Src\Transform.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

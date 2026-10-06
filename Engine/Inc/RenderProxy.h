@@ -17,15 +17,14 @@ public:
 
   TResult Initialize(const rhi::TCreateInfo& createInfo);
 
-  TResult CreateStaticMesh(const render::TMeshCreateInfo& createInfo, std::unique_ptr<CStaticMesh>& pStaticMesh);
+  void RenderFrame(const float engineTime);
+  void AddStaticMeshToFrame(CStaticMesh* pStaticMesh);
 
-  void RenderFrame();
+  render::CRenderer& GetRenderer() { return m_renderer; }
 
 private:
 
   render::CRenderer m_renderer;
   render::CFrameInput m_frameInput;
-  //TODO remove!
-  std::unique_ptr<CStaticMesh> m_pStaticMesh;
 };
 }

@@ -25,7 +25,8 @@ void CGameLoop::OnTick()
 CInstance::CInstance()
   : m_gameLoop(*this)
   , m_window(m_gameLoop)
-  //, m_assetManager(m_renderProxy)
+  , m_sceneManager(*this)
+  , m_assetManager(*this)
 {
 }
 
@@ -75,8 +76,8 @@ TResult CInstance::CreateRenderProxy(const TInstanceCreateInfo& createInfo)
 void CInstance::OnTick()
 {
   m_timer.Update();
-  //m_world.EvaluateScene(m_renderProxy);
-  m_renderProxy.RenderFrame();
+  m_sceneManager.EvaluateCurrentScene();
+  m_renderProxy.RenderFrame(m_timer.GetEngineTime());
   m_pGame->OnTick(m_timer.GetDeltaTime());
 }
 }

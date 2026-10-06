@@ -16,8 +16,9 @@ CWindow::~CWindow()
   CGE_WARN("exit application...");
 }
 
-TResult CWindow::Create(const TWindowCreateInfo& windowCreateInfo)
+TResult CWindow::Create(const TWindowCreateInfo& createInfo)
 {
+  m_createInfo = createInfo;
   m_windowData.m_hinstance = GetModuleHandle(nullptr);
 
   LPCTSTR wndClassName = TEXT("cge_window_class");
@@ -44,11 +45,11 @@ TResult CWindow::Create(const TWindowCreateInfo& windowCreateInfo)
   m_windowData.m_hwnd = CreateWindowEx(
     0L,
     wndClassName,
-    TEXT(windowCreateInfo.m_title.c_str()),
+    TEXT(createInfo.m_title.c_str()),
     WS_OVERLAPPEDWINDOW,
     CW_USEDEFAULT, CW_USEDEFAULT,
-    windowCreateInfo.m_width,
-    windowCreateInfo.m_height,
+    createInfo.m_width,
+    createInfo.m_height,
     nullptr,
     nullptr,
     m_windowData.m_hinstance,

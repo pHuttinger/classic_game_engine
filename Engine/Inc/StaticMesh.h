@@ -5,6 +5,8 @@
 #pragma once
 
 #include <Renderer/Inc/Renderer.h>
+#include "Camera.h"
+#include "Transform.h"
 
 namespace cge
 {
@@ -26,7 +28,7 @@ public:
 
   TResult Initialize(render::CRenderer& renderer, const render::TMeshCreateInfo& createInfo);
 
-  void OnTick();
+  void Update(const CCamera& camera, CTransform& transform);
 
   render::CMeshData* GetMeshData() const { return m_pMeshData.get(); };
   render::CShaderData* GetShaderData() const { return m_pShaderData.get(); }

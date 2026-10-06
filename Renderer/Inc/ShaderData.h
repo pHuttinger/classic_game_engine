@@ -24,6 +24,7 @@ enum class EShaderDataDestination : uint32_t
 //----------------------------------------------------
 struct TShaderDataCreateInfo final
 {
+  //TODO put shaderData also into resourceManager and get it by CreateInfo
   size_t m_size = 0U;
   EShaderDataDestination m_destination = EShaderDataDestination::Vertex;
 };

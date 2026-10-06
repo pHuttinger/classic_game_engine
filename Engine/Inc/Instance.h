@@ -23,7 +23,7 @@ public:
 
   virtual ~IGame() = default;
 
-  virtual TResult OnCreate(CInstance& instance) = 0;
+  virtual TResult OnCreate(cge::CInstance& instance) = 0;
   virtual void OnTick(const float deltaTime) = 0;
 };
 
@@ -59,6 +59,8 @@ private:
 class CInstance final
 {
 friend class CGameLoop;
+friend class CSceneManager;
+friend class CAssetManager;
 
 public:
 
@@ -75,6 +77,8 @@ private:
 
   TResult CreateRenderProxy(const TInstanceCreateInfo& createInfo);
   void OnTick();
+
+  CRenderProxy& GetRenderProxy() { return m_renderProxy; }
 
   CWindow                m_window;
   CTimer                 m_timer;

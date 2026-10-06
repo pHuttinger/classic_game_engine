@@ -55,13 +55,15 @@ public:
   void StartLoop();
 
   const TWindowData& GetWindowData() { return m_windowData; }
+  const TWindowCreateInfo& GetWindowCreateInfo() { return m_createInfo; }
 
 private:
 
   static void ExitApplication();
   static LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
-  TWindowData m_windowData;
+  TWindowCreateInfo    m_createInfo;
+  TWindowData          m_windowData;
   IWindowLoopCallback& m_windowLoopCallback;
 };
 }

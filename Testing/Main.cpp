@@ -2,28 +2,8 @@
 // Copyright (C) P.Huttinger 2026 - CGE game engine //
 //////////////////////////////////////////////////////
 
-#include <Engine/Inc/Instance.h>
+#include "TestGame.h"
 
-//----------------------------------------------------
-// CTestGame
-//----------------------------------------------------
-class CTestGame : public cge::IGame
-{
-public:
-
-  cge::TResult OnCreate(cge::CInstance& instance) override
-  {
-    return cge::TResult::Okay();
-  }
-
-  void OnTick(const float deltaTime) override
-  {
-  }
-};
-
-//----------------------------------------------------
-// entry point
-//----------------------------------------------------
 int main()
 {
   cge::TWindowCreateInfo windowCreateInfo
