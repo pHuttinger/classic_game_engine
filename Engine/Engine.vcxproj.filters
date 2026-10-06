@@ -18,7 +18,7 @@
     <ClInclude Include="Inc\Instance.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Inc\App\RenderProxy.h">
+    <ClInclude Include="Inc\RenderProxy.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Inc\StaticMesh.h">
@@ -29,7 +29,7 @@
     <ClCompile Include="Src\Instance.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Src\App\RenderProxy.cpp">
+    <ClCompile Include="Src\RenderProxy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Src\StaticMesh.cpp">

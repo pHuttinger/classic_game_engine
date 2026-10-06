@@ -10,10 +10,9 @@ namespace cge::rhi
 // CreateInstance - Helper - Function
 //---------------------------------------------------
 template <typename TInstance>
-static TResult TCreateInstance(const TCreateInfo& createInfo, std::unique_ptr<IInstance>& pInstanceInterface)
+static TResult CreateInstance(const TCreateInfo& createInfo, std::unique_ptr<IInstance>& pInstance)
 {
-  pInstanceInterface = std::make_unique<TInstance>();
-  auto* pInstance = static_cast<TInstance*>(pInstanceInterface.get());
+  pInstance = std::make_unique<TInstance>();
   return pInstance->Create(createInfo);
 }
 
@@ -24,7 +23,7 @@ TResult CreateInstance(const TCreateInfo& createInfo, std::unique_ptr<IInstance>
 {
   switch (createInfo.m_backend)
   {
-    case EBackend::DX11  : return TCreateInstance<dx11::CInstance>(createInfo, pInstance);
+    case EBackend::DX11  : return CreateInstance<dx11::CInstance>(createInfo, pInstance);
     case EBackend::OpenGL: return TResult::Error("OpenGL is not implemented yet!");
   }
 

@@ -51,6 +51,8 @@ public:
 
   virtual ~IInstance() = default;
 
+  virtual TResult Create(const TCreateInfo& createInfo) = 0;
+
   virtual std::unique_ptr<IPipeline> CreatePipeline() = 0;
 
   virtual TResult CreateSurface(const TSurfaceCreateInfo& createInfo, std::unique_ptr<ISurface>& pSurface) = 0;

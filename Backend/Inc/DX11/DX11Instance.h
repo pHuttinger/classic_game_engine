@@ -16,7 +16,7 @@ public:
   CInstance() = default;
   ~CInstance();
 
-  TResult Create(const TCreateInfo& createInfo);
+  TResult Create(const TCreateInfo& createInfo) override;
 
   std::unique_ptr<IPipeline> CreatePipeline() override;
 

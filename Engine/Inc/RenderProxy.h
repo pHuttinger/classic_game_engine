@@ -5,7 +5,7 @@
 #pragma once
 
 #include <Renderer/Inc/Renderer.h>
-#include "../StaticMesh.h"
+#include "StaticMesh.h"
 
 namespace cge
 {

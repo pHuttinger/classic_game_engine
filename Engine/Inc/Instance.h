@@ -6,9 +6,9 @@
 
 #include <Common/Inc/Window.h>
 #include <Common/Inc/Timer.h>
-#include "App/RenderProxy.h"
-//#include "AssetManager.h"
-//#include "../Scene/World.h"
+#include "RenderProxy.h"
+#include "SceneManager.h"
+#include "AssetManager.h"
 
 namespace cge
 {
@@ -33,7 +33,7 @@ public:
 struct TInstanceCreateInfo final
 {
   TWindowCreateInfo      m_windowCreateInfo;
-  rhi::EBackend          m_backend;
+  rhi::EBackend          m_backend = rhi::EBackend::DX11;
   std::unique_ptr<IGame> m_pGame;
 };
 
@@ -58,7 +58,7 @@ private:
 //---------------------------------------------------
 class CInstance final
 {
-  friend class CGameLoop;
+friend class CGameLoop;
 
 public:
 
@@ -68,20 +68,20 @@ public:
   TResult Create(TInstanceCreateInfo& createInfo);
   void Run();
 
-  //CWorld& GetWorld() { return m_world; }
-  //CAssetManager& GetAssetManager() { return m_assetManager; }
+  CSceneManager& GetSceneManager() { return m_sceneManager; }
+  CAssetManager& GetAssetManager() { return m_assetManager; }
 
 private:
 
   TResult CreateRenderProxy(const TInstanceCreateInfo& createInfo);
   void OnTick();
 
-  CWindow m_window;
-  CTimer m_timer;
-  CGameLoop m_gameLoop;
-  CRenderProxy m_renderProxy;
-  //CWorld m_world;
-  //CAssetManager m_assetManager;
+  CWindow                m_window;
+  CTimer                 m_timer;
+  CGameLoop              m_gameLoop;
+  CRenderProxy           m_renderProxy;
+  CSceneManager          m_sceneManager;
+  CAssetManager          m_assetManager;
   std::unique_ptr<IGame> m_pGame;
 };
 }

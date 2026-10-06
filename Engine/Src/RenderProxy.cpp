@@ -2,7 +2,7 @@
 // Copyright (C) BifrostDev 2026 - LPE game engine //
 /////////////////////////////////////////////////////
 
-#include "../../Inc/App/RenderProxy.h"
+#include "../Inc/RenderProxy.h"
 
 namespace cge
 {

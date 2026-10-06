@@ -156,11 +156,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Inc\Instance.h" />
-    <ClInclude Include="Inc\App\RenderProxy.h" />
+    <ClInclude Include="Inc\RenderProxy.h" />
     <ClInclude Include="Inc\StaticMesh.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Src\App\RenderProxy.cpp" />
+    <ClCompile Include="Src\RenderProxy.cpp" />
     <ClCompile Include="Src\Instance.cpp" />
     <ClCompile Include="Src\StaticMesh.cpp" />
   </ItemGroup>
