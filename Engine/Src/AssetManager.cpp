@@ -14,7 +14,7 @@ CAssetManager::CAssetManager(CInstance& instance)
 
 CActor* CAssetManager::CreateActor()
 {
-  auto pActor = std::make_unique<CActor>();
+  auto pActor = std::make_unique<CActor>(m_instance);
   m_assetStore.m_actors.push_back(std::move(pActor));
   return m_assetStore.m_actors.back().get();
 }

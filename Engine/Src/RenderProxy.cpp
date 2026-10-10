@@ -23,19 +23,8 @@ void CRenderProxy::RenderFrame(const float engineTime)
   m_frameInput.Reset();
 }
 
-void CRenderProxy::AddStaticMeshToFrame(CStaticMesh* pStaticMesh)
+void CRenderProxy::AddDrawCall(const render::TDrawCall& drawCall)
 {
-  std::vector<render::CShaderData*> shaderData 
-  {
-    pStaticMesh->GetShaderData()
-  };
-
-  render::TDrawCall drawCall
-  {
-    .m_pMeshData  = pStaticMesh->GetMeshData(),
-    .m_shaderData = shaderData,
-  };
-
   m_frameInput.AddDrawCall(drawCall);
 }
 }

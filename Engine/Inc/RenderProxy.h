@@ -18,7 +18,7 @@ public:
   TResult Initialize(const rhi::TCreateInfo& createInfo);
 
   void RenderFrame(const float engineTime);
-  void AddStaticMeshToFrame(CStaticMesh* pStaticMesh);
+  void AddDrawCall(const render::TDrawCall& drawCall);
 
   render::CRenderer& GetRenderer() { return m_renderer; }
 

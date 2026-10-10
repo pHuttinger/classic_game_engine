@@ -9,7 +9,6 @@
 
 namespace cge::rhi
 {
-//TODO maybe move enums to Common
 //---------------------------------------------------
 // EVertexAttributeUsage
 //---------------------------------------------------

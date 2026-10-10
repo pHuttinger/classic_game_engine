@@ -14,4 +14,5 @@ public:
 private:
 
   cge::CActor* m_pActor = nullptr;
+  cge::CActor* m_pActor2 = nullptr;
 };

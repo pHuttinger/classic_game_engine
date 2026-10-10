@@ -61,6 +61,7 @@ class CInstance final
 friend class CGameLoop;
 friend class CSceneManager;
 friend class CAssetManager;
+friend class CActor;
 
 public:
 

@@ -51,11 +51,21 @@ void CSceneManager::EvaluateCurrentScene()
 
   for (CActor* pActor : m_pCurrentScene->GetActors())
   {
-    for (CStaticMesh* pStaticMesh : pActor->GetStaticMeshes())
+    for (const TStaticMeshData& staticMeshData : pActor->GetStaticMeshes())
     {
       //TODO somehow we have to evaluate childrens transformations and apply them to the static meshes
-      pStaticMesh->Update(camera, pActor->GetTransform());
-      m_instance.GetRenderProxy().AddStaticMeshToFrame(pStaticMesh);
+      CStaticMesh* pStaticMesh = staticMeshData.m_pStaticMesh;
+      render::CShaderData* pShaderData = staticMeshData.m_pShaderData.get();
+
+      staticMeshData.m_pStaticMesh->Update(pShaderData, camera, pActor->GetTransform());
+
+      render::TDrawCall drawCall
+      {
+        .m_pMeshData  = pStaticMesh->GetMeshData(),
+        .m_shaderData = { pShaderData }
+      };
+
+      m_instance.GetRenderProxy().AddDrawCall(drawCall);
     }
   }
 }

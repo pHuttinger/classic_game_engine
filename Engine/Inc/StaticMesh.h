@@ -28,14 +28,12 @@ public:
 
   TResult Initialize(render::CRenderer& renderer, const render::TMeshCreateInfo& createInfo);
 
-  void Update(const CCamera& camera, CTransform& transform);
+  void Update(render::CShaderData* pShaderData, const CCamera& camera, CTransform& transform);
 
   render::CMeshData* GetMeshData() const { return m_pMeshData.get(); };
-  render::CShaderData* GetShaderData() const { return m_pShaderData.get(); }
 
 private:
 
   std::unique_ptr<render::CMeshData> m_pMeshData;
-  std::unique_ptr<render::CShaderData> m_pShaderData;
 };
 }

@@ -13,10 +13,14 @@ cge::TResult CTestGame::OnCreate(cge::CInstance& instance)
   sceneManager.SetCurrentScene("TestScene");
 
   cge::CStaticMesh* pStaticMesh = assetManager.CreateStaticMesh();
+  
   m_pActor = assetManager.CreateActor();
-
   m_pActor->AddStaticMesh(pStaticMesh);
   pScene->AddActor(m_pActor);
+
+  m_pActor2 = assetManager.CreateActor();
+  m_pActor2->AddStaticMesh(pStaticMesh);
+  pScene->AddActor(m_pActor2);
 
   cge::CCamera& camera = pScene->GetCurrentCamera();
   camera.GetTransform().GetPosition() = glm::vec3(0.0f, 0.0f, -5.0f);

@@ -21,9 +21,6 @@ TResult CGeometryPass::Initialize()
   CGE_TRY(CreateRenderTarget(m_pRenderTarget_Albedo));
   CGE_TRY(CreateRenderTarget(m_pRenderTarget_Normal));
 
-  m_renderTargets.push_back(m_pRenderTarget_Albedo.get());
-  m_renderTargets.push_back(m_pRenderTarget_Normal.get());
-
   return TResult::Okay();
 }
 
@@ -41,11 +38,7 @@ std::vector<rhi::IRenderTarget*> CGeometryPass::Execute(const CFrameInput& input
     RenderMesh(*drawCall.m_pMeshData, drawCall.m_shaderData);
   }
 
-  return
-  {
-    m_pRenderTarget_Albedo.get(),
-    m_pRenderTarget_Normal.get(),
-  };
+  return m_renderTargets;
 }
 
 TResult CGeometryPass::CreateRenderTarget(std::unique_ptr<rhi::IRenderTarget>& renderTarget)
@@ -58,7 +51,9 @@ TResult CGeometryPass::CreateRenderTarget(std::unique_ptr<rhi::IRenderTarget>& r
     .m_height = surfaceCreateInfo.m_height  
   };
 
-  return backend.GetInstance().CreateRenderTarget(createInfo, renderTarget);
+  CGE_TRY(backend.GetInstance().CreateRenderTarget(createInfo, renderTarget));
+  m_renderTargets.push_back(renderTarget.get());
+  return TResult::Okay();
 }
 
 TResult CGeometryPass::CreateDepthBuffer()
