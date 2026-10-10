@@ -26,13 +26,14 @@ private:
   TResult CreateRenderTarget(std::unique_ptr<rhi::IRenderTarget>& renderTarget);
   TResult CreateDepthBuffer();
 
-  void RenderMesh(CMeshData& meshData, const std::vector<CShaderData*> shaderData);
+  void DrawMesh(CMeshData& meshData, const std::vector<CShaderData*> shaderData);
   void BindShaderData(const std::vector<CShaderData*>& shaderData);
 
   CRenderer& m_renderer;
-  std::unique_ptr<rhi::IDepthBuffer> m_pDepthBuffer;
-  std::vector<rhi::IRenderTarget*> m_renderTargets;
-  std::shared_ptr<rhi::ISampler> m_pSampler;
+
+  std::unique_ptr<rhi::IDepthBuffer>  m_pDepthBuffer;
+  std::vector<rhi::IRenderTarget*>    m_renderTargets;
+  std::shared_ptr<rhi::ISampler>      m_pSampler;
   std::unique_ptr<rhi::IRenderTarget> m_pRenderTarget_Albedo;
   std::unique_ptr<rhi::IRenderTarget> m_pRenderTarget_Normal;
 };

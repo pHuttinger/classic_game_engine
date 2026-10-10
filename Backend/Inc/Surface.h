@@ -30,6 +30,7 @@ public:
 
   virtual void Clear(const glm::vec4& color) = 0;
   virtual void SetAsRenderTarget() = 0;
+  virtual void SetDefaultViewport() = 0;
 
   virtual TSurfaceCreateInfo GetCreateInfo() const = 0;
 };

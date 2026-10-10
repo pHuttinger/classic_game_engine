@@ -17,9 +17,9 @@ TResult CBackend::Initialize(const rhi::TCreateInfo& createInfo)
   };
 
   CGE_TRY(m_pInstance->CreateSurface(surfaceCreateInfo, m_pSurface));
+  m_pSurface->SetDefaultViewport();
 
   m_pPipeline = m_pInstance->CreatePipeline();
-
   m_pPipeline->SetVertexTopology(rhi::EVertexTopology::TriangleList);
 
   return TResult::Okay();

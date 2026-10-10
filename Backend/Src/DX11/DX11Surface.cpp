@@ -31,6 +31,10 @@ void CSurface::SetAsRenderTarget()
 {
   ID3D11RenderTargetView* renderTargets[] = { m_pRenderTargetView.Get() };
   m_instance.GetDeviceContext()->OMSetRenderTargets(1U, renderTargets, nullptr);
+}
+
+void CSurface::SetDefaultViewport()
+{
   m_instance.GetDeviceContext()->RSSetViewports(1U, &m_viewport);
 }
 
@@ -58,5 +62,7 @@ void CSurface::InitializeViewport(const TSurfaceCreateInfo& createInfo)
   m_viewport.TopLeftY = 0.0f;
   m_viewport.Width    = m_createInfo.m_width;
   m_viewport.Height   = m_createInfo.m_height;
+  m_viewport.MinDepth = 0.0f;
+  m_viewport.MaxDepth = 1.0f;
 }
 }

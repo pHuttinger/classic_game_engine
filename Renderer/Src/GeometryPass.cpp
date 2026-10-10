@@ -28,14 +28,13 @@ std::vector<rhi::IRenderTarget*> CGeometryPass::Execute(const CFrameInput& input
 {
   m_pRenderTarget_Albedo->Clear(CLEAR_COLOR_TRANSPARENT);
   m_pRenderTarget_Normal->Clear(CLEAR_COLOR_TRANSPARENT);
-
   m_pDepthBuffer->Clear();
   m_renderer.GetBackend().GetPipeline().BindRenderTargets(m_renderTargets, m_pDepthBuffer.get());
   m_renderer.GetBackend().GetPipeline().BindSampler(m_pSampler.get());
 
   for (auto& drawCall : input.GetDrawCalls())
   {
-    RenderMesh(*drawCall.m_pMeshData, drawCall.m_shaderData);
+    DrawMesh(*drawCall.m_pMeshData, drawCall.m_shaderData);
   }
 
   return m_renderTargets;
@@ -69,7 +68,7 @@ TResult CGeometryPass::CreateDepthBuffer()
   return backend.GetInstance().CreateDepthBuffer(createInfo, m_pDepthBuffer);
 }
 
-void CGeometryPass::RenderMesh(CMeshData& meshData, const std::vector<CShaderData*> shaderData)
+void CGeometryPass::DrawMesh(CMeshData& meshData, const std::vector<CShaderData*> shaderData)
 {
   rhi::IPipeline& pipeline = m_renderer.GetBackend().GetPipeline();
 

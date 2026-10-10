@@ -28,7 +28,7 @@ TResult CActor::AddStaticMesh(CStaticMesh* pStaticMesh)
   TStaticMeshData staticMeshData
   {
     .m_pStaticMesh = pStaticMesh,
-    .m_pShaderData  = std::move(pShaderData),
+    .m_pShaderData = std::move(pShaderData),
   };
 
   m_staticMeshes.push_back(staticMeshData);
