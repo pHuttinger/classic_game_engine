@@ -98,6 +98,8 @@ void CGeometryPass::BindShaderData(const std::vector<CShaderData*>& shaderData)
   size_t vertexShaderIndex = 0U, pixelShaderIndex = 0U;
   for (auto* data : shaderData)
   {
+    data->UpdateBuffer();
+
     if (data->GetCreateInfo().m_destination == EShaderDataDestination::Vertex)
     {
       pipeline.BindVertexShaderResources(vertexShaderIndex, data->GetBuffer());

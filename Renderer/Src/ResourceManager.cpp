@@ -140,6 +140,31 @@ TResult CResourceManager::GetRasterizerState(const ERasterizerState rasterizerSt
   return TResult::Okay();
 }
 
+TResult CResourceManager::GetConstantBuffer(const TShaderDataCreateInfo& createInfo, std::shared_ptr<rhi::IBuffer>& pBuffer)
+{
+  std::string key = GetShaderDataCreateInfoKey(createInfo);
+  if(m_constantBuffers.find(key) == m_constantBuffers.end())
+  {
+    rhi::TBufferCreateInfo bufferCreateInfo
+    {
+      .m_usage      = rhi::EBufferUsage::Default,
+      .m_bufferType = rhi::EBufferType::ConstantBuffer,
+      .m_size       = createInfo.m_size,
+    };
+
+    std::unique_ptr<rhi::IBuffer> pBuffer;
+    if (TResult result = m_backend.GetInstance().CreateBuffer(bufferCreateInfo, pBuffer); result.IsError())
+    {
+      return result;
+    }
+
+    m_constantBuffers[key] = std::move(pBuffer);
+  }
+
+  pBuffer = m_constantBuffers[key];
+  return TResult::Okay();
+}
+
 std::vector<rhi::TVertexAttribute> CResourceManager::GetVertexAttributesByVertexType(const EVertexType vertexType) const
 {
   switch (vertexType)
@@ -183,5 +208,12 @@ rhi::TRasterizerStateCreateInfo CResourceManager::GetRasterizerStateCreateInfo(c
     .m_cullMode = rhi::ECullMode::Back,
     .m_frontFace = rhi::EFrontFace::Clockwise
   };
+}
+
+std::string CResourceManager::GetShaderDataCreateInfoKey(const TShaderDataCreateInfo& createInfo) const
+{
+  std::string destStr = std::to_string(static_cast<uint32_t>(createInfo.m_destination));
+  std::string sizeStr = std::to_string(createInfo.m_size);
+  return destStr + ":" + sizeStr;
 }
 }

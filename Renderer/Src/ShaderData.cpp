@@ -16,22 +16,26 @@ TResult CShaderData::Initialize(const TShaderDataCreateInfo& createInfo)
 {
   m_createInfo = createInfo;
 
-  rhi::TBufferCreateInfo bufferCreateInfo
-  {
-    .m_usage      = rhi::EBufferUsage::Default,
-    .m_bufferType = rhi::EBufferType::ConstantBuffer,
-    .m_size       = createInfo.m_size
-  };
+  CResourceManager& resourceManager = m_renderer.GetResourceManager();
 
-  rhi::IInstance& rhi = m_renderer.GetBackend().GetInstance();
-
-  CGE_TRY(rhi.CreateBuffer(bufferCreateInfo, m_pBuffer));
+  CGE_TRY(resourceManager.GetConstantBuffer(createInfo, m_pBuffer));
 
   return TResult::Okay();
 }
 
-void CShaderData::UpdateData(const rhi::TBufferUpdateInfo& updateInfo)
+void CShaderData::SetData(const TDataHandle& data)
 {
+  m_data.resize(data.m_size);
+  std::memcpy(m_data.data(), data.m_pData, data.m_size);
+}
+
+void CShaderData::UpdateBuffer()
+{
+  rhi::TBufferUpdateInfo updateInfo
+  {
+    .m_pData = m_data.data()
+  };  
+
   rhi::IPipeline& pipeline = m_renderer.GetBackend().GetPipeline();
   pipeline.UpdateBuffer(m_pBuffer.get(), updateInfo);
 }

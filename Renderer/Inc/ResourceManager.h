@@ -6,6 +6,7 @@
 
 #include "Backend.h"
 #include "Common.h"
+#include "ShaderData.h"
 
 namespace cge::render
 {
@@ -21,11 +22,13 @@ public:
   TResult GetPixelShader(const std::string& shaderName, std::shared_ptr<rhi::IPixelShader>& pVixelShader);
   TResult GetTexture(const std::string& textureName, std::shared_ptr<rhi::ITexture>& pTexture);
   TResult GetRasterizerState(const ERasterizerState rasterizerState, std::shared_ptr<rhi::IRasterizerState>& pRasterizerState);
+  TResult GetConstantBuffer(const TShaderDataCreateInfo& createInfo, std::shared_ptr<rhi::IBuffer>& pBuffer);
 
 private:
 
   std::vector<rhi::TVertexAttribute> GetVertexAttributesByVertexType(const EVertexType vertexType) const;
   rhi::TRasterizerStateCreateInfo GetRasterizerStateCreateInfo(const ERasterizerState rasterizerState) const;
+  std::string GetShaderDataCreateInfoKey(const TShaderDataCreateInfo& createInfo) const;
 
   CBackend& m_backend;
 
@@ -35,5 +38,6 @@ private:
   std::unordered_map<std::string, std::shared_ptr<rhi::IPixelShader>> m_pixelShaders;
   std::unordered_map<std::string, std::shared_ptr<rhi::ITexture>> m_textures;
   std::unordered_map<ERasterizerState, std::shared_ptr<rhi::IRasterizerState>> m_rasterizerStates;
+  std::unordered_map<std::string, std::shared_ptr<rhi::IBuffer>> m_constantBuffers;
 };
 }

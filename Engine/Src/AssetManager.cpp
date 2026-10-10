@@ -107,6 +107,7 @@ CStaticMesh* CAssetManager::CreateStaticMesh()
   mci.m_rasterizerState    = render::ERasterizerState::Solid;
   //TODO remove
 
+  //TODO Get render::CMeshData from cache here!
   auto pStaticMesh = std::make_unique<CStaticMesh>();
   TResult result = pStaticMesh->Initialize(m_instance.GetRenderProxy().GetRenderer(), mci);
   if (result.IsError())

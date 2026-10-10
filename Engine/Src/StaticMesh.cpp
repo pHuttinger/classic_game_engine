@@ -31,11 +31,12 @@ void CStaticMesh::Update(const CCamera& camera, CTransform& transform)
   cbData.m_mvp   = glm::transpose(projectionMatrix * viewMatrix * modelMatrix);
   cbData.m_model = glm::transpose(modelMatrix);
 
-  rhi::TBufferUpdateInfo updateInfo
+  TDataHandle dataHandle
   {
+    .m_size  = sizeof(TStaticMeshShaderData),
     .m_pData = &cbData,
   };
 
-  m_pShaderData->UpdateData(updateInfo);
+  m_pShaderData->SetData(dataHandle);
 }
 }
