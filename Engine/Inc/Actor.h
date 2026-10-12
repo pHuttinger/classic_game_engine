@@ -34,6 +34,7 @@ public:
 
   CTransform& GetTransform() { return m_transform; }
   const std::vector<TStaticMeshData>& GetStaticMeshes() const { return m_staticMeshes; }
+  const std::vector<CActor*> GetChilds() const { return m_childs; }
 
 private:
 

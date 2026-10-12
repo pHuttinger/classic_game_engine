@@ -22,6 +22,8 @@ public:
 private:
 
   void EvaluateCurrentScene();
+  void EvaluateActor(CCamera& camera, CActor* pActor, const glm::mat4& parentMatrix);
+  void EvaluateStaticMesh(CCamera& camera, const glm::mat4& model, const TStaticMeshData& staticMeshData);
 
   CInstance& m_instance;
   std::unordered_map<std::string, std::unique_ptr<CScene>> m_scenes;

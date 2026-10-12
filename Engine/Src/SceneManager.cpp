@@ -51,22 +51,38 @@ void CSceneManager::EvaluateCurrentScene()
 
   for (CActor* pActor : m_pCurrentScene->GetActors())
   {
-    for (const TStaticMeshData& staticMeshData : pActor->GetStaticMeshes())
-    {
-      //TODO somehow we have to evaluate childrens transformations and apply them to the static meshes
-      CStaticMesh* pStaticMesh = staticMeshData.m_pStaticMesh;
-      render::CShaderData* pShaderData = staticMeshData.m_pShaderData.get();
-
-      staticMeshData.m_pStaticMesh->Update(pShaderData, camera, pActor->GetTransform());
-
-      render::TDrawCall drawCall
-      {
-        .m_pDrawItem  = pStaticMesh->GetDrawItem(),
-        .m_shaderData = { pShaderData }
-      };
-
-      m_instance.GetRenderProxy().AddDrawCall(drawCall);
-    }
+    EvaluateActor(camera, pActor, glm::mat4(1.0f));
   }
+}
+
+void CSceneManager::EvaluateActor(CCamera& camera, CActor* pActor, const glm::mat4& parentMatrix)
+{
+  glm::mat4 model = parentMatrix * pActor->GetTransform().GetModelMatrix();
+
+  for (const TStaticMeshData& staticMeshData : pActor->GetStaticMeshes())
+  {
+    EvaluateStaticMesh(camera, model, staticMeshData);
+  }
+
+  for (CActor* pChild : pActor->GetChilds())
+  {
+    EvaluateActor(camera, pChild, model);
+  }
+}
+
+void CSceneManager::EvaluateStaticMesh(CCamera& camera, const glm::mat4& model, const TStaticMeshData& staticMeshData)
+{
+  CStaticMesh* pStaticMesh = staticMeshData.m_pStaticMesh;
+  render::CShaderData* pShaderData = staticMeshData.m_pShaderData.get();
+
+  staticMeshData.m_pStaticMesh->Update(pShaderData, camera, model);
+
+  render::TDrawCall drawCall
+  {
+    .m_pDrawItem  = pStaticMesh->GetDrawItem(),
+    .m_shaderData = { pShaderData }
+  };
+
+  m_instance.GetRenderProxy().AddDrawCall(drawCall);
 }
 }

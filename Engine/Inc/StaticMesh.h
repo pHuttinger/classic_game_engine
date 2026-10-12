@@ -28,7 +28,7 @@ public:
 
   TResult Initialize(render::CRenderer& renderer, const render::TDrawItemCreateInfo& createInfo);
 
-  void Update(render::CShaderData* pShaderData, const CCamera& camera, CTransform& transform);
+  void Update(render::CShaderData* pShaderData, const CCamera& camera, const glm::mat4& modelMatrix);
 
   render::CDrawItem* GetDrawItem() const { return m_pDrawItem.get(); };
 
