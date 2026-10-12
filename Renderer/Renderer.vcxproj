@@ -163,7 +163,7 @@
     <ClInclude Include="Inc\FrameInput.h" />
     <ClInclude Include="Inc\RenderGraph.h" />
     <ClInclude Include="Inc\Composer.h" />
-    <ClInclude Include="Inc\Mesh.h" />
+    <ClInclude Include="Inc\DrawItem.h" />
     <ClInclude Include="Inc\ResourceManager.h" />
     <ClInclude Include="Inc\ShaderData.h" />
   </ItemGroup>
@@ -176,7 +176,7 @@
     <ClCompile Include="Src\FrameInput.cpp" />
     <ClCompile Include="Src\RenderGraph.cpp" />
     <ClCompile Include="Src\Renderer.cpp" />
-    <ClCompile Include="Src\Mesh.cpp" />
+    <ClCompile Include="Src\DrawItem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\Composer\PS_Composer.hlsl">

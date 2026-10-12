@@ -10,7 +10,7 @@ CRenderer::CRenderer()
   : m_renderGraph(*this)
   , m_composer(m_backend)
   , m_resourceManager(m_backend)
-  , m_meshFactory(*this)
+  , m_drawItemFactory(*this)
 {
 }
 

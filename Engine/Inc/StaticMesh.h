@@ -26,14 +26,14 @@ class CStaticMesh
 {
 public:
 
-  TResult Initialize(render::CRenderer& renderer, const render::TMeshCreateInfo& createInfo);
+  TResult Initialize(render::CRenderer& renderer, const render::TDrawItemCreateInfo& createInfo);
 
   void Update(render::CShaderData* pShaderData, const CCamera& camera, CTransform& transform);
 
-  render::CMeshData* GetMeshData() const { return m_pMeshData.get(); };
+  render::CDrawItem* GetDrawItem() const { return m_pDrawItem.get(); };
 
 private:
 
-  std::unique_ptr<render::CMeshData> m_pMeshData;
+  std::unique_ptr<render::CDrawItem> m_pDrawItem;
 };
 }

@@ -36,7 +36,7 @@
     <ClInclude Include="Inc\Composer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Inc\Mesh.h">
+    <ClInclude Include="Inc\DrawItem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Inc\ResourceManager.h">
@@ -68,7 +68,7 @@
     <ClCompile Include="Src\Composer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Mesh.cpp">
+    <ClCompile Include="Src\DrawItem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Src\ResourceManager.cpp">

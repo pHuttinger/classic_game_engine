@@ -6,26 +6,26 @@
 
 namespace cge
 {
-TResult CStaticMesh::Initialize(render::CRenderer& renderer, const render::TMeshCreateInfo& createInfo)
+TResult CStaticMesh::Initialize(render::CRenderer& renderer, const render::TDrawItemCreateInfo& createInfo)
 {
-  CGE_TRY(renderer.GetMeshFactory().CreateMesh(createInfo, m_pMeshData));
+  CGE_TRY(renderer.GetDrawItemFactory().CreateDrawItem(createInfo, m_pDrawItem));
   return TResult::Okay();
 }
 
 void CStaticMesh::Update(render::CShaderData* pShaderData, const CCamera& camera, CTransform& transform)
 {
-  glm::mat4 projectionMatrix = camera.GetProjectionMatrix();
-  glm::mat4 viewMatrix       = camera.GetViewMatrix();
+  glm::mat4 projectionMatrix = camera   .GetProjectionMatrix();
+  glm::mat4 viewMatrix       = camera   .GetViewMatrix();
   glm::mat4 modelMatrix      = transform.GetModelMatrix();
 
-  TStaticMeshShaderData cbData{};
-  cbData.m_mvp   = glm::transpose(projectionMatrix * viewMatrix * modelMatrix);
-  cbData.m_model = glm::transpose(modelMatrix);
+  TStaticMeshShaderData dataObj{};
+  dataObj.m_mvp   = glm::transpose(projectionMatrix * viewMatrix * modelMatrix);
+  dataObj.m_model = glm::transpose(modelMatrix);
 
   TDataHandle dataHandle
   {
     .m_size  = sizeof(TStaticMeshShaderData),
-    .m_pData = &cbData,
+    .m_pData = &dataObj,
   };
 
   pShaderData->SetData(dataHandle);

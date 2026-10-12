@@ -93,7 +93,7 @@ CStaticMesh* CAssetManager::CreateStaticMesh()
     20, 22, 23
   };
 
-  render::TMeshCreateInfo mci;
+  render::TDrawItemCreateInfo mci;
   mci.m_pixelShaderName    = "PS_StaticMesh";
   mci.m_vertexShaderName   = "VS_StaticMesh";
   mci.m_vertexType         = render::EVertexType::StaticMesh;
@@ -107,7 +107,7 @@ CStaticMesh* CAssetManager::CreateStaticMesh()
   mci.m_rasterizerState    = render::ERasterizerState::Solid;
   //TODO remove
 
-  //TODO Get render::CMeshData from cache here!
+  //TODO Get render::CDrawItem from cache here!
   auto pStaticMesh = std::make_unique<CStaticMesh>();
   TResult result = pStaticMesh->Initialize(m_instance.GetRenderProxy().GetRenderer(), mci);
   if (result.IsError())

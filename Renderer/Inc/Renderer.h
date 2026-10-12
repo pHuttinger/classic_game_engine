@@ -8,7 +8,7 @@
 #include "RenderGraph.h"
 #include "Composer.h"
 #include "ResourceManager.h"
-#include "Mesh.h"
+#include "DrawItem.h"
 #include "ShaderData.h"
 
 namespace cge::render
@@ -22,9 +22,9 @@ public:
   TResult Initialize(const rhi::TCreateInfo& createInfo);
   void RenderFrame(const CFrameInput& input);
 
-  CBackend& GetBackend() { return m_backend; }
+  CBackend&         GetBackend()         { return m_backend;         }
   CResourceManager& GetResourceManager() { return m_resourceManager; }
-  CMeshFactory& GetMeshFactory() { return m_meshFactory; }
+  CDrawItemFactory& GetDrawItemFactory() { return m_drawItemFactory; }
 
 private:
 
@@ -32,6 +32,6 @@ private:
   CRenderGraph     m_renderGraph;
   CComposer        m_composer;
   CResourceManager m_resourceManager;
-  CMeshFactory     m_meshFactory;
+  CDrawItemFactory m_drawItemFactory;
 };
 }

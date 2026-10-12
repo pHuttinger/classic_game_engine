@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "Mesh.h"
+#include "DrawItem.h"
 #include "ShaderData.h"
 
 namespace cge::render
@@ -14,7 +14,7 @@ namespace cge::render
 //----------------------------------------------------
 struct TDrawCall final
 {
-  CMeshData* m_pMeshData = nullptr;
+  CDrawItem* m_pDrawItem = nullptr;
   std::vector<CShaderData*> m_shaderData;
 };
 

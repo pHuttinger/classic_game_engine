@@ -61,7 +61,7 @@ void CSceneManager::EvaluateCurrentScene()
 
       render::TDrawCall drawCall
       {
-        .m_pMeshData  = pStaticMesh->GetMeshData(),
+        .m_pDrawItem  = pStaticMesh->GetDrawItem(),
         .m_shaderData = { pShaderData }
       };
 

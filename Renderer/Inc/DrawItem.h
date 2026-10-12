@@ -12,9 +12,9 @@ namespace cge::render
 class CRenderer;
 
 //----------------------------------------------------
-// TMeshCreateInfo
+// TDrawItemCreateInfo
 //----------------------------------------------------
-struct TMeshCreateInfo final
+struct TDrawItemCreateInfo final
 {
   EVertexType      m_vertexType      = EVertexType::Undefined;
   std::string      m_vertexShaderName;
@@ -28,9 +28,9 @@ struct TMeshCreateInfo final
 };
 
 //----------------------------------------------------
-// TSharedMeshResources
+// TSharedDrawResources
 //----------------------------------------------------
-struct TSharedMeshResources final
+struct TSharedDrawResources final
 {
   std::shared_ptr<rhi::IVertexShader>     m_pVertexShader;
   std::shared_ptr<rhi::IPixelShader>      m_pPixelShader;
@@ -49,42 +49,42 @@ struct TGeometryBuffer final
 };
 
 //----------------------------------------------------
-// CMeshData
+// CDrawItem
 //----------------------------------------------------
-class CMeshData final
+class CDrawItem final
 {
-friend class CMeshFactory;
+friend class CDrawItemFactory;
 
 public:
 
-  CMeshData(const TMeshCreateInfo& createInfo);
+  CDrawItem(const TDrawItemCreateInfo& createInfo);
 
-  TMeshCreateInfo& GetCreateInfo() { return m_createInfo; }
-  TGeometryBuffer& GetGeometryBuffer() { return m_geometryBuffer; }
-  TSharedMeshResources& GetSharedMeshResources() { return m_sharedResources; }
+  TDrawItemCreateInfo&  GetCreateInfo()          { return m_createInfo;      }
+  TGeometryBuffer&      GetGeometryBuffer()      { return m_geometryBuffer;  }
+  TSharedDrawResources& GetSharedMeshResources() { return m_sharedResources; }
 
 private:
 
-  TMeshCreateInfo      m_createInfo;
+  TDrawItemCreateInfo  m_createInfo;
   TGeometryBuffer      m_geometryBuffer;
-  TSharedMeshResources m_sharedResources;
+  TSharedDrawResources m_sharedResources;
 };
 
 //----------------------------------------------------
-// CMeshFactory
+// CDrawItemFactory
 //----------------------------------------------------
-class CMeshFactory final
+class CDrawItemFactory final
 {
 public:
 
-  CMeshFactory(CRenderer& renderer);
+  CDrawItemFactory(CRenderer& renderer);
 
-  TResult CreateMesh(const TMeshCreateInfo& createInfo, std::unique_ptr<CMeshData>& pMeshData);
+  TResult CreateDrawItem(const TDrawItemCreateInfo& createInfo, std::unique_ptr<CDrawItem>& pMeshData);
 
 private:
 
-  TResult CreateSharedMeshResources(const TMeshCreateInfo& createInfo, TSharedMeshResources& sharedResources);
-  TResult CreateGeometryBuffer(const TMeshCreateInfo& createInfo, TGeometryBuffer& geometryBuffer);
+  TResult CreateSharedDrawResources(const TDrawItemCreateInfo& createInfo, TSharedDrawResources& sharedResources);
+  TResult CreateGeometryBuffer(const TDrawItemCreateInfo& createInfo, TGeometryBuffer& geometryBuffer);
 
   CRenderer& m_renderer;
 };
