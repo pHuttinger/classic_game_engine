@@ -37,8 +37,6 @@ public:
   CCamera(const glm::vec2& viewportSize);
   virtual ~CCamera() = default;
 
-  void Update();
-
   CTransform& GetTransform();
 
   const glm::mat4 GetViewMatrix() const;
@@ -51,8 +49,6 @@ private:
   TFrustum ExtractFrustum() const;
 
   glm::vec2  m_viewportSize;
-  glm::mat4  m_viewMatrix;
-  glm::mat4  m_projectionMatrix;
   CTransform m_transform;
 };
 }

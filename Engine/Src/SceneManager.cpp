@@ -47,8 +47,6 @@ void CSceneManager::EvaluateCurrentScene()
   }
 
   CCamera& camera = m_pCurrentScene->GetCurrentCamera();
-  camera.Update();
-
   for (CActor* pActor : m_pCurrentScene->GetActors())
   {
     EvaluateActor(camera, pActor, glm::mat4(1.0f));
@@ -59,14 +57,14 @@ void CSceneManager::EvaluateActor(CCamera& camera, CActor* pActor, const glm::ma
 {
   glm::mat4 model = parentMatrix * pActor->GetTransform().GetModelMatrix();
 
-  for (const TStaticMeshData& staticMeshData : pActor->GetStaticMeshes())
-  {
-    EvaluateStaticMesh(camera, model, staticMeshData);
-  }
-
   for (CActor* pChild : pActor->GetChilds())
   {
     EvaluateActor(camera, pChild, model);
+  }
+
+  for (const TStaticMeshData& staticMeshData : pActor->GetStaticMeshes())
+  {
+    EvaluateStaticMesh(camera, model, staticMeshData);
   }
 }
 

@@ -12,24 +12,7 @@ namespace cge
 {
 CCamera::CCamera(const glm::vec2& viewportSize)
   : m_viewportSize(viewportSize)
-  , m_viewMatrix()
-  , m_projectionMatrix()
 {
-}
-
-void CCamera::Update()
-{
-  m_projectionMatrix = glm::perspectiveRH_ZO(glm::radians(FOV), m_viewportSize.x / m_viewportSize.y, NEAR_PLANE, FAR_PLANE);
-
-  glm::mat4 rotationMatrix = glm::mat4_cast(m_transform.GetRotation());
-
-  glm::vec3 position = m_transform.GetPosition();
-  glm::vec3 forward  = glm::vec3(rotationMatrix * glm::vec4(0.0f, 0.0f, 1.0f, 0.0f));
-  glm::vec3 right    = glm::vec3(rotationMatrix * glm::vec4(1.0f, 0.0f, 0.0f, 0.0f));
-  glm::vec3 up       = glm::cross(forward, right);
-  glm::vec3 target   = position + forward;
-
-  m_viewMatrix = glm::lookAtRH(position, target, up);
 }
 
 CTransform& CCamera::GetTransform()
@@ -39,12 +22,19 @@ CTransform& CCamera::GetTransform()
 
 const glm::mat4 CCamera::GetViewMatrix() const
 {
-  return m_viewMatrix;
+  glm::mat4 rotationMatrix = glm::mat4_cast(m_transform.GetConstRotation());
+  glm::vec3 position       = m_transform.GetConstPosition();
+  glm::vec3 forward        = glm::vec3(rotationMatrix * glm::vec4(0.0f, 0.0f, 1.0f, 0.0f));
+  glm::vec3 right          = glm::vec3(rotationMatrix * glm::vec4(1.0f, 0.0f, 0.0f, 0.0f));
+  glm::vec3 up             = glm::cross(forward, right);
+  glm::vec3 target         = position + forward;
+
+  return glm::lookAtRH(position, target, up);
 }
 
 const glm::mat4 CCamera::GetProjectionMatrix() const
 {
-  return m_projectionMatrix;
+  return glm::perspectiveRH_ZO(glm::radians(FOV), m_viewportSize.x / m_viewportSize.y, NEAR_PLANE, FAR_PLANE);
 }
 
 bool CCamera::SphereInFrustum(const glm::vec3& center, float radius) const
@@ -68,7 +58,7 @@ TFrustum CCamera::ExtractFrustum() const
 {
   TFrustum frustum{};
 
-  const glm::mat4 viewProj = m_projectionMatrix * m_viewMatrix;
+  const glm::mat4 viewProj = GetProjectionMatrix() * GetViewMatrix();
 
   // Left
   frustum.m_planes[0].m_normal.x = viewProj[0][3] + viewProj[0][0];
