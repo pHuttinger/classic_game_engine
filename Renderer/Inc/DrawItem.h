@@ -19,7 +19,7 @@ struct TDrawItemCreateInfo final
   EVertexType      m_vertexType      = EVertexType::Undefined;
   std::string      m_vertexShaderName;
   std::string      m_pixelShaderName;
-  std::string      m_textureName;    //TODO this should'nt be done like this
+  std::string      m_textureName;
   TDataHandle      m_vertexData;
   TDataHandle      m_indexData;
   uint32_t         m_indexCount      = 0U;
@@ -57,7 +57,9 @@ friend class CDrawItemFactory;
 
 public:
 
-  CDrawItem(const TDrawItemCreateInfo& createInfo);
+  CDrawItem(CRenderer& renderer, const TDrawItemCreateInfo& createInfo);
+
+  TResult SetRasterizerState(const ERasterizerState state);
 
   TDrawItemCreateInfo&  GetCreateInfo()          { return m_createInfo;      }
   TGeometryBuffer&      GetGeometryBuffer()      { return m_geometryBuffer;  }
@@ -65,6 +67,7 @@ public:
 
 private:
 
+  CRenderer&           m_renderer;
   TDrawItemCreateInfo  m_createInfo;
   TGeometryBuffer      m_geometryBuffer;
   TSharedDrawResources m_sharedResources;

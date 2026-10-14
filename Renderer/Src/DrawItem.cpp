@@ -7,9 +7,19 @@
 
 namespace cge::render
 {
-CDrawItem::CDrawItem(const TDrawItemCreateInfo& createInfo)
-  : m_createInfo(createInfo)
+CDrawItem::CDrawItem(CRenderer& renderer, const TDrawItemCreateInfo& createInfo)
+  : m_renderer(renderer)
+  , m_createInfo(createInfo)
 {
+}
+
+TResult CDrawItem::SetRasterizerState(const ERasterizerState state)
+{
+  CResourceManager& resourceManager = m_renderer.GetResourceManager();
+
+  CGE_TRY(resourceManager.GetRasterizerState(state, m_sharedResources.m_pRasterizerState));
+
+  return TResult::Okay();
 }
 
 CDrawItemFactory::CDrawItemFactory(CRenderer& renderer)
@@ -19,7 +29,7 @@ CDrawItemFactory::CDrawItemFactory(CRenderer& renderer)
 
 TResult CDrawItemFactory::CreateDrawItem(const TDrawItemCreateInfo& createInfo, std::unique_ptr<CDrawItem>& pMeshData)
 {
-  pMeshData = std::make_unique<CDrawItem>(createInfo);
+  pMeshData = std::make_unique<CDrawItem>(m_renderer, createInfo);
 
   CGE_TRY(CreateSharedDrawResources(createInfo, pMeshData->m_sharedResources));
   CGE_TRY(CreateGeometryBuffer(createInfo, pMeshData->m_geometryBuffer));

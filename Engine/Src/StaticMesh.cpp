@@ -29,4 +29,9 @@ void CStaticMesh::Update(render::CShaderData* pShaderData, const CCamera& camera
 
   pShaderData->SetData(dataHandle);
 }
+
+TResult CStaticMesh::SetRasterizerState(const render::ERasterizerState state)
+{
+  return m_pDrawItem->SetRasterizerState(state);
+}
 }

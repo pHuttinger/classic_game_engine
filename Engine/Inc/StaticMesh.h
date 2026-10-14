@@ -30,6 +30,8 @@ public:
 
   void Update(render::CShaderData* pShaderData, const CCamera& camera, const glm::mat4& modelMatrix);
 
+  TResult SetRasterizerState(const render::ERasterizerState state);
+
   render::CDrawItem* GetDrawItem() const { return m_pDrawItem.get(); };
 
 private:

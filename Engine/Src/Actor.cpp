@@ -25,13 +25,13 @@ TResult CActor::AddStaticMesh(CStaticMesh* pStaticMesh)
 
   CGE_TRY(pShaderData->Initialize(shaderDataCreateInfo));
 
-  TStaticMeshData staticMeshData
+  TStaticMeshContext staticMeshContext
   {
     .m_pStaticMesh = pStaticMesh,
     .m_pShaderData = std::move(pShaderData),
   };
 
-  m_staticMeshes.push_back(staticMeshData);
+  m_staticMeshes.push_back(staticMeshContext);
   return TResult::Okay();
 }
 

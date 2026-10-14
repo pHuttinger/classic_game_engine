@@ -25,10 +25,8 @@ CScene* CSceneManager::CreateScene(const std::string& name)
     m_instance.m_window.GetWindowCreateInfo().m_height,
   };
 
-  auto pScene = std::make_unique<CScene>(viewportSize);
-  CScene* scenePtr = pScene.get();
-  m_scenes.emplace(name, std::move(pScene));
-  return scenePtr;
+  m_scenes.emplace(name, std::make_unique<CScene>(viewportSize));
+  return m_scenes[name].get();
 }
 
 void CSceneManager::SetCurrentScene(const std::string& name)
@@ -62,18 +60,18 @@ void CSceneManager::EvaluateActor(CCamera& camera, CActor* pActor, const glm::ma
     EvaluateActor(camera, pChild, model);
   }
 
-  for (const TStaticMeshData& staticMeshData : pActor->GetStaticMeshes())
+  for (const TStaticMeshContext& staticMeshContext : pActor->GetStaticMeshes())
   {
-    EvaluateStaticMesh(camera, model, staticMeshData);
+    EvaluateStaticMesh(camera, model, staticMeshContext);
   }
 }
 
-void CSceneManager::EvaluateStaticMesh(CCamera& camera, const glm::mat4& model, const TStaticMeshData& staticMeshData)
+void CSceneManager::EvaluateStaticMesh(CCamera& camera, const glm::mat4& model, const TStaticMeshContext& staticMeshContext)
 {
-  CStaticMesh* pStaticMesh = staticMeshData.m_pStaticMesh;
-  render::CShaderData* pShaderData = staticMeshData.m_pShaderData.get();
+  CStaticMesh* pStaticMesh = staticMeshContext.m_pStaticMesh;
+  render::CShaderData* pShaderData = staticMeshContext.m_pShaderData.get();
 
-  staticMeshData.m_pStaticMesh->Update(pShaderData, camera, model);
+  staticMeshContext.m_pStaticMesh->Update(pShaderData, camera, model);
 
   render::TDrawCall drawCall
   {

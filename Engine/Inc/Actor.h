@@ -12,16 +12,16 @@ namespace cge
 class CInstance;
 
 //----------------------------------------------------
-// TStaticMeshData
+// TStaticMeshContext
 //----------------------------------------------------
-struct TStaticMeshData final
+struct TStaticMeshContext final
 {
   CStaticMesh* m_pStaticMesh = nullptr;
   std::shared_ptr<render::CShaderData> m_pShaderData;
 };
 
 //----------------------------------------------------
-// TStaticMeshData
+// TStaticMeshContext
 //----------------------------------------------------
 class CActor final
 {
@@ -33,14 +33,14 @@ public:
   void AddChild(CActor* pChild);
 
   CTransform& GetTransform() { return m_transform; }
-  const std::vector<TStaticMeshData>& GetStaticMeshes() const { return m_staticMeshes; }
+  const std::vector<TStaticMeshContext>& GetStaticMeshes() const { return m_staticMeshes; }
   const std::vector<CActor*> GetChilds() const { return m_childs; }
 
 private:
 
-  CInstance& m_instance;
-  CTransform m_transform;
-  std::vector<TStaticMeshData> m_staticMeshes;
-  std::vector<CActor*> m_childs;
+  CInstance&                      m_instance;
+  CTransform                      m_transform;
+  std::vector<TStaticMeshContext> m_staticMeshes;
+  std::vector<CActor*>            m_childs;
 };
 }
