@@ -22,7 +22,7 @@ struct TDrawItemCreateInfo final
   std::string      m_textureName;
   TDataHandle      m_vertexData;
   TDataHandle      m_indexData;
-  uint32_t         m_indexCount      = 0U;
+  size_t           m_indexCount      = 0U;
   size_t           m_stride          = 0U;
   ERasterizerState m_rasterizerState = ERasterizerState::Solid; //TODO this should'nt be done like this
 };

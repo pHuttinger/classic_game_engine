@@ -12,7 +12,76 @@ cge::TResult CTestGame::OnCreate(cge::CInstance& instance)
   cge::CScene* pScene = sceneManager.CreateScene("TestScene");
   sceneManager.SetCurrentScene("TestScene");
 
-  cge::CStaticMesh* pStaticMesh = assetManager.CreateStaticMesh();
+  std::vector<cge::render::TVertexStaticMesh> vertices =
+  {
+    cge::render::TVertexStaticMesh{{-1.0f, -1.0f, -1.0f}, {0.0f,  0.0f, -1.0f}, {0.0f, 1.0f}},
+    cge::render::TVertexStaticMesh{{-1.0f,  1.0f, -1.0f}, {0.0f,  0.0f, -1.0f}, {0.0f, 0.0f}},
+    cge::render::TVertexStaticMesh{{ 1.0f,  1.0f, -1.0f}, {0.0f,  0.0f, -1.0f}, {1.0f, 0.0f}},
+    cge::render::TVertexStaticMesh{{ 1.0f, -1.0f, -1.0f}, {0.0f,  0.0f, -1.0f}, {1.0f, 1.0f}},
+
+    cge::render::TVertexStaticMesh{{-1.0f, -1.0f,  1.0f}, {0.0f,  0.0f,  1.0f}, {1.0f, 1.0f}},
+    cge::render::TVertexStaticMesh{{ 1.0f, -1.0f,  1.0f}, {0.0f,  0.0f,  1.0f}, {0.0f, 1.0f}},
+    cge::render::TVertexStaticMesh{{ 1.0f,  1.0f,  1.0f}, {0.0f,  0.0f,  1.0f}, {0.0f, 0.0f}},
+    cge::render::TVertexStaticMesh{{-1.0f,  1.0f,  1.0f}, {0.0f,  0.0f,  1.0f}, {1.0f, 0.0f}},
+
+    cge::render::TVertexStaticMesh{{-1.0f,  1.0f, -1.0f}, {0.0f,  1.0f,  0.0f}, {0.0f, 1.0f}},
+    cge::render::TVertexStaticMesh{{-1.0f,  1.0f,  1.0f}, {0.0f,  1.0f,  0.0f}, {0.0f, 0.0f}},
+    cge::render::TVertexStaticMesh{{ 1.0f,  1.0f,  1.0f}, {0.0f,  1.0f,  0.0f}, {1.0f, 0.0f}},
+    cge::render::TVertexStaticMesh{{ 1.0f,  1.0f, -1.0f}, {0.0f,  1.0f,  0.0f}, {1.0f, 1.0f}},
+
+    cge::render::TVertexStaticMesh{{-1.0f, -1.0f, -1.0f}, {0.0f, -1.0f,  0.0f}, {0.0f, 1.0f}},
+    cge::render::TVertexStaticMesh{{ 1.0f, -1.0f, -1.0f}, {0.0f, -1.0f,  0.0f}, {1.0f, 1.0f}},
+    cge::render::TVertexStaticMesh{{ 1.0f, -1.0f,  1.0f}, {0.0f, -1.0f,  0.0f}, {1.0f, 0.0f}},
+    cge::render::TVertexStaticMesh{{-1.0f, -1.0f,  1.0f}, {0.0f, -1.0f,  0.0f}, {0.0f, 0.0f}},
+
+    cge::render::TVertexStaticMesh{{-1.0f, -1.0f,  1.0f}, {-1.0f,  0.0f,  0.0f}, {0.0f, 1.0f}},
+    cge::render::TVertexStaticMesh{{-1.0f,  1.0f,  1.0f}, {-1.0f,  0.0f,  0.0f}, {0.0f, 0.0f}},
+    cge::render::TVertexStaticMesh{{-1.0f,  1.0f, -1.0f}, {-1.0f,  0.0f,  0.0f}, {1.0f, 0.0f}},
+    cge::render::TVertexStaticMesh{{-1.0f, -1.0f, -1.0f}, {-1.0f,  0.0f,  0.0f}, {1.0f, 1.0f}},
+
+    cge::render::TVertexStaticMesh{{ 1.0f, -1.0f, -1.0f}, { 1.0f,  0.0f,  0.0f}, {0.0f, 1.0f}},
+    cge::render::TVertexStaticMesh{{ 1.0f,  1.0f, -1.0f}, { 1.0f,  0.0f,  0.0f}, {0.0f, 0.0f}},
+    cge::render::TVertexStaticMesh{{ 1.0f,  1.0f,  1.0f}, { 1.0f,  0.0f,  0.0f}, {1.0f, 0.0f}},
+    cge::render::TVertexStaticMesh{{ 1.0f, -1.0f,  1.0f}, { 1.0f,  0.0f,  0.0f}, {1.0f, 1.0f}}
+  };
+
+  std::vector<uint32_t> indices =
+  {
+    0,  1,  2,
+    0,  2,  3,
+
+    4,  5,  6,
+    4,  6,  7,
+
+    8,  9, 10,
+    8, 10, 11,
+
+    12, 13, 14,
+    12, 14, 15,
+
+    16, 17, 18,
+    16, 18, 19,
+
+    20, 21, 22,
+    20, 22, 23
+  };
+
+  cge::TStaticMeshCreateInfo staticMeshCreateInfo
+  {
+    .m_vertexData =
+    {
+      .m_size  = vertices.size() * sizeof(cge::render::TVertexStaticMesh),
+      .m_pData = vertices.data(),
+    },
+    .m_indexData =
+    {
+      .m_size  = indices.size() * sizeof(uint32_t),
+      .m_pData = indices.data(),
+    },
+    .m_indexCount = indices.size(),
+  };
+
+  cge::CStaticMesh* pStaticMesh = assetManager.CreateStaticMesh(staticMeshCreateInfo);
   
   m_pActor = assetManager.CreateActor();
   m_pActor->AddStaticMesh(pStaticMesh);
