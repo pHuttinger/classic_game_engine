@@ -61,6 +61,8 @@ public:
 
   TResult SetRasterizerState(const ERasterizerState state);
 
+  const std::vector<rhi::ITexture*> GetTextures() const;
+
   TDrawItemCreateInfo&  GetCreateInfo()          { return m_createInfo;      }
   TGeometryBuffer&      GetGeometryBuffer()      { return m_geometryBuffer;  }
   TSharedDrawResources& GetSharedMeshResources() { return m_sharedResources; }

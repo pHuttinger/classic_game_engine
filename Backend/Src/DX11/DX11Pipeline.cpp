@@ -125,11 +125,14 @@ void CPipeline::BindRasterizerState(IRasterizerState* rasterizerState)
   m_instance.GetDeviceContext()->RSSetState(pRasterizerState->GetRasterizerState());
 }
 
-void CPipeline::BindTexture(size_t slot, ITexture* texture)
+void CPipeline::BindTextures(const std::vector<ITexture*> textures)
 {
-  CTexture* pTexture = static_cast<CTexture*>(texture);
-  ID3D11ShaderResourceView* shaderResourceViews[] = { pTexture->GetShaderResourceView() };
-  m_instance.GetDeviceContext()->PSSetShaderResources(slot, 1U, shaderResourceViews);
+  std::vector<ID3D11ShaderResourceView*> shaderResourceViews;
+  for (auto& pTexture : textures)
+  {
+    shaderResourceViews.push_back(static_cast<CTexture*>(pTexture)->GetShaderResourceView());
+  }
+  m_instance.GetDeviceContext()->PSSetShaderResources(0U, shaderResourceViews.size(), shaderResourceViews.data());
 }
 
 void CPipeline::DrawIndexed(uint32_t indexCount)

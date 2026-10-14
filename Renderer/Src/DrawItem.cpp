@@ -22,6 +22,13 @@ TResult CDrawItem::SetRasterizerState(const ERasterizerState state)
   return TResult::Okay();
 }
 
+const std::vector<rhi::ITexture*> CDrawItem::GetTextures() const
+{
+  std::vector<rhi::ITexture*> textures;
+  textures.push_back(m_sharedResources.m_pTexture.get());
+  return textures;
+}
+
 CDrawItemFactory::CDrawItemFactory(CRenderer& renderer)
   : m_renderer(renderer)
 {

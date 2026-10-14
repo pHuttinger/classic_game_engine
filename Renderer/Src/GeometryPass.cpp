@@ -79,7 +79,7 @@ void CGeometryPass::DrawMesh(CDrawItem& drawItem, const std::vector<CShaderData*
   pipeline.BindIndexBuffer     (drawItem.GetGeometryBuffer().m_pIndexBuffer.get());
   pipeline.BindVertexShader    (drawItem.GetSharedMeshResources().m_pVertexShader.get());
   pipeline.BindPixelShader     (drawItem.GetSharedMeshResources().m_pPixelShader.get());
-  pipeline.BindTexture         (0U, drawItem.GetSharedMeshResources().m_pTexture.get());
+  pipeline.BindTextures        (drawItem.GetTextures());
   pipeline.BindRasterizerState (drawItem.GetSharedMeshResources().m_pRasterizerState.get());
 
   pipeline.DrawIndexed(drawItem.GetCreateInfo().m_indexCount);
