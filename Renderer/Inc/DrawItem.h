@@ -16,15 +16,15 @@ class CRenderer;
 //----------------------------------------------------
 struct TDrawItemCreateInfo final
 {
-  EVertexType      m_vertexType      = EVertexType::Undefined;
-  std::string      m_vertexShaderName;
-  std::string      m_pixelShaderName;
-  std::string      m_textureName;
-  TDataHandle      m_vertexData;
-  TDataHandle      m_indexData;
-  size_t           m_indexCount      = 0U;
-  size_t           m_stride          = 0U;
-  ERasterizerState m_rasterizerState = ERasterizerState::Solid;
+  EVertexType              m_vertexType      = EVertexType::Undefined;
+  std::string              m_vertexShaderName;
+  std::string              m_pixelShaderName;
+  TDataHandle              m_vertexData;
+  TDataHandle              m_indexData;
+  size_t                   m_indexCount      = 0U;
+  size_t                   m_stride          = 0U;
+  ERasterizerState         m_rasterizerState = ERasterizerState::Solid;
+  std::vector<std::string> m_textureNames;
 };
 
 //----------------------------------------------------
@@ -32,11 +32,11 @@ struct TDrawItemCreateInfo final
 //----------------------------------------------------
 struct TSharedDrawResources final
 {
-  std::shared_ptr<rhi::IVertexShader>     m_pVertexShader;
-  std::shared_ptr<rhi::IPixelShader>      m_pPixelShader;
-  std::shared_ptr<rhi::IVertexDescriptor> m_pVertexDescriptor;
-  std::shared_ptr<rhi::ITexture>          m_pTexture;
-  std::shared_ptr<rhi::IRasterizerState>  m_pRasterizerState;
+  std::shared_ptr<rhi::IVertexShader>         m_pVertexShader;
+  std::shared_ptr<rhi::IPixelShader>          m_pPixelShader;
+  std::shared_ptr<rhi::IVertexDescriptor>     m_pVertexDescriptor;
+  std::shared_ptr<rhi::IRasterizerState>      m_pRasterizerState;
+  std::vector<std::shared_ptr<rhi::ITexture>> m_pTextures;
 };
 
 //----------------------------------------------------

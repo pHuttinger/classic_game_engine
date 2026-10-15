@@ -43,12 +43,12 @@ TResult CAssetManager::CreateStaticMesh(const TStaticMeshCreateInfo& createInfo,
     .m_vertexType       = render::EVertexType::StaticMesh,
     .m_vertexShaderName = "VS_StaticMesh",
     .m_pixelShaderName  = "PS_StaticMesh",
-    .m_textureName      = "image.png",
     .m_vertexData       = createInfo.m_vertexData,
     .m_indexData        = createInfo.m_indexData,
     .m_indexCount       = createInfo.m_indexCount,
     .m_stride           = sizeof(render::TVertexStaticMesh),
     .m_rasterizerState  = render::ERasterizerState::Solid,
+    .m_textureNames     = {"image.png"},
   };
 
   auto staticMesh = std::make_unique<CStaticMesh>();

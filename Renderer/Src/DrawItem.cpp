@@ -25,7 +25,11 @@ TResult CDrawItem::SetRasterizerState(const ERasterizerState state)
 const std::vector<rhi::ITexture*> CDrawItem::GetTextures() const
 {
   std::vector<rhi::ITexture*> textures;
-  textures.push_back(m_sharedResources.m_pTexture.get());
+  for (auto& pTexture : m_sharedResources.m_pTextures)
+  {
+    textures.push_back(pTexture.get());
+  }
+
   return textures;
 }
 
@@ -52,8 +56,14 @@ TResult CDrawItemFactory::CreateSharedDrawResources(const TDrawItemCreateInfo& c
   CGE_TRY(resourceManager.GetVertexShader    (createInfo.m_vertexShaderName, resources.m_pVertexShader));
   CGE_TRY(resourceManager.GetPixelShader     (createInfo.m_pixelShaderName, resources.m_pPixelShader));
   CGE_TRY(resourceManager.GetVertexDescriptor(createInfo.m_vertexType, createInfo.m_vertexShaderName, resources.m_pVertexDescriptor));
-  CGE_TRY(resourceManager.GetTexture         (createInfo.m_textureName, resources.m_pTexture));
   CGE_TRY(resourceManager.GetRasterizerState (createInfo.m_rasterizerState, resources.m_pRasterizerState));
+  
+  for (auto& textureName : createInfo.m_textureNames)
+  {
+    std::shared_ptr<rhi::ITexture> pTexture;
+    CGE_TRY(resourceManager.GetTexture(textureName, pTexture));
+    resources.m_pTextures.push_back(pTexture);
+  }
 
   sharedResources = resources;
 
