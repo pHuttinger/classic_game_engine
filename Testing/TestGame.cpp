@@ -12,7 +12,8 @@ cge::TResult CTestGame::OnCreate(cge::CInstance& instance)
   cge::CScene* pScene = sceneManager.CreateScene("TestScene");
   sceneManager.SetCurrentScene("TestScene");
 
-  cge::CStaticMesh* pStaticMesh = assetManager.CreateStaticMesh_TestBox();
+  cge::CStaticMesh* pStaticMesh = nullptr;
+  assetManager.CreateStaticMesh_TestBox(pStaticMesh);
   
   m_pActor = assetManager.CreateActor();
   m_pActor->AddStaticMesh(pStaticMesh);

@@ -13,21 +13,6 @@ CTransform::CTransform()
 {
 }
 
-glm::vec3& CTransform::GetPosition()
-{
-  return m_position;
-}
-
-glm::quat& CTransform::GetRotation()
-{
-  return m_rotation;
-}
-
-glm::vec3& CTransform::GetScale()
-{
-  return m_scale;
-}
-
 glm::mat4 CTransform::GetModelMatrix()
 {
   glm::mat4 worldMatrix       = glm::identity<glm::mat4>();

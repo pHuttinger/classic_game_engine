@@ -22,8 +22,8 @@ CTransform& CCamera::GetTransform()
 
 const glm::mat4 CCamera::GetViewMatrix() const
 {
-  glm::mat4 rotationMatrix = glm::mat4_cast(m_transform.GetConstRotation());
-  glm::vec3 position       = m_transform.GetConstPosition();
+  glm::mat4 rotationMatrix = glm::mat4_cast(m_transform.GetRotationConst());
+  glm::vec3 position       = m_transform.GetPositionConst();
   glm::vec3 forward        = glm::vec3(rotationMatrix * glm::vec4(0.0f, 0.0f, 1.0f, 0.0f));
   glm::vec3 right          = glm::vec3(rotationMatrix * glm::vec4(1.0f, 0.0f, 0.0f, 0.0f));
   glm::vec3 up             = glm::cross(forward, right);

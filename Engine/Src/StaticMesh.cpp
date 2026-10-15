@@ -12,6 +12,21 @@ TResult CStaticMesh::Initialize(render::CRenderer& renderer, const render::TDraw
   return TResult::Okay();
 }
 
+TResult CStaticMesh::GetVertexShaderData(render::CRenderer& renderer, std::shared_ptr<render::CShaderData>& pShaderData)
+{
+  pShaderData = std::make_shared<render::CShaderData>(renderer);
+
+  render::TShaderDataCreateInfo shaderDataCreateInfo
+  {
+    .m_size        = sizeof(TStaticMeshVertexShaderData),
+    .m_destination = render::EShaderDataDestination::Vertex,
+  };
+
+  CGE_TRY(pShaderData->Initialize(shaderDataCreateInfo));
+
+  return TResult::Okay();
+}
+
 void CStaticMesh::Update(render::CShaderData* pShaderData, const CCamera& camera, const glm::mat4& modelMatrix)
 {
   glm::mat4 projectionMatrix = camera.GetProjectionMatrix();

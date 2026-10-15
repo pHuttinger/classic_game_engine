@@ -14,21 +14,13 @@ CActor::CActor(CInstance& instance)
 
 TResult CActor::AddStaticMesh(CStaticMesh* pStaticMesh)
 {
-  render::CRenderer& renderer = m_instance.GetRenderProxy().GetRenderer();
-  auto pShaderData = std::make_shared<render::CShaderData>(renderer);
-
-  render::TShaderDataCreateInfo shaderDataCreateInfo
-  {
-    .m_size        = sizeof(TStaticMeshVertexShaderData),
-    .m_destination = render::EShaderDataDestination::Vertex,
-  };
-
-  CGE_TRY(pShaderData->Initialize(shaderDataCreateInfo));
+  std::shared_ptr<render::CShaderData> pVertexShaderData;
+  CGE_TRY(pStaticMesh->GetVertexShaderData(m_instance.GetRenderProxy().GetRenderer(), pVertexShaderData));
 
   TStaticMeshContext staticMeshContext
   {
-    .m_pStaticMesh = pStaticMesh,
-    .m_pShaderData = std::move(pShaderData),
+    .m_pStaticMesh       = pStaticMesh,
+    .m_pVertexShaderData = pVertexShaderData,
   };
 
   m_staticMeshes.push_back(staticMeshContext);

@@ -29,6 +29,7 @@ class CStaticMesh
 public:
 
   TResult Initialize(render::CRenderer& renderer, const render::TDrawItemCreateInfo& createInfo);
+  TResult GetVertexShaderData(render::CRenderer& renderer, std::shared_ptr<render::CShaderData>& pShaderData);
 
   void Update(render::CShaderData* pShaderData, const CCamera& camera, const glm::mat4& modelMatrix);
 

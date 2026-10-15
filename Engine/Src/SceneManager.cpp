@@ -69,14 +69,14 @@ void CSceneManager::EvaluateActor(CCamera& camera, CActor* pActor, const glm::ma
 void CSceneManager::EvaluateStaticMesh(CCamera& camera, const glm::mat4& model, const TStaticMeshContext& staticMeshContext)
 {
   CStaticMesh* pStaticMesh = staticMeshContext.m_pStaticMesh;
-  render::CShaderData* pShaderData = staticMeshContext.m_pShaderData.get();
+  render::CShaderData* pVertexShaderData = staticMeshContext.m_pVertexShaderData.get();
 
-  staticMeshContext.m_pStaticMesh->Update(pShaderData, camera, model);
+  staticMeshContext.m_pStaticMesh->Update(pVertexShaderData, camera, model);
 
   render::TDrawCall drawCall
   {
     .m_pDrawItem  = pStaticMesh->GetDrawItem(),
-    .m_shaderData = { pShaderData }
+    .m_shaderData = { pVertexShaderData }
   };
 
   m_instance.GetRenderProxy().AddDrawCall(drawCall);

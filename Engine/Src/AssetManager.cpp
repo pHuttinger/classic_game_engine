@@ -15,8 +15,7 @@ CAssetManager::CAssetManager(CInstance& instance)
 
 CActor* CAssetManager::CreateActor()
 {
-  auto pActor = std::make_unique<CActor>(m_instance);
-  m_assetStore.m_actors.push_back(std::move(pActor));
+  m_assetStore.m_actors.push_back(std::make_unique<CActor>(m_instance));
   return m_assetStore.m_actors.back().get();
 }
 
@@ -37,7 +36,7 @@ void CAssetManager::DestroyActor(CActor* pActor)
     m_assetStore.m_actors.end());
 }
 
-CStaticMesh* CAssetManager::CreateStaticMesh(const TStaticMeshCreateInfo& createInfo)
+TResult CAssetManager::CreateStaticMesh(const TStaticMeshCreateInfo& createInfo, CStaticMesh*& pStaticMesh)
 {
   render::TDrawItemCreateInfo drawItem
   {
@@ -52,19 +51,16 @@ CStaticMesh* CAssetManager::CreateStaticMesh(const TStaticMeshCreateInfo& create
     .m_rasterizerState  = render::ERasterizerState::Solid,
   };
 
-  //TODO Get render::CDrawItem from cache here!
-  auto pStaticMesh = std::make_unique<CStaticMesh>();
-  TResult result = pStaticMesh->Initialize(m_instance.GetRenderProxy().GetRenderer(), drawItem);
-  if (result.IsError())
-  {
-    return nullptr;
-  }
+  auto staticMesh = std::make_unique<CStaticMesh>();
+  CGE_TRY(staticMesh->Initialize(m_instance.GetRenderProxy().GetRenderer(), drawItem));
 
-  m_assetStore.m_staticMeshes.push_back(std::move(pStaticMesh));
-  return m_assetStore.m_staticMeshes.back().get();
+  pStaticMesh = staticMesh.get();
+  m_assetStore.m_staticMeshes.push_back(std::move(staticMesh));
+
+  return TResult::Okay();
 }
 
-CStaticMesh* CAssetManager::CreateStaticMesh_TestBox()
+TResult CAssetManager::CreateStaticMesh_TestBox(CStaticMesh*& pStaticMesh)
 {
   CTestBox testBox;
   std::vector<render::TVertexStaticMesh> vertices = testBox.GetVertices();
@@ -85,7 +81,7 @@ CStaticMesh* CAssetManager::CreateStaticMesh_TestBox()
     .m_indexCount = indices.size(),
   };
 
-  return CreateStaticMesh(createInfo);
+  return CreateStaticMesh(createInfo, pStaticMesh);
 }
 
 void CAssetManager::DestroyStaticMesh(CStaticMesh* pStaticMesh)

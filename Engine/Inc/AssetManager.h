@@ -31,8 +31,8 @@ public:
   CActor* CreateActor();
   void DestroyActor(CActor* pActor);
 
-  CStaticMesh* CreateStaticMesh(const TStaticMeshCreateInfo& createInfo);
-  CStaticMesh* CreateStaticMesh_TestBox();
+  TResult CreateStaticMesh(const TStaticMeshCreateInfo& createInfo, CStaticMesh*& pStaticMesh);
+  TResult CreateStaticMesh_TestBox(CStaticMesh*& pStaticMesh);
   void DestroyStaticMesh(CStaticMesh* pStaticMesh);
 
 private:

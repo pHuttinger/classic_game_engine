@@ -17,7 +17,7 @@ class CInstance;
 struct TStaticMeshContext final
 {
   CStaticMesh* m_pStaticMesh = nullptr;
-  std::shared_ptr<render::CShaderData> m_pShaderData;
+  std::shared_ptr<render::CShaderData> m_pVertexShaderData;
 };
 
 //----------------------------------------------------

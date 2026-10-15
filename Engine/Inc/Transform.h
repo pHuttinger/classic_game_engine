@@ -15,13 +15,13 @@ public:
   CTransform();
   virtual ~CTransform() = default;
 
-  glm::vec3& GetPosition();
-  glm::quat& GetRotation();
-  glm::vec3& GetScale();
+  glm::vec3& GetPosition() { return m_position; };
+  glm::quat& GetRotation() { return m_rotation; };
+  glm::vec3& GetScale()    { return m_scale;    };
 
-  const glm::vec3& GetConstPosition() const { return m_position; };
-  const glm::quat& GetConstRotation() const { return m_rotation; };
-  const glm::vec3& GetConstScale()    const { return m_scale;    };
+  const glm::vec3& GetPositionConst() const { return m_position; };
+  const glm::quat& GetRotationConst() const { return m_rotation; };
+  const glm::vec3& GetScaleConst()    const { return m_scale;    };
 
   glm::mat4 GetModelMatrix();
 
