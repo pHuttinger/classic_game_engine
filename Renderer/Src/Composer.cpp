@@ -7,6 +7,7 @@
 namespace cge::render
 {
 constexpr const size_t PLANE_INDEX_COUNT = 6U;
+constexpr const uint16_t PS_CBUFFER_SLOT = 0U;
 
 CComposer::CComposer(CBackend& backend)
   : m_backend(backend)
@@ -39,6 +40,7 @@ void CComposer::ComposeFrame(const TComposerInput& input)
   m_backend.GetPipeline().BindVertexShader         (m_renderResources.m_pVertexShader.get());
   m_backend.GetPipeline().BindPixelShader          (m_renderResources.m_pPixelShader.get());
   m_backend.GetPipeline().BindRasterizerState      (m_renderResources.m_pRasterizerState.get());
+  m_backend.GetPipeline().BindPixelShaderResources (PS_CBUFFER_SLOT, m_renderResources.m_pPixelShaderBuffer.get());
 
   UpdatePixelShaderBuffer(input.m_pixelShaderData);
 

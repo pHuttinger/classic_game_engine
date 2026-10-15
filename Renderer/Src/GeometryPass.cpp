@@ -32,7 +32,7 @@ std::vector<rhi::IRenderTarget*> CGeometryPass::Execute(const CFrameInput& input
   m_renderer.GetBackend().GetPipeline().BindRenderTargets(m_renderTargets, m_pDepthBuffer.get());
   m_renderer.GetBackend().GetPipeline().BindSampler(m_pSampler.get());
 
-  for (auto& drawCall : input.GetDrawCalls())
+  for (auto& drawCall : input.m_drawCalls)
   {
     DrawMesh(*drawCall.m_pDrawItem, drawCall.m_shaderData);
   }
