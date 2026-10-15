@@ -22,16 +22,6 @@ struct TAssetStore final
 //----------------------------------------------------
 // CAssetManager
 //----------------------------------------------------
-struct TStaticMeshCreateInfo final
-{
-  TDataHandle m_vertexData;
-  TDataHandle m_indexData;
-  size_t      m_indexCount = 0U;
-};
-
-//----------------------------------------------------
-// CAssetManager
-//----------------------------------------------------
 class CAssetManager final
 {
 public:
@@ -42,6 +32,7 @@ public:
   void DestroyActor(CActor* pActor);
 
   CStaticMesh* CreateStaticMesh(const TStaticMeshCreateInfo& createInfo);
+  CStaticMesh* CreateStaticMesh_TestBox();
   void DestroyStaticMesh(CStaticMesh* pStaticMesh);
 
 private:

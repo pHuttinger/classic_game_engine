@@ -30,10 +30,18 @@ TResult CRenderer::Initialize(const rhi::TCreateInfo& createInfo)
 
 void CRenderer::RenderFrame(const CFrameInput& input)
 {
-  m_backend.GetSurface().Clear(input.GetClearColor());
+  m_backend.GetSurface().Clear(input.m_clearColor);
 
-  auto renderTargets = m_renderGraph.Execute(input);
-  m_composer.ComposeFrame(renderTargets);
+  TComposerInput composerInput
+  {
+    .m_channels = m_renderGraph.Execute(input),
+    .m_pixelShaderData = 
+    {
+      .m_lightDirection = input.m_lightDirection,
+    },
+  };
+
+  m_composer.ComposeFrame(composerInput);
 
   m_backend.GetPipeline().Present();
 }

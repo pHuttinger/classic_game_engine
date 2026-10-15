@@ -4,6 +4,7 @@
 
 #include "../Inc/AssetManager.h"
 #include "../Inc/Instance.h"
+#include "../Inc/PresetMeshes.h"
 
 namespace cge
 {
@@ -61,6 +62,30 @@ CStaticMesh* CAssetManager::CreateStaticMesh(const TStaticMeshCreateInfo& create
 
   m_assetStore.m_staticMeshes.push_back(std::move(pStaticMesh));
   return m_assetStore.m_staticMeshes.back().get();
+}
+
+CStaticMesh* CAssetManager::CreateStaticMesh_TestBox()
+{
+  CTestBox testBox;
+  std::vector<render::TVertexStaticMesh> vertices = testBox.GetVertices();
+  std::vector<uint32_t> indices = testBox.GetIndices();
+
+  TStaticMeshCreateInfo createInfo
+  {
+    .m_vertexData =
+    {
+      .m_size  = vertices.size() * sizeof(render::TVertexStaticMesh),
+      .m_pData = vertices.data(),
+    },
+    .m_indexData =
+    {
+      .m_size  = indices.size() * sizeof(uint32_t),
+      .m_pData = indices.data(),
+    },
+    .m_indexCount = indices.size(),
+  };
+
+  return CreateStaticMesh(createInfo);
 }
 
 void CAssetManager::DestroyStaticMesh(CStaticMesh* pStaticMesh)

@@ -166,6 +166,10 @@
     <ClInclude Include="Inc\DrawItem.h" />
     <ClInclude Include="Inc\ResourceManager.h" />
     <ClInclude Include="Inc\ShaderData.h" />
+    <ClInclude Include="Shader\Common\BeginSharedResources.h" />
+    <ClInclude Include="Shader\Composer\ComposerSharedResources.h" />
+    <ClInclude Include="Shader\Common\EndSharedResources.h" />
+    <ClInclude Include="Shader\StaticMesh\StaticMeshSharedResources.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\ShaderData.cpp" />

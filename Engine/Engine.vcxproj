@@ -156,6 +156,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Inc\Camera.h" />
+    <ClInclude Include="Inc\PresetMeshes.h" />
     <ClInclude Include="Inc\Scene.h" />
     <ClInclude Include="Inc\Actor.h" />
     <ClInclude Include="Inc\AssetManager.h" />
@@ -167,6 +168,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Camera.cpp" />
+    <ClCompile Include="Src\PresetMeshes.cpp" />
     <ClCompile Include="Src\Scene.cpp" />
     <ClCompile Include="Src\Actor.cpp" />
     <ClCompile Include="Src\AssetManager.cpp" />

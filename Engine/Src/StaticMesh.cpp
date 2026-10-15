@@ -17,14 +17,14 @@ void CStaticMesh::Update(render::CShaderData* pShaderData, const CCamera& camera
   glm::mat4 projectionMatrix = camera.GetProjectionMatrix();
   glm::mat4 viewMatrix       = camera.GetViewMatrix();
 
-  TStaticMeshShaderData dataObj{};
-  dataObj.m_mvp   = glm::transpose(projectionMatrix * viewMatrix * modelMatrix);
-  dataObj.m_model = glm::transpose(modelMatrix);
+  TStaticMeshVertexShaderData vertexShaderData{};
+  vertexShaderData.m_mvp   = glm::transpose(projectionMatrix * viewMatrix * modelMatrix);
+  vertexShaderData.m_model = glm::transpose(modelMatrix);
 
   TDataHandle dataHandle
   {
-    .m_size  = sizeof(TStaticMeshShaderData),
-    .m_pData = &dataObj,
+    .m_size  = sizeof(TStaticMeshVertexShaderData),
+    .m_pData = &vertexShaderData,
   };
 
   pShaderData->SetData(dataHandle);

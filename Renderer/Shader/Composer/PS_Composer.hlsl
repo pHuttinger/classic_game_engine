@@ -16,7 +16,7 @@ float4 PSMain(PS_INPUT input) : SV_TARGET
   
   clip(albedo.a == 0.0f ? -1 : 1);
   
-  float NdotL = saturate(dot(normalize(float3(0.5f, 0.25f, 1.0f)), float3(normal.x, normal.y, normal.z)));
+	float NdotL = saturate(dot(normalize(data.m_lightDirection), float3(normal.x, normal.y, normal.z)));
 
   float3 finalColor = albedo.rgb * (NdotL + 0.1f);
   

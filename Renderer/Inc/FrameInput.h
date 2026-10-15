@@ -14,7 +14,7 @@ namespace cge::render
 //----------------------------------------------------
 struct TDrawCall final
 {
-  CDrawItem* m_pDrawItem = nullptr;
+  CDrawItem*                m_pDrawItem = nullptr;
   std::vector<CShaderData*> m_shaderData;
 };
 
@@ -30,12 +30,8 @@ public:
   void Reset();
   void AddDrawCall(const TDrawCall& drawCall);
 
-  glm::vec4 GetClearColor() const { return m_clearColor; }
-  const std::vector<TDrawCall>& GetDrawCalls() const { return m_drawCalls; }
-
-private:
-
-  glm::vec4 m_clearColor;
+  glm::vec4              m_clearColor;
+  glm::vec3              m_lightDirection;
   std::vector<TDrawCall> m_drawCalls;
 };
 }

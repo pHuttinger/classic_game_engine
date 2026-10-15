@@ -2,28 +2,12 @@
 // Copyright (C) P.Huttinger 2026 - CGE game engine //
 //////////////////////////////////////////////////////
 
-//struct Light
-//{
-//  float3 dir;
-//  float4 ambient;
-//  float4 diffuse;
-//};
+#include "StaticMeshSharedResources.h"
 
-//cbuffer cbPerFrame
-//{
-//  Light light;
-//  float engineTime;
-//  float3 cameraPos;
-//};
-
-cbuffer cbPerObject
+cbuffer VS_CBUFFER
 {
-  float4x4 mvp;
-  float4x4 model;
+	TStaticMeshVertexShaderData data;
 };
-
-Texture2D texture1;
-SamplerState samplerState1;
 
 struct VS_INPUT
 {

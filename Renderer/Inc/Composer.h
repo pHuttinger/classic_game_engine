@@ -6,6 +6,7 @@
 
 #include "Backend.h"
 #include "RenderGraph.h"
+#include "../Shader/Composer/ComposerSharedResources.h"
 
 namespace cge::render
 {
@@ -21,6 +22,7 @@ struct TComposerRenderResources final
   std::unique_ptr<rhi::IBuffer>           m_pIndexBuffer;
   std::unique_ptr<rhi::ISampler>          m_pSampler;
   std::unique_ptr<rhi::IRasterizerState>  m_pRasterizerState;
+  std::unique_ptr<rhi::IBuffer>           m_pPixelShaderBuffer;
 };
 
 //----------------------------------------------------
@@ -30,6 +32,15 @@ struct TComposerVertex final
 {
   glm::vec2 m_position;
   glm::vec2 m_texcoord;
+};
+
+//----------------------------------------------------
+// TComposerInput
+//----------------------------------------------------
+struct TComposerInput final
+{
+  std::vector<rhi::IRenderTarget*> m_channels;
+  TComposerPixelShaderData m_pixelShaderData;
 };
 
 //----------------------------------------------------
@@ -43,7 +54,7 @@ public:
 
   TResult Initialize();
 
-  void ComposeFrame(std::vector<rhi::IRenderTarget*>& renderGraphOutput);
+  void ComposeFrame(const TComposerInput& input);
 
 private:
 
@@ -54,6 +65,9 @@ private:
   TResult CreateIndexBuffer();
   TResult CreateSampler();
   TResult CreateRasterizerState();
+  TResult CreatePixelShaderBuffer();
+
+  void UpdatePixelShaderBuffer(const TComposerPixelShaderData& data);
 
   CBackend& m_backend;
   TComposerRenderResources m_renderResources;

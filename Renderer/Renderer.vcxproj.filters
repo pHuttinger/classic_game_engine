@@ -48,6 +48,18 @@
     <ClInclude Include="Inc\ShaderData.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Shader\Composer\ComposerSharedResources.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader\Common\BeginSharedResources.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader\Common\EndSharedResources.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader\StaticMesh\StaticMeshSharedResources.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Renderer.cpp">

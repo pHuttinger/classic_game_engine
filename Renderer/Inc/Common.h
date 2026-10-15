@@ -4,6 +4,8 @@
 
 #pragma once
 
+#include <Common/Inc/Common.h>
+
 namespace cge::render
 {
 //----------------------------------------------------

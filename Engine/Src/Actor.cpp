@@ -19,7 +19,7 @@ TResult CActor::AddStaticMesh(CStaticMesh* pStaticMesh)
 
   render::TShaderDataCreateInfo shaderDataCreateInfo
   {
-    .m_size        = sizeof(TStaticMeshShaderData),
+    .m_size        = sizeof(TStaticMeshVertexShaderData),
     .m_destination = render::EShaderDataDestination::Vertex,
   };
 

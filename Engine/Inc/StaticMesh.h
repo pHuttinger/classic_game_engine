@@ -7,16 +7,18 @@
 #include <Renderer/Inc/Renderer.h>
 #include "Camera.h"
 #include "Transform.h"
+#include <Renderer/Shader/StaticMesh/StaticMeshSharedResources.h>
 
 namespace cge
 {
 //----------------------------------------------------
-// TStaticMeshShaderData
+// TStaticMeshCreateInfo
 //----------------------------------------------------
-struct TStaticMeshShaderData final
+struct TStaticMeshCreateInfo final
 {
-  glm::mat4 m_mvp;
-  glm::mat4 m_model;
+  TDataHandle m_vertexData;
+  TDataHandle m_indexData;
+  size_t      m_indexCount = 0U;
 };
 
 //----------------------------------------------------

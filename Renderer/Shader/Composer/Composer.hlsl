@@ -2,6 +2,13 @@
 // Copyright (C) P.Huttinger 2026 - CGE game engine //
 //////////////////////////////////////////////////////
 
+#include "ComposerSharedResources.h"
+
+cbuffer PS_CBUFFER
+{
+	TComposerPixelShaderData data;
+};
+
 struct VS_INPUT
 {
   float4 position : POSITION;

@@ -22,15 +22,16 @@ TResult CComposer::Initialize()
   CGE_TRY(CreatePixelShader());
   CGE_TRY(CreateVertexDescriptor());
   CGE_TRY(CreateRasterizerState());
+  CGE_TRY(CreatePixelShaderBuffer());
 
   return TResult::Okay();
 }
 
-void CComposer::ComposeFrame(std::vector<rhi::IRenderTarget*>& renderGraphOutput)
+void CComposer::ComposeFrame(const TComposerInput& input)
 {
   m_backend.GetSurface().SetAsRenderTarget();
 
-  m_backend.GetPipeline().BindPixelShaderResources (renderGraphOutput);
+  m_backend.GetPipeline().BindPixelShaderResources (input.m_channels);
   m_backend.GetPipeline().BindSampler              (m_renderResources.m_pSampler.get());
   m_backend.GetPipeline().BindVertexDescriptor     (m_renderResources.m_pVertexDescriptor.get());
   m_backend.GetPipeline().BindVertexBuffer         (m_renderResources.m_pVertexBuffer.get());
@@ -38,6 +39,8 @@ void CComposer::ComposeFrame(std::vector<rhi::IRenderTarget*>& renderGraphOutput
   m_backend.GetPipeline().BindVertexShader         (m_renderResources.m_pVertexShader.get());
   m_backend.GetPipeline().BindPixelShader          (m_renderResources.m_pPixelShader.get());
   m_backend.GetPipeline().BindRasterizerState      (m_renderResources.m_pRasterizerState.get());
+
+  UpdatePixelShaderBuffer(input.m_pixelShaderData);
 
   m_backend.GetPipeline().DrawIndexed(PLANE_INDEX_COUNT);
 }
@@ -147,5 +150,29 @@ TResult CComposer::CreateRasterizerState()
   CGE_TRY(m_backend.GetInstance().CreateRasterizerState(createInfo, m_renderResources.m_pRasterizerState));
 
   return TResult::Okay();
+}
+
+TResult CComposer::CreatePixelShaderBuffer()
+{
+  rhi::TBufferCreateInfo createInfo
+  {
+    .m_usage      = rhi::EBufferUsage::Default,
+    .m_bufferType = rhi::EBufferType::ConstantBuffer,
+    .m_size       = sizeof(TComposerPixelShaderData),
+  };
+
+  CGE_TRY(m_backend.GetInstance().CreateBuffer(createInfo, m_renderResources.m_pPixelShaderBuffer));
+
+  return TResult::Okay();
+}
+
+void CComposer::UpdatePixelShaderBuffer(const TComposerPixelShaderData& data)
+{
+  rhi::TBufferUpdateInfo updateInfo
+  {
+    .m_pData = (void*)&data,
+  };
+
+  m_backend.GetPipeline().UpdateBuffer(m_renderResources.m_pPixelShaderBuffer.get(), updateInfo);
 }
 }

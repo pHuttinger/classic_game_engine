@@ -33,11 +33,12 @@ private:
   CBackend& m_backend;
 
   std::shared_ptr<rhi::ISampler> m_pSampler;
-  std::unordered_map<EVertexType, std::shared_ptr<rhi::IVertexDescriptor>> m_vertexDescriptors;
-  std::unordered_map<std::string, std::shared_ptr<rhi::IVertexShader>> m_vertexShaders;
-  std::unordered_map<std::string, std::shared_ptr<rhi::IPixelShader>> m_pixelShaders;
-  std::unordered_map<std::string, std::shared_ptr<rhi::ITexture>> m_textures;
+
+  std::unordered_map<EVertexType, std::shared_ptr<rhi::IVertexDescriptor>>     m_vertexDescriptors;
+  std::unordered_map<std::string, std::shared_ptr<rhi::IVertexShader>>         m_vertexShaders;
+  std::unordered_map<std::string, std::shared_ptr<rhi::IPixelShader>>          m_pixelShaders;
+  std::unordered_map<std::string, std::shared_ptr<rhi::ITexture>>              m_textures;
   std::unordered_map<ERasterizerState, std::shared_ptr<rhi::IRasterizerState>> m_rasterizerStates;
-  std::unordered_map<std::string, std::shared_ptr<rhi::IBuffer>> m_constantBuffers;
+  std::unordered_map<std::string, std::shared_ptr<rhi::IBuffer>>               m_constantBuffers;
 };
 }
