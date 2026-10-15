@@ -34,7 +34,9 @@ private:
   std::unique_ptr<rhi::IDepthBuffer>  m_pDepthBuffer;
   std::vector<rhi::IRenderTarget*>    m_renderTargets;
   std::shared_ptr<rhi::ISampler>      m_pSampler;
+
   std::unique_ptr<rhi::IRenderTarget> m_pRenderTarget_Albedo;
   std::unique_ptr<rhi::IRenderTarget> m_pRenderTarget_Normal;
+  std::unique_ptr<rhi::IRenderTarget> m_pRenderTarget_Position;
 };
 }

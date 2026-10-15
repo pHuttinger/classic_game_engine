@@ -26,6 +26,7 @@ struct PS_INPUT
 
 struct PS_OUTPUT
 {
-  float4 albedo : SV_Target0;
-  float4 normal : SV_Target1;
+  float4 albedo   : SV_Target0;
+  float4 normal   : SV_Target1;
+	float4 position : SV_Target2;
 };

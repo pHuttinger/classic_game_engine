@@ -20,15 +20,19 @@ TResult CGeometryPass::Initialize()
 
   CGE_TRY(CreateRenderTarget(m_pRenderTarget_Albedo));
   CGE_TRY(CreateRenderTarget(m_pRenderTarget_Normal));
+  CGE_TRY(CreateRenderTarget(m_pRenderTarget_Position));
 
   return TResult::Okay();
 }
 
 std::vector<rhi::IRenderTarget*> CGeometryPass::Execute(const CFrameInput& input)
 {
-  m_pRenderTarget_Albedo->Clear(CLEAR_COLOR_TRANSPARENT);
-  m_pRenderTarget_Normal->Clear(CLEAR_COLOR_TRANSPARENT);
+  m_pRenderTarget_Albedo  ->Clear(CLEAR_COLOR_TRANSPARENT);
+  m_pRenderTarget_Normal  ->Clear(CLEAR_COLOR_TRANSPARENT);
+  m_pRenderTarget_Position->Clear(CLEAR_COLOR_TRANSPARENT);
+
   m_pDepthBuffer->Clear();
+
   m_renderer.GetBackend().GetPipeline().BindRenderTargets(m_renderTargets, m_pDepthBuffer.get());
   m_renderer.GetBackend().GetPipeline().BindSampler(m_pSampler.get());
 
