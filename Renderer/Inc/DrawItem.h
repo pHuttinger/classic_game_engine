@@ -24,7 +24,7 @@ struct TDrawItemCreateInfo final
   TDataHandle      m_indexData;
   size_t           m_indexCount      = 0U;
   size_t           m_stride          = 0U;
-  ERasterizerState m_rasterizerState = ERasterizerState::Solid; //TODO this should'nt be done like this
+  ERasterizerState m_rasterizerState = ERasterizerState::Solid;
 };
 
 //----------------------------------------------------
@@ -35,7 +35,7 @@ struct TSharedDrawResources final
   std::shared_ptr<rhi::IVertexShader>     m_pVertexShader;
   std::shared_ptr<rhi::IPixelShader>      m_pPixelShader;
   std::shared_ptr<rhi::IVertexDescriptor> m_pVertexDescriptor;
-  std::shared_ptr<rhi::ITexture>          m_pTexture; //TODO this should'nt be done like this
+  std::shared_ptr<rhi::ITexture>          m_pTexture;
   std::shared_ptr<rhi::IRasterizerState>  m_pRasterizerState;
 };
 

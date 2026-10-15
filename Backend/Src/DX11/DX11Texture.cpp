@@ -3,7 +3,6 @@
 //////////////////////////////////////////////////////
 
 #include "../../Inc/DX11/DX11Texture.h"
-//TODO switch to binary input!
 #include <Common/Inc/FileSystem/ImageLoader.h>
 
 namespace cge::rhi::dx11
