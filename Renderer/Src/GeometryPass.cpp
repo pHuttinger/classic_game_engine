@@ -33,9 +33,9 @@ std::vector<rhi::IRenderTarget*> CGeometryPass::Execute(const CFrameInput& input
   m_renderer.GetBackend().GetPipeline().BindRenderTargets(m_renderTargets, m_pDepthBuffer.get());
   m_renderer.GetBackend().GetPipeline().BindSampler(m_pSampler.get());
 
-  for (auto& drawCall : input.m_drawCalls)
+  for (const auto& drawCall : input.m_drawCalls)
   {
-    DrawMesh(*drawCall.m_pDrawItem, drawCall.m_shaderData);
+    Draw(drawCall);
   }
 
   return m_renderTargets;
@@ -69,21 +69,21 @@ TResult CGeometryPass::CreateDepthBuffer()
   return backend.GetInstance().CreateDepthBuffer(createInfo, m_pDepthBuffer);
 }
 
-void CGeometryPass::DrawMesh(CDrawItem& drawItem, const std::vector<CShaderData*> shaderData)
+void CGeometryPass::Draw(const TDrawCall& drawCall)
 {
   rhi::IPipeline& pipeline = m_renderer.GetBackend().GetPipeline();
 
-  BindShaderData(shaderData);
+  BindShaderData(drawCall.m_shaderData);
 
-  pipeline.BindVertexDescriptor(drawItem.GetSharedMeshResources().m_pVertexDescriptor.get());
-  pipeline.BindVertexBuffer    (drawItem.GetGeometryBuffer().m_pVertexBuffer.get());
-  pipeline.BindIndexBuffer     (drawItem.GetGeometryBuffer().m_pIndexBuffer.get());
-  pipeline.BindVertexShader    (drawItem.GetSharedMeshResources().m_pVertexShader.get());
-  pipeline.BindPixelShader     (drawItem.GetSharedMeshResources().m_pPixelShader.get());
-  pipeline.BindTextures        (drawItem.GetTextures());
-  pipeline.BindRasterizerState (drawItem.GetSharedMeshResources().m_pRasterizerState.get());
+  pipeline.BindVertexDescriptor(drawCall.m_pDrawItem->GetSharedMeshResources().m_pVertexDescriptor.get());
+  pipeline.BindVertexBuffer    (drawCall.m_pDrawItem->GetGeometryBuffer().m_pVertexBuffer.get());
+  pipeline.BindIndexBuffer     (drawCall.m_pDrawItem->GetGeometryBuffer().m_pIndexBuffer.get());
+  pipeline.BindVertexShader    (drawCall.m_pDrawItem->GetSharedMeshResources().m_pVertexShader.get());
+  pipeline.BindPixelShader     (drawCall.m_pDrawItem->GetSharedMeshResources().m_pPixelShader.get());
+  pipeline.BindTextures        (drawCall.m_pDrawItem->GetTextures());
+  pipeline.BindRasterizerState (drawCall.m_pDrawItem->GetSharedMeshResources().m_pRasterizerState.get());
 
-  pipeline.DrawIndexed(drawItem.GetCreateInfo().m_indexCount);
+  pipeline.DrawIndexed(drawCall.m_pDrawItem->GetCreateInfo().m_indexCount);
 }
 
 void CGeometryPass::BindShaderData(const std::vector<CShaderData*>& shaderData)

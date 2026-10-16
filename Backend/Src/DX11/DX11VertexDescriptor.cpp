@@ -64,7 +64,7 @@ std::vector<D3D11_INPUT_ELEMENT_DESC> CVertexDescriptor::CreateInputLayoutDesc(c
   std::vector<D3D11_INPUT_ELEMENT_DESC> inputLayoutDesc;
 
   size_t offset = 0U;
-  for (auto& info : vertexAttributeInfos)
+  for (const auto& info : vertexAttributeInfos)
   {
     D3D11_INPUT_ELEMENT_DESC element {
       GetInputLayoutSemanticName(info.m_usage),

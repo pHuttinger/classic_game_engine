@@ -26,7 +26,7 @@ private:
   TResult CreateRenderTarget(std::unique_ptr<rhi::IRenderTarget>& renderTarget);
   TResult CreateDepthBuffer();
 
-  void DrawMesh(CDrawItem& meshData, const std::vector<CShaderData*> shaderData);
+  void Draw(const TDrawCall& drawCall);
   void BindShaderData(const std::vector<CShaderData*>& shaderData);
 
   CRenderer& m_renderer;
