@@ -12,7 +12,6 @@
 #undef float4
 #undef float4x4
 
-#undef __ALIGN__
 #undef __FINAL__
 
 #endif

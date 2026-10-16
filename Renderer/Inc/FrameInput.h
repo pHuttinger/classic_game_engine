@@ -23,15 +23,22 @@ struct TDrawCall final
 //----------------------------------------------------
 class CFrameInput final
 {
+friend class CRenderer;
+friend class CGeometryPass;
+
 public:
 
   CFrameInput();
 
   void Reset();
   void AddDrawCall(const TDrawCall& drawCall);
+  void SetCameraPosition(const glm::vec3& position);
+
+private:
 
   glm::vec4              m_clearColor;
   glm::vec3              m_lightDirection;
+  glm::vec3              m_cameraPosition;
   std::vector<TDrawCall> m_drawCalls;
 };
 }

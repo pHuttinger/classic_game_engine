@@ -16,13 +16,19 @@ CFrameInput::CFrameInput()
 
 void CFrameInput::Reset()
 {
-  m_clearColor = DEFAULT_CLEAR_COLOR;
+  m_clearColor     = DEFAULT_CLEAR_COLOR;
   m_lightDirection = DEFAULT_LIGHT_DIRECTION;
+
   m_drawCalls.clear();
 }
 
 void CFrameInput::AddDrawCall(const TDrawCall& drawCall)
 {
   m_drawCalls.push_back(drawCall);
+}
+
+void CFrameInput::SetCameraPosition(const glm::vec3& position)
+{
+  m_cameraPosition = position;
 }
 }

@@ -40,7 +40,7 @@ struct TComposerVertex final
 struct TComposerInput final
 {
   std::vector<rhi::IRenderTarget*> m_channels;
-  TComposerPixelShaderData m_pixelShaderData;
+  TComposerPixelShaderData         m_pixelShaderData;
 };
 
 //----------------------------------------------------

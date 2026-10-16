@@ -18,7 +18,7 @@ public:
   TResult Initialize(const rhi::TCreateInfo& createInfo);
 
   void RenderFrame(const float engineTime);
-  void AddDrawCall(const render::TDrawCall& drawCall);
+  render::CFrameInput& GetFrameInput() { return m_frameInput; }
 
   render::CRenderer& GetRenderer() { return m_renderer; }
 

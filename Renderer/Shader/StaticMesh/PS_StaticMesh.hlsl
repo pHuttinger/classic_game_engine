@@ -14,7 +14,6 @@ PS_OUTPUT PSMain(PS_INPUT input)
   
 	output.albedo   = texture1.Sample(samplerState, input.texcoord);
   output.normal   = float4(normalize(input.normal), 1.0);
-	output.position = normalize(input.position);
 
   return output;
 }

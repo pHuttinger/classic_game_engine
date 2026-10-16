@@ -44,7 +44,12 @@ void CSceneManager::EvaluateCurrentScene()
     return;
   }
 
+  render::CFrameInput& frameInput = m_instance.GetRenderProxy().GetFrameInput();
+
   CCamera& camera = m_pCurrentScene->GetCurrentCamera();
+
+  frameInput.SetCameraPosition(camera.GetTransform().GetPosition());
+
   for (CActor* pActor : m_pCurrentScene->GetActors())
   {
     EvaluateActor(camera, pActor, glm::mat4(1.0f));
@@ -79,6 +84,6 @@ void CSceneManager::EvaluateStaticMesh(CCamera& camera, const glm::mat4& model, 
     .m_shaderData = { pVertexShaderData }
   };
 
-  m_instance.GetRenderProxy().AddDrawCall(drawCall);
+  m_instance.GetRenderProxy().GetFrameInput().AddDrawCall(drawCall);
 }
 }

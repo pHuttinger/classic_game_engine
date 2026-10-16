@@ -14,7 +14,6 @@
 #define float4   glm::vec4
 #define float4x4 glm::mat4
 
-#define __ALIGN__ alignas(16)
 #define __FINAL__ final
 
 //----------------------------------------------------
@@ -22,7 +21,6 @@
 //----------------------------------------------------
 #else
 
-#define __ALIGN__
 #define __FINAL__
 
 #endif

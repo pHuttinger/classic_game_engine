@@ -37,6 +37,5 @@ private:
 
   std::unique_ptr<rhi::IRenderTarget> m_pRenderTarget_Albedo;
   std::unique_ptr<rhi::IRenderTarget> m_pRenderTarget_Normal;
-  std::unique_ptr<rhi::IRenderTarget> m_pRenderTarget_Position;
 };
 }
