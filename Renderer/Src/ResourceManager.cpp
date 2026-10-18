@@ -28,7 +28,7 @@ TResult CResourceManager::GetSampler(std::shared_ptr<rhi::ISampler>& pSampler)
   return TResult::Okay();
 }
 
-TResult CResourceManager::GetVertexDescriptor(const EVertexType vertexType, const std::string& vertexShaderName, std::shared_ptr<rhi::IVertexDescriptor>& pVertexDescriptor)
+TResult CResourceManager::GetVertexDescriptor(const std::vector<TVertexAttribute>& vertexAttributes, const std::string& vertexShaderName, std::shared_ptr<rhi::IVertexDescriptor>& pVertexDescriptor)
 {
   std::shared_ptr<rhi::IVertexShader> pVertexShader;
   if (TResult result = GetVertexShader(vertexShaderName, pVertexShader); result.IsError())
@@ -36,12 +36,13 @@ TResult CResourceManager::GetVertexDescriptor(const EVertexType vertexType, cons
     return result;
   }
 
-  if (m_vertexDescriptors.find(vertexType) == m_vertexDescriptors.end())
+  std::string key = GetVertexDescriptorKey(vertexAttributes);
+  if (m_vertexDescriptors.find(key) == m_vertexDescriptors.end())
   {
     rhi::TVertexDescriptorCreateInfo createInfo
     {
-      .m_pVertexShader = pVertexShader.get(),
-      .m_vertexAttributeInfos = GetVertexAttributesByVertexType(vertexType)
+      .m_pVertexShader        = pVertexShader.get(),
+      .m_vertexAttributeInfos = vertexAttributes,
     };
 
     std::unique_ptr<rhi::IVertexDescriptor> pVertexDescriptor;
@@ -50,10 +51,10 @@ TResult CResourceManager::GetVertexDescriptor(const EVertexType vertexType, cons
       return result;
     }
 
-    m_vertexDescriptors[vertexType] = std::move(pVertexDescriptor);
+    m_vertexDescriptors[key] = std::move(pVertexDescriptor);
   }
 
-  pVertexDescriptor = m_vertexDescriptors[vertexType];
+  pVertexDescriptor = m_vertexDescriptors[key];
   return TResult::Okay();
 }
 
@@ -165,22 +166,6 @@ TResult CResourceManager::GetConstantBuffer(const TShaderDataCreateInfo& createI
   return TResult::Okay();
 }
 
-std::vector<rhi::TVertexAttribute> CResourceManager::GetVertexAttributesByVertexType(const EVertexType vertexType) const
-{
-  switch (vertexType)
-  {
-    case EVertexType::StaticMesh:
-    return
-    {
-      {rhi::EVertexAttributeUsage::Position, rhi::EVertexAttributeFormat::Float3},
-      {rhi::EVertexAttributeUsage::Normal  , rhi::EVertexAttributeFormat::Float3},
-      {rhi::EVertexAttributeUsage::Texcoord, rhi::EVertexAttributeFormat::Float2},
-    };
-  }
-
-  return {};
-}
-
 rhi::TRasterizerStateCreateInfo CResourceManager::GetRasterizerStateCreateInfo(const ERasterizerState rasterizerState) const
 {
   if (ERasterizerState::SolidNoCull == rasterizerState)
@@ -204,8 +189,8 @@ rhi::TRasterizerStateCreateInfo CResourceManager::GetRasterizerStateCreateInfo(c
 
   return
   {
-    .m_fillMode = rhi::EFillMode::Solid,
-    .m_cullMode = rhi::ECullMode::Back,
+    .m_fillMode  = rhi::EFillMode::Solid,
+    .m_cullMode  = rhi::ECullMode::Back,
     .m_frontFace = rhi::EFrontFace::Clockwise
   };
 }
@@ -215,5 +200,18 @@ std::string CResourceManager::GetShaderDataCreateInfoKey(const TShaderDataCreate
   std::string destStr = std::to_string(static_cast<uint32_t>(createInfo.m_destination));
   std::string sizeStr = std::to_string(createInfo.m_size);
   return destStr + ":" + sizeStr;
+}
+
+std::string CResourceManager::GetVertexDescriptorKey(const std::vector<TVertexAttribute>& vertexAttributes) const
+{
+  std::string key;
+  for (auto& attribute : vertexAttributes)
+  {
+    key +=
+      std::string(":") +
+      std::to_string(static_cast<int>(attribute.m_format)) + "|" +
+      std::to_string(static_cast<int>(attribute.m_usage));
+  }
+  return key;
 }
 }

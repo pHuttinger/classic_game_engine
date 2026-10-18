@@ -55,7 +55,7 @@ TResult CDrawItemFactory::CreateSharedDrawResources(const TDrawItemCreateInfo& c
   CResourceManager& resourceManager = m_renderer.GetResourceManager();
   CGE_TRY(resourceManager.GetVertexShader    (createInfo.m_vertexShaderName, resources.m_pVertexShader));
   CGE_TRY(resourceManager.GetPixelShader     (createInfo.m_pixelShaderName, resources.m_pPixelShader));
-  CGE_TRY(resourceManager.GetVertexDescriptor(createInfo.m_vertexType, createInfo.m_vertexShaderName, resources.m_pVertexDescriptor));
+  CGE_TRY(resourceManager.GetVertexDescriptor(createInfo.m_vertexAttributes, createInfo.m_vertexShaderName, resources.m_pVertexDescriptor));
   CGE_TRY(resourceManager.GetRasterizerState (createInfo.m_rasterizerState, resources.m_pRasterizerState));
   
   for (const auto& textureName : createInfo.m_textureNames)

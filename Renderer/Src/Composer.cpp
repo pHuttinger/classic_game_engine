@@ -75,11 +75,11 @@ TResult CComposer::CreateVertexDescriptor()
 {
   rhi::TVertexDescriptorCreateInfo createInfo
   {
-    .m_pVertexShader = m_renderResources.m_pVertexShader.get(),
+    .m_pVertexShader        = m_renderResources.m_pVertexShader.get(),
     .m_vertexAttributeInfos =
     {
-      {rhi::EVertexAttributeUsage::Position, rhi::EVertexAttributeFormat::Float2},
-      {rhi::EVertexAttributeUsage::Texcoord, rhi::EVertexAttributeFormat::Float2},
+      {EVertexAttributeUsage::Position, EVertexAttributeFormat::Float2},
+      {EVertexAttributeUsage::Texcoord, EVertexAttributeFormat::Float2},
     }
   };
 

@@ -38,11 +38,18 @@ void CAssetManager::DestroyActor(CActor* pActor)
 
 TResult CAssetManager::CreateStaticMesh(const TStaticMeshCreateInfo& createInfo, CStaticMesh*& pStaticMesh)
 {
+  std::vector<TVertexAttribute> vertexAttributes =
+  {
+     {EVertexAttributeUsage::Position, EVertexAttributeFormat::Float3},
+     {EVertexAttributeUsage::Normal  , EVertexAttributeFormat::Float3},
+     {EVertexAttributeUsage::Texcoord, EVertexAttributeFormat::Float2},
+  };
+
   render::TDrawItemCreateInfo drawItem
   {
-    .m_vertexType       = render::EVertexType::StaticMesh,
     .m_vertexShaderName = "VS_StaticMesh",
     .m_pixelShaderName  = "PS_StaticMesh",
+    .m_vertexAttributes = vertexAttributes,
     .m_vertexData       = createInfo.m_vertexData,
     .m_indexData        = createInfo.m_indexData,
     .m_indexCount       = createInfo.m_indexCount,

@@ -9,15 +9,6 @@
 namespace cge::render
 {
 //----------------------------------------------------
-// EVertexType
-//----------------------------------------------------
-enum class EVertexType
-{
-  Undefined,
-  StaticMesh,
-};
-
-//----------------------------------------------------
 // ERasterizerState
 //----------------------------------------------------
 enum class ERasterizerState

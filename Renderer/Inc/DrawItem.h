@@ -16,15 +16,15 @@ class CRenderer;
 //----------------------------------------------------
 struct TDrawItemCreateInfo final
 {
-  EVertexType              m_vertexType      = EVertexType::Undefined;
-  std::string              m_vertexShaderName;
-  std::string              m_pixelShaderName;
-  TDataHandle              m_vertexData;
-  TDataHandle              m_indexData;
-  size_t                   m_indexCount      = 0U;
-  size_t                   m_stride          = 0U;
-  ERasterizerState         m_rasterizerState = ERasterizerState::Solid;
-  std::vector<std::string> m_textureNames;
+  std::string                   m_vertexShaderName;
+  std::string                   m_pixelShaderName;
+  std::vector<TVertexAttribute> m_vertexAttributes;
+  TDataHandle                   m_vertexData;
+  TDataHandle                   m_indexData;
+  size_t                        m_indexCount      = 0U;
+  size_t                        m_stride          = 0U;
+  ERasterizerState              m_rasterizerState = ERasterizerState::Solid;
+  std::vector<std::string>      m_textureNames;
 };
 
 //----------------------------------------------------

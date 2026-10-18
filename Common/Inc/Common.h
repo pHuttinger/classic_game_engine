@@ -19,6 +19,7 @@
 #include <functional>
 #include <source_location>
 #include <windows.h>
+#include "CgeCommon.h"
 
 #ifdef _DEBUG
 #include <intrin.h>

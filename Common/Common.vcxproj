@@ -139,6 +139,7 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Inc\CgeCommon.h" />
     <ClInclude Include="Inc\FileSystem\ImageLoader.h" />
     <ClInclude Include="Inc\FileSystem\BinaryFileReader.h" />
     <ClInclude Include="Inc\Common.h" />
