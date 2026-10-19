@@ -19,13 +19,10 @@
 #include <functional>
 #include <source_location>
 #include <windows.h>
-#include "CgeCommon.h"
-
-#ifdef _DEBUG
 #include <intrin.h>
 #include <iostream>
-#endif
 
+#include "CgeCommon.h"
 #include "ComPtr.h"
 
 //----------------------------------------------------

@@ -8,13 +8,18 @@ int main()
 {
   cge::TWindowCreateInfo windowCreateInfo
   {
-    .m_title = "Test Application",
+    .m_title      = "Test Application",
+#ifndef _DEBUG
+    .m_width      = 1920,
+    .m_height     = 1080,
+    .m_fullscreen = true,
+#endif
   };
 
   cge::TInstanceCreateInfo createInfo
   {
     .m_windowCreateInfo = windowCreateInfo,
-    .m_backend          = cge::rhi::EBackend::DX11,
+    .m_backend          = cge::EBackend::DX11,
     .m_pGame            = std::make_unique<CTestGame>(),
   };
 

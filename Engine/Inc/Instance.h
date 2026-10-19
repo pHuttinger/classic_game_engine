@@ -33,7 +33,7 @@ public:
 struct TInstanceCreateInfo final
 {
   TWindowCreateInfo      m_windowCreateInfo;
-  rhi::EBackend          m_backend = rhi::EBackend::DX11;
+  EBackend               m_backend = EBackend::DX11;
   std::unique_ptr<IGame> m_pGame;
 };
 
