@@ -146,8 +146,10 @@
     <ClInclude Include="Inc\ComPtr.h" />
     <ClInclude Include="Inc\Timer.h" />
     <ClInclude Include="Inc\Window.h" />
+    <ClInclude Include="Inc\Keyboard.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Keyboard.cpp" />
     <ClCompile Include="Src\FileSystem\ImageLoader.cpp" />
     <ClCompile Include="Src\FileSystem\BinaryFileReader.cpp" />
     <ClCompile Include="Src\Common.cpp" />

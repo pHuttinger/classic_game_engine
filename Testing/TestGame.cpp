@@ -28,5 +28,6 @@ void CTestGame::OnTick(const float deltaTime)
 {
   static float rotationAngle = 0.0f;
   const  float rotationSpeed = 50.0f * deltaTime;
+
   m_pActor->GetTransform().GetRotation() = glm::rotate(glm::mat4(1.0f), glm::radians(rotationAngle += rotationSpeed), glm::vec3(1.0f, 0.0f, 1.0f));
 }

@@ -113,12 +113,12 @@ LRESULT CALLBACK CWindow::WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lPa
         return 0;
       }
 
-      //input::CKeyboard::OnKeyDown((unsigned int)wParam);
+      CKeyboard::OnKeyDown((unsigned int)wParam);
       break;
     }
     case WM_KEYUP:
     {
-      //input::CKeyboard::OnKeyUp((unsigned int)wParam);
+      CKeyboard::OnKeyUp((unsigned int)wParam);
       break;
     }
     case WM_DESTROY:

@@ -4,7 +4,8 @@
 
 #pragma once
 
-#include <Common/Inc/Common.h>
+#include "Common.h"
+#include "Keyboard.h"
 
 namespace cge
 {
