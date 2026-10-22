@@ -4,27 +4,25 @@
 
 #pragma once
 
-#include <Common/Inc/Common.h>
+#include "Common.h"
 
-namespace cge::render
+namespace cge
 {
 //----------------------------------------------------
-// ERasterizerState
+// TStaticMeshModel
 //----------------------------------------------------
-enum class ERasterizerState
+struct TStaticMeshModel final
 {
-  Solid,
-  SolidNoCull,
-  Wireframe,
+  std::vector<TVertexStaticMesh> m_vertices;
+  std::vector<uint32_t>          m_indices;
+  std::vector<std::string>       m_textureNames;
 };
 
 //----------------------------------------------------
-// TVertexStaticMesh
+// TActorModel
 //----------------------------------------------------
-struct TVertexStaticMesh final
+struct TActorModel final
 {
-  glm::vec3 m_position;
-  glm::vec3 m_normal;
-  glm::vec2 m_texcoord;
+  std::vector<TStaticMeshModel> m_staticMeshModels;
 };
 }

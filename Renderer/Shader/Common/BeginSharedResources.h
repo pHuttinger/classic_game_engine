@@ -14,14 +14,18 @@
 #define float4   glm::vec4
 #define float4x4 glm::mat4
 
-#define __FINAL__ final
+#define FINAL final
+
+#define PADDING(num) float m_padding##num;
 
 //----------------------------------------------------
 // HLSL
 //----------------------------------------------------
 #else
 
-#define __FINAL__
+#define FINAL
+
+#define PADDING(num)
 
 #endif
 

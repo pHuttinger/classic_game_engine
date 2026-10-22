@@ -5,7 +5,6 @@
 #pragma once
 
 #include "Backend.h"
-#include "Common.h"
 #include "ShaderData.h"
 
 namespace cge::render

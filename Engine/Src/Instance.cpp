@@ -7,19 +7,6 @@
 namespace cge
 {
 //---------------------------------------------------
-// CGameLoop
-//---------------------------------------------------
-CGameLoop::CGameLoop(CInstance& app)
-  : m_app(app)
-{
-}
-
-void CGameLoop::OnTick()
-{
-  m_app.OnTick();
-}
-
-//---------------------------------------------------
 // CInstance
 //---------------------------------------------------
 CInstance::CInstance()
@@ -79,5 +66,18 @@ void CInstance::OnTick()
   m_sceneManager.EvaluateCurrentScene();
   m_renderProxy.RenderFrame(m_timer.GetEngineTime());
   m_pGame->OnTick(m_timer.GetDeltaTime());
+}
+
+//---------------------------------------------------
+// CGameLoop
+//---------------------------------------------------
+CGameLoop::CGameLoop(CInstance& app)
+  : m_app(app)
+{
+}
+
+void CGameLoop::OnTick()
+{
+  m_app.OnTick();
 }
 }

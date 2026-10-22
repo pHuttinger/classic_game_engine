@@ -9,7 +9,7 @@
 //----------------------------------------------------
 // TStaticMeshVertexShaderData
 //----------------------------------------------------
-struct TStaticMeshVertexShaderData __FINAL__
+struct TStaticMeshVertexShaderData FINAL
 {
   float4x4 m_mvp;
   float4x4 m_model;

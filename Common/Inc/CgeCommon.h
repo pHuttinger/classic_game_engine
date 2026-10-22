@@ -4,6 +4,15 @@
 
 #pragma once
 
+//----------------------------------------------------
+// GLM
+//----------------------------------------------------
+#define GLM_ENABLE_EXPERIMENTAL
+#define GLM_FORCE_RADIANS
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtx/euler_angles.hpp>
+
 namespace cge
 {
 //----------------------------------------------------
@@ -14,6 +23,16 @@ enum class EBackend
   Undefined,
   DX11,
   OpenGL,
+};
+
+//----------------------------------------------------
+// ERasterizerState
+//----------------------------------------------------
+enum class ERasterizerState
+{
+  Solid,
+  SolidNoCull,
+  Wireframe,
 };
 
 //---------------------------------------------------
@@ -31,8 +50,8 @@ enum class EVertexAttributeUsage
 //---------------------------------------------------
 enum class EVertexAttributeFormat
 {
-  Float2 = 1,
-  Float3 = 2,
+  Float2,
+  Float3,
 };
 
 //---------------------------------------------------
@@ -42,5 +61,15 @@ struct TVertexAttribute final
 {
   EVertexAttributeUsage  m_usage  = EVertexAttributeUsage::Position;
   EVertexAttributeFormat m_format = EVertexAttributeFormat::Float2;
+};
+
+//----------------------------------------------------
+// TVertexStaticMesh
+//----------------------------------------------------
+struct TVertexStaticMesh final
+{
+  glm::vec3 m_position;
+  glm::vec3 m_normal;
+  glm::vec2 m_texcoord;
 };
 }

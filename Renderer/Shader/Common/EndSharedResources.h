@@ -12,6 +12,8 @@
 #undef float4
 #undef float4x4
 
-#undef __FINAL__
+#undef FINAL
+
+#undef PADDING
 
 #endif

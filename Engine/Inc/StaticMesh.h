@@ -16,9 +16,10 @@ namespace cge
 //----------------------------------------------------
 struct TStaticMeshCreateInfo final
 {
-  TDataHandle m_vertexData;
-  TDataHandle m_indexData;
-  size_t      m_indexCount = 0U;
+  TDataHandle              m_vertexData;
+  TDataHandle              m_indexData;
+  size_t                   m_indexCount = 0U;
+  std::vector<std::string> m_textureNames;
 };
 
 //----------------------------------------------------
@@ -33,7 +34,7 @@ public:
 
   void Update(render::CShaderData* pShaderData, const CCamera& camera, const glm::mat4& modelMatrix);
 
-  TResult SetRasterizerState(const render::ERasterizerState state);
+  TResult SetRasterizerState(const ERasterizerState state);
 
   render::CDrawItem* GetDrawItem() const { return m_pDrawItem.get(); };
 

@@ -5,7 +5,6 @@
 #pragma once
 
 #include "Backend.h"
-#include "Common.h"
 
 namespace cge::render
 {

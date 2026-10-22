@@ -4,18 +4,18 @@
 
 #pragma once
 
-#include <Renderer/Inc/Common.h>
+#include <Common/Inc/Common.h>
 
-namespace cge
+namespace cge::presets
 {
 //----------------------------------------------------
-// IPipeline
+// CBox
 //----------------------------------------------------
-class CTestBox final
+class CBox final
 {
 public:
 
-  std::vector<render::TVertexStaticMesh> GetVertices() const;
+  std::vector<TVertexStaticMesh> GetVertices() const;
   std::vector<uint32_t> GetIndices() const;
 };
 }

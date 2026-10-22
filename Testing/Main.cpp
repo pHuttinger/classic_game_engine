@@ -8,7 +8,7 @@ int main()
 {
   cge::TWindowCreateInfo windowCreateInfo
   {
-    .m_title      = "Test Application",
+    .m_title      = "Testing",
 #ifndef _DEBUG
     .m_width      = 1920,
     .m_height     = 1080,

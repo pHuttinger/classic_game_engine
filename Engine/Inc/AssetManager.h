@@ -5,6 +5,7 @@
 #pragma once
 
 #include "Actor.h"
+#include <Common/Inc/ImportModel.h>
 
 namespace cge
 {
@@ -28,14 +29,16 @@ public:
 
   CAssetManager(CInstance& instance);
 
-  CActor* CreateActor();
-  void DestroyActor(CActor* pActor);
-
+  CActor* CreateEmptyActor();
+  TResult CreateActor(TActorModel& model, CActor*& pActor);
+  void    DestroyActor(CActor* pActor);
   TResult CreateStaticMesh(const TStaticMeshCreateInfo& createInfo, CStaticMesh*& pStaticMesh);
-  TResult CreateStaticMesh_TestBox(CStaticMesh*& pStaticMesh);
-  void DestroyStaticMesh(CStaticMesh* pStaticMesh);
+  TResult CreateStaticMesh(TStaticMeshModel& model, CStaticMesh*& pStaticMesh);
+  void    DestroyStaticMesh(CStaticMesh* pStaticMesh);
 
 private:
+
+  TStaticMeshCreateInfo CreateInfoFromImportModel(TStaticMeshModel& model);
 
   CInstance& m_instance;
   TAssetStore m_assetStore;

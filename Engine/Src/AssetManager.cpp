@@ -13,10 +13,24 @@ CAssetManager::CAssetManager(CInstance& instance)
 {
 }
 
-CActor* CAssetManager::CreateActor()
+CActor* CAssetManager::CreateEmptyActor()
 {
   m_assetStore.m_actors.push_back(std::make_unique<CActor>(m_instance));
   return m_assetStore.m_actors.back().get();
+}
+
+TResult CAssetManager::CreateActor(TActorModel& model, CActor*& pActor)
+{
+  pActor = CreateEmptyActor();
+
+  for (auto& staticMeshModel : model.m_staticMeshModels)
+  {
+    CStaticMesh* pStaticMesh = nullptr;
+    CGE_TRY(CreateStaticMesh(staticMeshModel, pStaticMesh));
+    CGE_TRY(pActor->AddStaticMesh(pStaticMesh));
+  }
+
+  return TResult::Okay();
 }
 
 void CAssetManager::DestroyActor(CActor* pActor)
@@ -26,14 +40,18 @@ void CAssetManager::DestroyActor(CActor* pActor)
     return a.get() == pActor;
   };
 
-  auto removeIter = std::remove_if(
+  auto removeIter = std::remove_if
+  (
     m_assetStore.m_actors.begin(),
     m_assetStore.m_actors.end(),
-    removeCondition);
+    removeCondition
+  );
 
-  m_assetStore.m_actors.erase(
+  m_assetStore.m_actors.erase
+  (
     removeIter,
-    m_assetStore.m_actors.end());
+    m_assetStore.m_actors.end()
+  );
 }
 
 TResult CAssetManager::CreateStaticMesh(const TStaticMeshCreateInfo& createInfo, CStaticMesh*& pStaticMesh)
@@ -53,9 +71,9 @@ TResult CAssetManager::CreateStaticMesh(const TStaticMeshCreateInfo& createInfo,
     .m_vertexData       = createInfo.m_vertexData,
     .m_indexData        = createInfo.m_indexData,
     .m_indexCount       = createInfo.m_indexCount,
-    .m_stride           = sizeof(render::TVertexStaticMesh),
-    .m_rasterizerState  = render::ERasterizerState::Solid,
-    .m_textureNames     = {"image.png"},
+    .m_stride           = sizeof(TVertexStaticMesh),
+    .m_rasterizerState  = ERasterizerState::Solid,
+    .m_textureNames     = createInfo.m_textureNames,
   };
 
   auto staticMesh = std::make_unique<CStaticMesh>();
@@ -67,28 +85,11 @@ TResult CAssetManager::CreateStaticMesh(const TStaticMeshCreateInfo& createInfo,
   return TResult::Okay();
 }
 
-TResult CAssetManager::CreateStaticMesh_TestBox(CStaticMesh*& pStaticMesh)
+TResult CAssetManager::CreateStaticMesh(TStaticMeshModel& model, CStaticMesh*& pStaticMesh)
 {
-  CTestBox testBox;
-  std::vector<render::TVertexStaticMesh> vertices = testBox.GetVertices();
-  std::vector<uint32_t> indices = testBox.GetIndices();
-
-  TStaticMeshCreateInfo createInfo
-  {
-    .m_vertexData =
-    {
-      .m_size  = vertices.size() * sizeof(render::TVertexStaticMesh),
-      .m_pData = vertices.data(),
-    },
-    .m_indexData =
-    {
-      .m_size  = indices.size() * sizeof(uint32_t),
-      .m_pData = indices.data(),
-    },
-    .m_indexCount = indices.size(),
-  };
-
-  return CreateStaticMesh(createInfo, pStaticMesh);
+  TStaticMeshCreateInfo createInfo = CreateInfoFromImportModel(model);
+  CGE_TRY(CreateStaticMesh(createInfo, pStaticMesh));
+  return TResult::Okay();
 }
 
 void CAssetManager::DestroyStaticMesh(CStaticMesh* pStaticMesh)
@@ -98,13 +99,40 @@ void CAssetManager::DestroyStaticMesh(CStaticMesh* pStaticMesh)
     return a.get() == pStaticMesh;
   };
 
-  auto removeIter = std::remove_if(
+  auto removeIter = std::remove_if
+  (
     m_assetStore.m_staticMeshes.begin(),
     m_assetStore.m_staticMeshes.end(),
-    removeCondition);
+    removeCondition
+  );
 
-  m_assetStore.m_staticMeshes.erase(
+  m_assetStore.m_staticMeshes.erase
+  (
     removeIter,
-    m_assetStore.m_staticMeshes.end());
+    m_assetStore.m_staticMeshes.end()
+  );
+}
+
+TStaticMeshCreateInfo CAssetManager::CreateInfoFromImportModel(TStaticMeshModel& model)
+{
+  TDataHandle vertexData
+  {
+    .m_size  = model.m_vertices.size() * sizeof(TVertexStaticMesh),
+    .m_pData = model.m_vertices.data(),
+  };
+
+  TDataHandle indexData
+  {
+    .m_size  = model.m_indices.size() * sizeof(uint32_t),
+    .m_pData = model.m_indices.data(),
+  };
+
+  return
+  {
+    .m_vertexData   = vertexData,
+    .m_indexData    = indexData,
+    .m_indexCount   = model.m_indices.size(),
+    .m_textureNames = model.m_textureNames,
+  };
 }
 }

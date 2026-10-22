@@ -3,19 +3,28 @@
 //////////////////////////////////////////////////////
 
 #include "TestGame.h"
+#include <Engine/Inc/PresetMeshes.h>
 
 cge::TResult CTestGame::OnCreate(cge::CInstance& instance)
 {
   cge::CSceneManager& sceneManager = instance.GetSceneManager();
   cge::CAssetManager& assetManager = instance.GetAssetManager();
 
-  cge::CScene* pScene = sceneManager.CreateScene("TestScene");
+  cge::presets::CBox box;
+  cge::TStaticMeshModel staticMeshModel;
+  staticMeshModel.m_vertices     = box.GetVertices();
+  staticMeshModel.m_indices      = box.GetIndices();
+  staticMeshModel.m_textureNames = { "box.jpg" };
 
-  cge::CStaticMesh* pStaticMesh = nullptr;
-  assetManager.CreateStaticMesh_TestBox(pStaticMesh);
-  
-  m_pActor = assetManager.CreateActor();
-  m_pActor->AddStaticMesh(pStaticMesh);
+  cge::TActorModel actorModel;
+  actorModel.m_staticMeshModels.push_back(staticMeshModel);
+
+  if (cge::TResult result = assetManager.CreateActor(actorModel, m_pActor); result.IsError())
+  {
+    return result;
+  }
+
+  cge::CScene* pScene = sceneManager.CreateScene("TestScene");
   pScene->AddActor(m_pActor);
 
   cge::CCamera& camera = pScene->GetCurrentCamera();

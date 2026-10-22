@@ -39,7 +39,6 @@ void CRenderer::RenderFrame(const CFrameInput& input)
     {
       .m_lightDirection = input.m_lightDirection,
       .m_cameraPosition = input.m_cameraPosition,
-      .m_fogColor       = glm::vec3(1.0f, 0.0f, 0.0f)//input.m_clearColor,
     },
   };
 

@@ -155,7 +155,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Inc\Common.h" />
     <ClInclude Include="Inc\GeometryPass.h" />
     <ClInclude Include="Inc\Backend.h" />
     <ClInclude Include="Inc\Renderer.h" />

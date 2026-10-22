@@ -42,9 +42,6 @@
     <ClInclude Include="Inc\ResourceManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Inc\Common.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Inc\ShaderData.h">
       <Filter>Header Files</Filter>
     </ClInclude>

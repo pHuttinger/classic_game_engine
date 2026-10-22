@@ -52,7 +52,7 @@ void Write(const std::string& text, ETerminalColor color)
 
 void WriteError(const std::string& text, const std::string& file, const uint32_t line)
 {
-  std::string output = std::format("Error --> '{}' [{}:{}]", text, file, line);
+  std::string output = std::format("Error --> '{}' called from: [{}:{}]", text, file, line);
   if(IsDebugging())
   {
     WriteImpl(std::cerr, output, ETerminalColor::Red);

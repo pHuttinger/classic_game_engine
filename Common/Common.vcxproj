@@ -139,6 +139,7 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Inc\ImportModel.h" />
     <ClInclude Include="Inc\CgeCommon.h" />
     <ClInclude Include="Inc\FileSystem\ImageLoader.h" />
     <ClInclude Include="Inc\FileSystem\BinaryFileReader.h" />
@@ -149,6 +150,7 @@
     <ClInclude Include="Inc\Keyboard.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\ImportModel.cpp" />
     <ClCompile Include="Src\Keyboard.cpp" />
     <ClCompile Include="Src\FileSystem\ImageLoader.cpp" />
     <ClCompile Include="Src\FileSystem\BinaryFileReader.cpp" />

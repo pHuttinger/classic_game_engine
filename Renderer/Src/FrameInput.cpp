@@ -5,7 +5,7 @@
 #include "../Inc/FrameInput.h"
 
 constexpr glm::vec4 DEFAULT_CLEAR_COLOR = glm::vec4(0.1f, 0.3f, 0.5f, 1.0f);
-constexpr glm::vec3 DEFAULT_LIGHT_DIRECTION = glm::vec3(0.5f, 0.25f, 1.0f);
+constexpr glm::vec3 DEFAULT_LIGHT_DIRECTION = glm::vec3(0.5f, 0.5f, 1.0f);
 
 namespace cge::render
 {

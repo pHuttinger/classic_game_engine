@@ -9,14 +9,12 @@
 //----------------------------------------------------
 // TComposerPixelShaderData
 //----------------------------------------------------
-struct TComposerPixelShaderData __FINAL__
+struct TComposerPixelShaderData FINAL
 {
   float3 m_lightDirection;
-  float _padding0;
+  PADDING(0)
   float3 m_cameraPosition;
-  float _padding1;
-  float3 m_fogColor;
-  float _padding2;
+  PADDING(1)
 };
 
 #include "../Common/EndSharedResources.h"
