@@ -38,6 +38,7 @@ public:
 
 private:
 
+  TResult CreateActorsMeshes(TActorModel& model, CActor* pActor);
   TStaticMeshCreateInfo StaticMeshCreateInfoFromMeshModel(TMeshModel& meshModel) const;
 
   CInstance& m_instance;

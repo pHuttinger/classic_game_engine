@@ -23,24 +23,7 @@ TResult CAssetManager::CreateActor(TActorModel& model, CActor*& pActor)
 {
   pActor = CreateEmptyActor();
 
-  for (auto& meshModel : model.m_meshModels)
-  {
-    switch (meshModel.m_meshType)
-    {
-      case EMeshType::Static:
-      {
-        CStaticMesh* pStaticMesh = nullptr;
-        CGE_TRY(CreateStaticMesh(meshModel, pStaticMesh));
-        CGE_TRY(pActor->AddStaticMesh(pStaticMesh));
-      }
-      break;
-      case EMeshType::Skinned:
-      {
-        //TODO
-      }
-      break;
-    }
-  }
+  CGE_TRY(CreateActorsMeshes(model, pActor));
 
   return TResult::Okay();
 }
@@ -68,13 +51,6 @@ void CAssetManager::DestroyActor(CActor* pActor)
 
 TResult CAssetManager::CreateStaticMesh(TStaticMeshCreateInfo& createInfo, CStaticMesh*& pStaticMesh)
 {
-  std::vector<TVertexAttribute> vertexAttributes =
-  {
-     {EVertexAttributeUsage::Position, EVertexAttributeFormat::Float3},
-     {EVertexAttributeUsage::Normal  , EVertexAttributeFormat::Float3},
-     {EVertexAttributeUsage::Texcoord, EVertexAttributeFormat::Float2},
-  };
-
   TDataHandle vertexData
   {
     .m_size  = createInfo.m_vertices.size() * sizeof(TVertexStaticMesh),
@@ -89,14 +65,13 @@ TResult CAssetManager::CreateStaticMesh(TStaticMeshCreateInfo& createInfo, CStat
 
   render::TDrawItemCreateInfo drawItem
   {
-    .m_vertexShaderName = "VS_StaticMesh",
-    .m_pixelShaderName  = "PS_StaticMesh",
-    .m_vertexAttributes = vertexAttributes,
+    .m_vertexShaderName = CStaticMesh::GetVertexShaderName(),
+    .m_pixelShaderName  = CStaticMesh::GetPixelShaderName(),
+    .m_vertexAttributes = CStaticMesh::GetVertexAttributes(),
     .m_vertexData       = vertexData,
     .m_indexData        = indexData,
     .m_indexCount       = createInfo.m_indices.size(),
     .m_stride           = sizeof(TVertexStaticMesh),
-    .m_rasterizerState  = ERasterizerState::Solid,
     .m_textureNames     = createInfo.m_textureNames,
   };
 
@@ -135,6 +110,30 @@ void CAssetManager::DestroyStaticMesh(CStaticMesh* pStaticMesh)
     removeIter,
     m_assetStore.m_staticMeshes.end()
   );
+}
+
+TResult CAssetManager::CreateActorsMeshes(TActorModel& model, CActor* pActor)
+{
+  for (auto& meshModel : model.m_meshModels)
+  {
+    switch (meshModel.m_meshType)
+    {
+      case EMeshType::Static:
+      {
+        CStaticMesh* pStaticMesh = nullptr;
+        CGE_TRY(CreateStaticMesh(meshModel, pStaticMesh));
+        CGE_TRY(pActor->AddStaticMesh(pStaticMesh));
+        break;
+      }
+      case EMeshType::Skinned:
+      {
+        //TODO
+        break;
+      }
+    }
+  }
+
+  return TResult::Okay();
 }
 
 TStaticMeshCreateInfo CAssetManager::StaticMeshCreateInfoFromMeshModel(TMeshModel& meshModel) const

@@ -28,6 +28,7 @@ class CStaticMesh
 {
 friend class CActor;
 friend class CSceneManager;
+friend class CAssetManager;
 
 public:
 
@@ -38,6 +39,10 @@ private:
 
   void UpdateVertexShaderData(render::CShaderData* pShaderData, const CCamera& camera, const glm::mat4& modelMatrix);
   TResult GetVertexShaderData(render::CRenderer& renderer, std::shared_ptr<render::CShaderData>& pShaderData);
+
+  static std::vector<TVertexAttribute> GetVertexAttributes();
+  static std::string GetVertexShaderName() { return "VS_StaticMesh"; };
+  static std::string GetPixelShaderName() { return "PS_StaticMesh"; };
 
   render::CDrawItem* GetDrawItem() const { return m_pDrawItem.get(); };
 

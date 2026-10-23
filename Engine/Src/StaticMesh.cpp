@@ -27,6 +27,17 @@ TResult CStaticMesh::GetVertexShaderData(render::CRenderer& renderer, std::share
   return TResult::Okay();
 }
 
+//static
+std::vector<TVertexAttribute> CStaticMesh::GetVertexAttributes()
+{
+  return
+  {
+     {EVertexAttributeUsage::Position, EVertexAttributeFormat::Float3},
+     {EVertexAttributeUsage::Normal  , EVertexAttributeFormat::Float3},
+     {EVertexAttributeUsage::Texcoord, EVertexAttributeFormat::Float2},
+  };
+}
+
 void CStaticMesh::UpdateVertexShaderData(render::CShaderData* pShaderData, const CCamera& camera, const glm::mat4& modelMatrix)
 {
   glm::mat4 projectionMatrix = camera.GetProjectionMatrix();
