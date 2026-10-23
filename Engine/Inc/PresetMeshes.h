@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include <Common/Inc/Common.h>
+#include <Common/Inc/ImportModel.h>
 
 namespace cge::presets
 {
@@ -15,7 +15,7 @@ class CBox final
 {
 public:
 
-  std::vector<TVertexStaticMesh> GetVertices() const;
+  std::vector<TVertexModel> GetVertices() const;
   std::vector<uint32_t> GetIndices() const;
 };
 }

@@ -16,10 +16,9 @@ namespace cge
 //----------------------------------------------------
 struct TStaticMeshCreateInfo final
 {
-  TDataHandle              m_vertexData;
-  TDataHandle              m_indexData;
-  size_t                   m_indexCount = 0U;
-  std::vector<std::string> m_textureNames;
+  std::vector<TVertexStaticMesh> m_vertices;
+  std::vector<uint32_t>          m_indices;
+  std::vector<std::string>       m_textureNames;
 };
 
 //----------------------------------------------------

@@ -23,11 +23,23 @@ TResult CAssetManager::CreateActor(TActorModel& model, CActor*& pActor)
 {
   pActor = CreateEmptyActor();
 
-  for (auto& staticMeshModel : model.m_staticMeshModels)
+  for (auto& meshModel : model.m_meshModels)
   {
-    CStaticMesh* pStaticMesh = nullptr;
-    CGE_TRY(CreateStaticMesh(staticMeshModel, pStaticMesh));
-    CGE_TRY(pActor->AddStaticMesh(pStaticMesh));
+    switch (meshModel.m_meshType)
+    {
+      case EMeshType::Static:
+      {
+        CStaticMesh* pStaticMesh = nullptr;
+        CGE_TRY(CreateStaticMesh(meshModel, pStaticMesh));
+        CGE_TRY(pActor->AddStaticMesh(pStaticMesh));
+      }
+      break;
+      case EMeshType::Skinned:
+      {
+        //TODO
+      }
+      break;
+    }
   }
 
   return TResult::Okay();
@@ -54,7 +66,7 @@ void CAssetManager::DestroyActor(CActor* pActor)
   );
 }
 
-TResult CAssetManager::CreateStaticMesh(const TStaticMeshCreateInfo& createInfo, CStaticMesh*& pStaticMesh)
+TResult CAssetManager::CreateStaticMesh(TStaticMeshCreateInfo& createInfo, CStaticMesh*& pStaticMesh)
 {
   std::vector<TVertexAttribute> vertexAttributes =
   {
@@ -63,14 +75,26 @@ TResult CAssetManager::CreateStaticMesh(const TStaticMeshCreateInfo& createInfo,
      {EVertexAttributeUsage::Texcoord, EVertexAttributeFormat::Float2},
   };
 
+  TDataHandle vertexData
+  {
+    .m_size  = createInfo.m_vertices.size() * sizeof(TVertexStaticMesh),
+    .m_pData = createInfo.m_vertices.data(),
+  };
+
+  TDataHandle indexData
+  {
+    .m_size  = createInfo.m_indices.size() * sizeof(uint32_t),
+    .m_pData = createInfo.m_indices.data(),
+  };
+
   render::TDrawItemCreateInfo drawItem
   {
     .m_vertexShaderName = "VS_StaticMesh",
     .m_pixelShaderName  = "PS_StaticMesh",
     .m_vertexAttributes = vertexAttributes,
-    .m_vertexData       = createInfo.m_vertexData,
-    .m_indexData        = createInfo.m_indexData,
-    .m_indexCount       = createInfo.m_indexCount,
+    .m_vertexData       = vertexData,
+    .m_indexData        = indexData,
+    .m_indexCount       = createInfo.m_indices.size(),
     .m_stride           = sizeof(TVertexStaticMesh),
     .m_rasterizerState  = ERasterizerState::Solid,
     .m_textureNames     = createInfo.m_textureNames,
@@ -85,9 +109,9 @@ TResult CAssetManager::CreateStaticMesh(const TStaticMeshCreateInfo& createInfo,
   return TResult::Okay();
 }
 
-TResult CAssetManager::CreateStaticMesh(TStaticMeshModel& model, CStaticMesh*& pStaticMesh)
+TResult CAssetManager::CreateStaticMesh(TMeshModel& model, CStaticMesh*& pStaticMesh)
 {
-  TStaticMeshCreateInfo createInfo = CreateInfoFromImportModel(model);
+  TStaticMeshCreateInfo createInfo = StaticMeshCreateInfoFromMeshModel(model);
   CGE_TRY(CreateStaticMesh(createInfo, pStaticMesh));
   return TResult::Okay();
 }
@@ -113,26 +137,26 @@ void CAssetManager::DestroyStaticMesh(CStaticMesh* pStaticMesh)
   );
 }
 
-TStaticMeshCreateInfo CAssetManager::CreateInfoFromImportModel(TStaticMeshModel& model)
+TStaticMeshCreateInfo CAssetManager::StaticMeshCreateInfoFromMeshModel(TMeshModel& meshModel) const
 {
-  TDataHandle vertexData
+  TStaticMeshCreateInfo createInfo
   {
-    .m_size  = model.m_vertices.size() * sizeof(TVertexStaticMesh),
-    .m_pData = model.m_vertices.data(),
+    .m_indices      = meshModel.m_indices,
+    .m_textureNames = meshModel.m_textureNames,
   };
 
-  TDataHandle indexData
+  for (auto& vertexModel : meshModel.m_vertices)
   {
-    .m_size  = model.m_indices.size() * sizeof(uint32_t),
-    .m_pData = model.m_indices.data(),
-  };
+    TVertexStaticMesh vertex
+    {
+      .m_position = vertexModel.m_position,
+      .m_normal   = vertexModel.m_normal,
+      .m_texcoord = vertexModel.m_texcoord,
+    };
 
-  return
-  {
-    .m_vertexData   = vertexData,
-    .m_indexData    = indexData,
-    .m_indexCount   = model.m_indices.size(),
-    .m_textureNames = model.m_textureNames,
-  };
+    createInfo.m_vertices.push_back(vertex);
+  }
+
+  return createInfo;
 }
 }

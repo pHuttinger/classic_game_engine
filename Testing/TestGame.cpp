@@ -12,32 +12,31 @@ cge::TResult CTestGame::OnCreate(cge::CInstance& instance)
   cge::CAssetManager& assetManager = instance.GetAssetManager();
 
   cge::presets::CBox box;
-  cge::TStaticMeshModel boxMeshModel;
+  cge::TMeshModel boxMeshModel;
   boxMeshModel.m_vertices     = box.GetVertices();
   boxMeshModel.m_indices      = box.GetIndices();
   boxMeshModel.m_textureNames = { "image.png" };
 
   cge::TActorModel boxModel;
-  boxModel.m_staticMeshModels.push_back(boxMeshModel);
+  boxModel.m_meshModels.push_back(boxMeshModel);
   if (cge::TResult result = assetManager.CreateActor(boxModel, m_pBox); result.IsError())
   {
     return result;
   }
 
-  m_pBox->GetTransform().GetPosition().y += 75.0f;
-  m_pBox->GetTransform().GetPosition().x += 75.0f;
-  m_pBox->GetTransform().GetScale() *= 20.0f;
+  m_pBox->GetTransform().GetPosition().y += 4.0f;
+  m_pBox->GetTransform().GetPosition().x += 4.0f;
 
   cge::filesystem::CAssimp assimp;
 
   cge::TActorModel manModel;
-  assimp.LoadActorFromFile("models/male/scene.gltf", manModel);
+  assimp.LoadActorFromFile("models/running/running.glb", manModel);
   if (cge::TResult result = assetManager.CreateActor(manModel, m_pMan); result.IsError())
   {
     return result;
   }
 
-  m_pMan->GetTransform().GetScale() *= 0.02f;
+  m_pMan->GetTransform().GetScale() *= 0.5f;
 
   cge::CScene* pScene = sceneManager.CreateScene("TestScene");
   pScene->AddActor(m_pMan);

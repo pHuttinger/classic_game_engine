@@ -18,6 +18,6 @@ public:
 
 private:
 
-  TStaticMeshModel ExtractStaticMeshModel(aiMesh* mesh) const;
+  TMeshModel ExtractMeshModel(aiMesh* mesh) const;
 };
 }

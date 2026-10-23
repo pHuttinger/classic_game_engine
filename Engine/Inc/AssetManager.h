@@ -32,13 +32,13 @@ public:
   CActor* CreateEmptyActor();
   TResult CreateActor(TActorModel& model, CActor*& pActor);
   void    DestroyActor(CActor* pActor);
-  TResult CreateStaticMesh(const TStaticMeshCreateInfo& createInfo, CStaticMesh*& pStaticMesh);
-  TResult CreateStaticMesh(TStaticMeshModel& model, CStaticMesh*& pStaticMesh);
+  TResult CreateStaticMesh(TStaticMeshCreateInfo& createInfo, CStaticMesh*& pStaticMesh);
+  TResult CreateStaticMesh(TMeshModel& model, CStaticMesh*& pStaticMesh);
   void    DestroyStaticMesh(CStaticMesh* pStaticMesh);
 
 private:
 
-  TStaticMeshCreateInfo CreateInfoFromImportModel(TStaticMeshModel& model);
+  TStaticMeshCreateInfo StaticMeshCreateInfoFromMeshModel(TMeshModel& meshModel) const;
 
   CInstance& m_instance;
   TAssetStore m_assetStore;

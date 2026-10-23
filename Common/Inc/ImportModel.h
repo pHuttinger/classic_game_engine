@@ -9,13 +9,35 @@
 namespace cge
 {
 //----------------------------------------------------
-// TStaticMeshModel
+// EMeshType
 //----------------------------------------------------
-struct TStaticMeshModel final
+enum EMeshType
 {
-  std::vector<TVertexStaticMesh> m_vertices;
-  std::vector<uint32_t>          m_indices;
-  std::vector<std::string>       m_textureNames;
+  Static,
+  Skinned
+};
+
+//----------------------------------------------------
+// TVertexModel
+//----------------------------------------------------
+struct TVertexModel final
+{
+  glm::vec3  m_position;
+  glm::vec3  m_normal;
+  glm::vec2  m_texcoord;
+  glm::ivec4 m_boneIDs;
+  glm::vec4  m_boneWeights;
+};
+
+//----------------------------------------------------
+// TMeshModel
+//----------------------------------------------------
+struct TMeshModel final
+{
+  EMeshType                 m_meshType = EMeshType::Static;
+  std::vector<TVertexModel> m_vertices;
+  std::vector<uint32_t>     m_indices;
+  std::vector<std::string>  m_textureNames;
 };
 
 //----------------------------------------------------
@@ -23,6 +45,6 @@ struct TStaticMeshModel final
 //----------------------------------------------------
 struct TActorModel final
 {
-  std::vector<TStaticMeshModel> m_staticMeshModels;
+  std::vector<TMeshModel> m_meshModels;
 };
 }

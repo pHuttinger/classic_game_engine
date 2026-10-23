@@ -16,35 +16,45 @@ TResult CAssimp::LoadActorFromFile(const std::filesystem::path& filename, TActor
 {
   Assimp::Importer importer;
 
-  const aiScene* pScene = importer.ReadFile(
-    filename.string(),
+  uint32_t importFlags =
     aiProcess_Triangulate      |
     aiProcess_GenNormals       |
     aiProcess_CalcTangentSpace |
     aiProcess_FlipUVs          |
-    aiProcess_GlobalScale
-  );
+    aiProcess_GlobalScale;
+
+  const aiScene* pScene = importer.ReadFile(filename.string(), importFlags);
+  if (pScene == nullptr)
+  {
+    return TResult::Error("scene is NULL");
+  }
 
   for (size_t i = 0; i < pScene->mNumMeshes; i++)
   {
     aiMesh* pMesh = pScene->mMeshes[i];
 
-    model.m_staticMeshModels.push_back(ExtractStaticMeshModel(pMesh));
+    TMeshModel meshModel = ExtractMeshModel(pMesh);
+    if (pMesh->HasBones())
+    {
+      meshModel.m_meshType = EMeshType::Skinned;
+    }
+
+    model.m_meshModels.push_back(meshModel);
   }
 
   return TResult::Okay();
 }
 
-TStaticMeshModel CAssimp::ExtractStaticMeshModel(aiMesh* mesh) const
+TMeshModel CAssimp::ExtractMeshModel(aiMesh* mesh) const
 {
-  std::vector<TVertexStaticMesh> vertices;
+  std::vector<TVertexModel> vertices;
   std::vector<uint32_t> indices;
 
   vertices.reserve(mesh->mNumVertices);
 
   for (unsigned int i = 0; i < mesh->mNumVertices; i++)
   {
-    TVertexStaticMesh vertex{};
+    TVertexModel vertex{};
 
     vertex.m_position.x = mesh->mVertices[i].x;
     vertex.m_position.y = mesh->mVertices[i].y;
@@ -80,7 +90,7 @@ TStaticMeshModel CAssimp::ExtractStaticMeshModel(aiMesh* mesh) const
   {
     .m_vertices     = vertices,
     .m_indices      = indices,
-    .m_textureNames = {"models/male/textures/hero_baseColor.png"},
+    .m_textureNames = {"models/running/texture.png"},
   };
 }
 }
