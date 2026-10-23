@@ -6,13 +6,13 @@
 
 SamplerState samplerState : register(s0);
 
-Texture2D textureAlbedo   : register(t0);
-Texture2D textureNormal   : register(t1);
+Texture2D textureAlbedo : register(t0);
+Texture2D textureNormal : register(t1);
 
 float4 PSMain(PS_INPUT input) : SV_TARGET
 {
-  float4 albedo   = textureAlbedo  .Sample(samplerState, input.texcoord);
-  float4 normal   = textureNormal  .Sample(samplerState, input.texcoord);
+  float4 albedo = textureAlbedo.Sample(samplerState, input.texcoord);
+  float4 normal = textureNormal.Sample(samplerState, input.texcoord);
   
   clip(albedo.a == 0.0f ? -1 : 1);
   

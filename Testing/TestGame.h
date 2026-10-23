@@ -13,5 +13,7 @@ public:
 
 private:
 
-  cge::CActor* m_pActor = nullptr;
+  cge::CInstance* m_pInstance = nullptr;
+  cge::CActor* m_pBox = nullptr;
+  cge::CActor* m_pMan = nullptr;
 };

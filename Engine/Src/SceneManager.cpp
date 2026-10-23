@@ -26,8 +26,13 @@ CScene* CSceneManager::CreateScene(const std::string& name)
   };
 
   m_scenes.emplace(name, std::make_unique<CScene>(viewportSize));
-  m_pCurrentScene = m_scenes[name].get();
-  return m_pCurrentScene;
+
+  if (m_pCurrentScene == nullptr)
+  {
+    m_pCurrentScene = m_scenes[name].get();
+  }
+
+  return m_scenes[name].get();
 }
 
 void CSceneManager::SetCurrentScene(const std::string& name)
