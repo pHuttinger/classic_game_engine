@@ -37,7 +37,7 @@ public:
 
 private:
 
-  void Update(render::CShaderData* pShaderData, const CCamera& camera, const glm::mat4& modelMatrix);
+  void UpdateVertexShaderData(render::CShaderData* pShaderData, const CCamera& camera, const glm::mat4& modelMatrix);
   TResult GetVertexShaderData(render::CRenderer& renderer, std::shared_ptr<render::CShaderData>& pShaderData);
 
   render::CDrawItem* GetDrawItem() const { return m_pDrawItem.get(); };

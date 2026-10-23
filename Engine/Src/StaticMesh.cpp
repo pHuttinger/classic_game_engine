@@ -27,7 +27,7 @@ TResult CStaticMesh::GetVertexShaderData(render::CRenderer& renderer, std::share
   return TResult::Okay();
 }
 
-void CStaticMesh::Update(render::CShaderData* pShaderData, const CCamera& camera, const glm::mat4& modelMatrix)
+void CStaticMesh::UpdateVertexShaderData(render::CShaderData* pShaderData, const CCamera& camera, const glm::mat4& modelMatrix)
 {
   glm::mat4 projectionMatrix = camera.GetProjectionMatrix();
   glm::mat4 viewMatrix       = camera.GetViewMatrix();

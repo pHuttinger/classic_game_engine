@@ -77,7 +77,7 @@ void CSceneManager::EvaluateStaticMesh(CCamera& camera, const glm::mat4& model, 
   CStaticMesh* pStaticMesh = staticMeshContext.m_pStaticMesh;
   render::CShaderData* pVertexShaderData = staticMeshContext.m_pVertexShaderData.get();
 
-  staticMeshContext.m_pStaticMesh->Update(pVertexShaderData, camera, model);
+  staticMeshContext.m_pStaticMesh->UpdateVertexShaderData(pVertexShaderData, camera, model);
 
   render::TDrawCall drawCall
   {
