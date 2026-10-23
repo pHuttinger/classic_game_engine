@@ -16,11 +16,14 @@ TResult CAssimp::LoadActorFromFile(const std::filesystem::path& filename, TActor
 {
   Assimp::Importer importer;
 
+  importer.SetPropertyInteger(AI_CONFIG_PP_LBW_MAX_WEIGHTS, 4);
+
   uint32_t importFlags =
     aiProcess_Triangulate      |
     aiProcess_GenNormals       |
     aiProcess_CalcTangentSpace |
     aiProcess_FlipUVs          |
+    aiProcess_LimitBoneWeights |
     aiProcess_GlobalScale;
 
   const aiScene* pScene = importer.ReadFile(filename.string(), importFlags);
@@ -34,10 +37,12 @@ TResult CAssimp::LoadActorFromFile(const std::filesystem::path& filename, TActor
     aiMesh* pMesh = pScene->mMeshes[i];
 
     TMeshModel meshModel = ExtractMeshModel(pMesh);
-    if (pMesh->HasBones())
+    //TODO
+    meshModel.m_textureNames = { "models/running/texture.png" };
+   /*if (pMesh->HasBones())
     {
       meshModel.m_meshType = EMeshType::Skinned;
-    }
+    }*/
 
     model.m_meshModels.push_back(meshModel);
   }
@@ -45,42 +50,22 @@ TResult CAssimp::LoadActorFromFile(const std::filesystem::path& filename, TActor
   return TResult::Okay();
 }
 
-TMeshModel CAssimp::ExtractMeshModel(aiMesh* mesh) const
+TMeshModel CAssimp::ExtractMeshModel(aiMesh* pMesh) const
 {
   std::vector<TVertexModel> vertices;
   std::vector<uint32_t> indices;
 
-  vertices.reserve(mesh->mNumVertices);
+  vertices.reserve(pMesh->mNumVertices);
 
-  for (unsigned int i = 0; i < mesh->mNumVertices; i++)
+  for (size_t i = 0; i < pMesh->mNumVertices; i++)
   {
-    TVertexModel vertex{};
-
-    vertex.m_position.x = mesh->mVertices[i].x;
-    vertex.m_position.y = mesh->mVertices[i].y;
-    vertex.m_position.z = mesh->mVertices[i].z;
-
-    if (mesh->HasNormals())
-    {
-      vertex.m_normal.x = mesh->mNormals[i].x;
-      vertex.m_normal.y = mesh->mNormals[i].y;
-      vertex.m_normal.z = mesh->mNormals[i].z;
-    }
-
-    if (mesh->HasTextureCoords(0))
-    {
-      vertex.m_texcoord.x = mesh->mTextureCoords[0][i].x;
-      vertex.m_texcoord.y = mesh->mTextureCoords[0][i].y;
-    }
-
-    vertices.push_back(vertex);
+    vertices.push_back(ExtractVertex(pMesh, i));
   }
 
-  for (unsigned int i = 0; i < mesh->mNumFaces; i++)
+  for (size_t i = 0; i < pMesh->mNumFaces; i++)
   {
-    const aiFace& face = mesh->mFaces[i];
-
-    for (unsigned int j = 0; j < face.mNumIndices; j++)
+    const aiFace& face = pMesh->mFaces[i];
+    for (size_t j = 0; j < face.mNumIndices; j++)
     {
       indices.push_back(face.mIndices[j]);
     }
@@ -88,9 +73,32 @@ TMeshModel CAssimp::ExtractMeshModel(aiMesh* mesh) const
 
   return
   {
-    .m_vertices     = vertices,
-    .m_indices      = indices,
-    .m_textureNames = {"models/running/texture.png"},
+    .m_vertices = vertices,
+    .m_indices  = indices,
   };
+}
+
+TVertexModel CAssimp::ExtractVertex(aiMesh* pMesh, const size_t vertexIndex) const
+{
+  TVertexModel vertex{};
+
+  vertex.m_position.x = pMesh->mVertices[vertexIndex].x;
+  vertex.m_position.y = pMesh->mVertices[vertexIndex].y;
+  vertex.m_position.z = pMesh->mVertices[vertexIndex].z;
+
+  if (pMesh->HasNormals())
+  {
+    vertex.m_normal.x = pMesh->mNormals[vertexIndex].x;
+    vertex.m_normal.y = pMesh->mNormals[vertexIndex].y;
+    vertex.m_normal.z = pMesh->mNormals[vertexIndex].z;
+  }
+
+  if (pMesh->HasTextureCoords(0U))
+  {
+    vertex.m_texcoord.x = pMesh->mTextureCoords[0U][vertexIndex].x;
+    vertex.m_texcoord.y = pMesh->mTextureCoords[0U][vertexIndex].y;
+  }
+
+  return vertex;
 }
 }

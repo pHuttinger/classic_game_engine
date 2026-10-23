@@ -18,6 +18,7 @@ public:
 
 private:
 
-  TMeshModel ExtractMeshModel(aiMesh* mesh) const;
+  TMeshModel ExtractMeshModel(aiMesh* pMesh) const;
+  TVertexModel ExtractVertex(aiMesh* pMesh, const size_t vertexIndex) const;
 };
 }
