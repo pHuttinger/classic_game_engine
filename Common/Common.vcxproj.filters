@@ -42,6 +42,9 @@
     <ClInclude Include="Inc\ImportModel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Inc\FileSystem\Assimp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Common.cpp">
@@ -63,6 +66,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Src\ImportModel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\FileSystem\Assimp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
