@@ -75,6 +75,11 @@ void CSceneManager::EvaluateActor(CCamera& camera, CActor* pActor, const glm::ma
   {
     EvaluateStaticMesh(camera, model, staticMeshContext);
   }
+
+  for (const TSkinnedMeshContext& skinnedMeshContext : pActor->GetSkinnedMeshes())
+  {
+    EvaluateSkinnedMesh(camera, model, skinnedMeshContext);
+  }
 }
 
 void CSceneManager::EvaluateStaticMesh(CCamera& camera, const glm::mat4& model, const TStaticMeshContext& staticMeshContext)
@@ -87,6 +92,22 @@ void CSceneManager::EvaluateStaticMesh(CCamera& camera, const glm::mat4& model, 
   render::TDrawCall drawCall
   {
     .m_pDrawItem  = pStaticMesh->GetDrawItem(),
+    .m_shaderData = { pVertexShaderData }
+  };
+
+  m_instance.GetRenderProxy().GetFrameInput().AddDrawCall(drawCall);
+}
+
+void CSceneManager::EvaluateSkinnedMesh(CCamera& camera, const glm::mat4& model, const TSkinnedMeshContext& staticMeshContext)
+{
+  CSkinnedMesh* pSkinnedMesh = staticMeshContext.m_pSkinnedMesh;
+  render::CShaderData* pVertexShaderData = staticMeshContext.m_pVertexShaderData.get();
+
+  staticMeshContext.m_pSkinnedMesh->UpdateVertexShaderData(pVertexShaderData, camera, model);
+
+  render::TDrawCall drawCall
+  {
+    .m_pDrawItem  = pSkinnedMesh->GetDrawItem(),
     .m_shaderData = { pVertexShaderData }
   };
 

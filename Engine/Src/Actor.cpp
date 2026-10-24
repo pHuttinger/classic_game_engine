@@ -27,6 +27,21 @@ TResult CActor::AddStaticMesh(CStaticMesh* pStaticMesh)
   return TResult::Okay();
 }
 
+TResult CActor::AddSkinnedMesh(CSkinnedMesh* pSkinnedMesh)
+{
+  std::shared_ptr<render::CShaderData> pVertexShaderData;
+  CGE_TRY(pSkinnedMesh->GetVertexShaderData(m_instance.GetRenderProxy().GetRenderer(), pVertexShaderData));
+
+  TSkinnedMeshContext skinnedMeshContext
+  {
+    .m_pSkinnedMesh      = pSkinnedMesh,
+    .m_pVertexShaderData = pVertexShaderData,
+  };
+
+  m_skinnedMeshes.push_back(skinnedMeshContext);
+  return TResult::Okay();
+}
+
 void CActor::AddChild(CActor* pChild)
 {
   m_childs.push_back(pChild);

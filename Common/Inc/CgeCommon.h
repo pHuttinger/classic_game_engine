@@ -43,6 +43,8 @@ enum class EVertexAttributeUsage
   Position,
   Texcoord,
   Normal,
+  BlendIndices,
+  BlendWeights,
 };
 
 //---------------------------------------------------
@@ -50,8 +52,10 @@ enum class EVertexAttributeUsage
 //---------------------------------------------------
 enum class EVertexAttributeFormat
 {
+  UInt4 ,
   Float2,
   Float3,
+  Float4,
 };
 
 //---------------------------------------------------
@@ -68,8 +72,20 @@ struct TVertexAttribute final
 //----------------------------------------------------
 struct TVertexStaticMesh final
 {
-  glm::vec3 m_position;
-  glm::vec3 m_normal;
-  glm::vec2 m_texcoord;
+  glm::vec3 m_position = glm::vec3(0.0f);
+  glm::vec3 m_normal   = glm::vec3(0.0f);
+  glm::vec2 m_texcoord = glm::vec2(0.0f);
+};
+
+//----------------------------------------------------
+// TVertexSkinnedMesh
+//----------------------------------------------------
+struct TVertexSkinnedMesh final
+{
+  glm::vec3  m_position    = glm::vec3(0.0f);
+  glm::vec3  m_normal      = glm::vec3(0.0f);
+  glm::vec2  m_texcoord    = glm::vec2(0.0f);
+  glm::uvec4 m_boneIndices = glm::uvec4(0);
+  glm::vec4  m_boneWeights = glm::vec4(0.0f);
 };
 }

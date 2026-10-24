@@ -57,6 +57,9 @@
     <ClInclude Include="Shader\StaticMesh\StaticMeshSharedResources.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Shader\SkinnedMesh\SkinnedMeshSharedResources.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Renderer.cpp">
@@ -94,5 +97,7 @@
     <FxCompile Include="Shader\StaticMesh\PS_StaticMesh.hlsl" />
     <FxCompile Include="Shader\StaticMesh\VS_StaticMesh.hlsl" />
     <FxCompile Include="Shader\StaticMesh\StaticMesh.hlsl" />
+    <FxCompile Include="Shader\SkinnedMesh\PS_SkinnedMesh.hlsl" />
+    <FxCompile Include="Shader\SkinnedMesh\VS_SkinnedMesh.hlsl" />
   </ItemGroup>
 </Project>

@@ -22,11 +22,11 @@ enum EMeshType
 //----------------------------------------------------
 struct TVertexModel final
 {
-  glm::vec3  m_position;
-  glm::vec3  m_normal;
-  glm::vec2  m_texcoord;
-  glm::ivec4 m_boneIDs;
-  glm::vec4  m_boneWeights;
+  glm::vec3  m_position    = glm::vec3(0.0f);
+  glm::vec3  m_normal      = glm::vec3(0.0f);
+  glm::vec2  m_texcoord    = glm::vec2(0.0f);
+  glm::uvec4 m_boneIndices = glm::uvec4(0);
+  glm::vec4  m_boneWeights = glm::vec4(0.0f);
 };
 
 //----------------------------------------------------

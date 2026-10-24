@@ -29,9 +29,11 @@ const char* CVertexDescriptor::GetInputLayoutSemanticName(EVertexAttributeUsage 
 {
   switch (usage)
   {
-    case EVertexAttributeUsage::Position: return "POSITION";
-    case EVertexAttributeUsage::Texcoord: return "TEXCOORD";
-    case EVertexAttributeUsage::Normal  : return "NORMAL";
+    case EVertexAttributeUsage::Position    : return "POSITION";
+    case EVertexAttributeUsage::Texcoord    : return "TEXCOORD";
+    case EVertexAttributeUsage::Normal      : return "NORMAL";
+    case EVertexAttributeUsage::BlendIndices: return "BLENDINDICES";
+    case EVertexAttributeUsage::BlendWeights: return "BLENDWEIGHT";
   }
 
   return "";
@@ -41,8 +43,10 @@ DXGI_FORMAT CVertexDescriptor::GetDxgiFormat(EVertexAttributeFormat format) cons
 {
   switch (format)
   {
+    case EVertexAttributeFormat::UInt4 : return DXGI_FORMAT_R32G32B32A32_UINT;
     case EVertexAttributeFormat::Float2: return DXGI_FORMAT_R32G32_FLOAT;
     case EVertexAttributeFormat::Float3: return DXGI_FORMAT_R32G32B32_FLOAT;
+    case EVertexAttributeFormat::Float4: return DXGI_FORMAT_R32G32B32A32_FLOAT;
   }
 
   return DXGI_FORMAT_UNKNOWN;
@@ -52,8 +56,10 @@ size_t CVertexDescriptor::GetFormatSize(EVertexAttributeFormat format) const
 {
   switch (format)
   {
+    case EVertexAttributeFormat::UInt4 : return sizeof(glm::uvec4);
     case EVertexAttributeFormat::Float2: return sizeof(glm::vec2);
     case EVertexAttributeFormat::Float3: return sizeof(glm::vec3);
+    case EVertexAttributeFormat::Float4: return sizeof(glm::vec4);
   }
 
   return 0U;

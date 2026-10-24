@@ -37,12 +37,13 @@ TResult CAssimp::LoadActorFromFile(const std::filesystem::path& filename, TActor
     aiMesh* pMesh = pScene->mMeshes[i];
 
     TMeshModel meshModel = ExtractMeshModel(pMesh);
-    //TODO
-    meshModel.m_textureNames = { "models/running/texture.png" };
-   /*if (pMesh->HasBones())
+    if (pMesh->HasBones())
     {
       meshModel.m_meshType = EMeshType::Skinned;
-    }*/
+    }
+
+    //TODO don't do it so
+    meshModel.m_textureNames = { "models/running/texture.png" };
 
     model.m_meshModels.push_back(meshModel);
   }

@@ -112,6 +112,69 @@ void CAssetManager::DestroyStaticMesh(CStaticMesh* pStaticMesh)
   );
 }
 
+TResult CAssetManager::CreateSkinnedMesh(TSkinnedMeshCreateInfo& createInfo, CSkinnedMesh*& pSkinnedMesh)
+{
+  TDataHandle vertexData
+  {
+    .m_size  = createInfo.m_vertices.size() * sizeof(TVertexSkinnedMesh),
+    .m_pData = createInfo.m_vertices.data(),
+  };
+
+  TDataHandle indexData
+  {
+    .m_size  = createInfo.m_indices.size() * sizeof(uint32_t),
+    .m_pData = createInfo.m_indices.data(),
+  };
+
+  render::TDrawItemCreateInfo drawItem
+  {
+    .m_vertexShaderName = CSkinnedMesh::GetVertexShaderName(),
+    .m_pixelShaderName  = CSkinnedMesh::GetPixelShaderName(),
+    .m_vertexAttributes = CSkinnedMesh::GetVertexAttributes(),
+    .m_vertexData       = vertexData,
+    .m_indexData        = indexData,
+    .m_indexCount       = createInfo.m_indices.size(),
+    .m_stride           = sizeof(TVertexSkinnedMesh),
+    .m_textureNames     = createInfo.m_textureNames,
+  };
+
+  auto skinnedMesh = std::make_unique<CSkinnedMesh>();
+  CGE_TRY(skinnedMesh->Initialize(m_instance.GetRenderProxy().GetRenderer(), drawItem));
+
+  pSkinnedMesh = skinnedMesh.get();
+  m_assetStore.m_skinnedMeshes.push_back(std::move(skinnedMesh));
+
+  return TResult::Okay();
+}
+
+TResult CAssetManager::CreateSkinnedMesh(TMeshModel& model, CSkinnedMesh*& pSkinnedMesh)
+{
+  TSkinnedMeshCreateInfo createInfo = SkinnedMeshCreateInfoFromMeshModel(model);
+  CGE_TRY(CreateSkinnedMesh(createInfo, pSkinnedMesh));
+  return TResult::Okay();
+}
+
+void CAssetManager::DestroySkinnedMesh(CSkinnedMesh* pSkinnedMesh)
+{
+  auto removeCondition = [pSkinnedMesh](const std::unique_ptr<CSkinnedMesh>& a)
+  {
+    return a.get() == pSkinnedMesh;
+  };
+
+  auto removeIter = std::remove_if
+  (
+    m_assetStore.m_skinnedMeshes.begin(),
+    m_assetStore.m_skinnedMeshes.end(),
+    removeCondition
+  );
+
+  m_assetStore.m_skinnedMeshes.erase
+  (
+    removeIter,
+    m_assetStore.m_skinnedMeshes.end()
+  );
+}
+
 TResult CAssetManager::CreateActorsMeshes(TActorModel& model, CActor* pActor)
 {
   for (auto& meshModel : model.m_meshModels)
@@ -127,7 +190,9 @@ TResult CAssetManager::CreateActorsMeshes(TActorModel& model, CActor* pActor)
       }
       case EMeshType::Skinned:
       {
-        //TODO
+        CSkinnedMesh* pSkinnedMesh = nullptr;
+        CGE_TRY(CreateSkinnedMesh(meshModel, pSkinnedMesh));
+        CGE_TRY(pActor->AddSkinnedMesh(pSkinnedMesh));
         break;
       }
     }
@@ -147,6 +212,29 @@ TStaticMeshCreateInfo CAssetManager::StaticMeshCreateInfoFromMeshModel(TMeshMode
   for (auto& vertexModel : meshModel.m_vertices)
   {
     TVertexStaticMesh vertex
+    {
+      .m_position = vertexModel.m_position,
+      .m_normal   = vertexModel.m_normal,
+      .m_texcoord = vertexModel.m_texcoord,
+    };
+
+    createInfo.m_vertices.push_back(vertex);
+  }
+
+  return createInfo;
+}
+
+TSkinnedMeshCreateInfo CAssetManager::SkinnedMeshCreateInfoFromMeshModel(TMeshModel& meshModel) const
+{
+  TSkinnedMeshCreateInfo createInfo
+  {
+    .m_indices      = meshModel.m_indices,
+    .m_textureNames = meshModel.m_textureNames,
+  };
+
+  for (auto& vertexModel : meshModel.m_vertices)
+  {
+    TVertexSkinnedMesh vertex
     {
       .m_position = vertexModel.m_position,
       .m_normal   = vertexModel.m_normal,

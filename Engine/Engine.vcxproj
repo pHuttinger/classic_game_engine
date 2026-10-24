@@ -165,8 +165,10 @@
     <ClInclude Include="Inc\StaticMesh.h" />
     <ClInclude Include="Inc\SceneManager.h" />
     <ClInclude Include="Inc\Transform.h" />
+    <ClInclude Include="Inc\SkinnedMesh.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\SkinnedMesh.cpp" />
     <ClCompile Include="Src\Camera.cpp" />
     <ClCompile Include="Src\PresetMeshes.cpp" />
     <ClCompile Include="Src\Scene.cpp" />
