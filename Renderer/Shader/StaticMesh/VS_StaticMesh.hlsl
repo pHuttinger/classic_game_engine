@@ -11,7 +11,6 @@ PS_INPUT VSMain(VS_INPUT input)
   output.position = mul(float4(input.position, 1.0f), data.m_mvp);
   output.normal   = mul(input.normal, (float3x4) data.m_model);
   output.texcoord = input.texcoord;
-  output.model    = mul(float4(input.position, 1.0f), data.m_model);
 	
   return output;
 }

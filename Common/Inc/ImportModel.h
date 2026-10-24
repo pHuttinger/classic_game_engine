@@ -8,6 +8,8 @@
 
 namespace cge
 {
+constexpr const size_t CGE_NUM_BONE_WEIGHTS = 4U;
+
 //----------------------------------------------------
 // EMeshType
 //----------------------------------------------------
@@ -30,6 +32,32 @@ struct TVertexModel final
 };
 
 //----------------------------------------------------
+// TWeight
+//----------------------------------------------------
+struct TWeight final
+{
+  size_t m_boneIndex = 0U;
+  float  m_weight = 0.0f;
+};
+
+//----------------------------------------------------
+// TSkeletonSnapshot
+//----------------------------------------------------
+struct TSkeletonSnapshot final
+{
+  std::vector<glm::mat4> m_boneTransforms;
+  float                  m_timeOfSnapshot = 0.0f;
+};
+
+//----------------------------------------------------
+// TAnimation
+//----------------------------------------------------
+struct TAnimation final
+{
+  std::vector<TSkeletonSnapshot> m_keyFrame;
+};
+
+//----------------------------------------------------
 // TMeshModel
 //----------------------------------------------------
 struct TMeshModel final
@@ -38,6 +66,8 @@ struct TMeshModel final
   std::vector<TVertexModel> m_vertices;
   std::vector<uint32_t>     m_indices;
   std::vector<std::string>  m_textureNames;
+  std::vector<glm::mat4>    m_boneTransforms;
+  std::vector<TAnimation>   m_animations;
 };
 
 //----------------------------------------------------

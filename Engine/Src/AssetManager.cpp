@@ -141,6 +141,14 @@ TResult CAssetManager::CreateSkinnedMesh(TSkinnedMeshCreateInfo& createInfo, CSk
   auto skinnedMesh = std::make_unique<CSkinnedMesh>();
   CGE_TRY(skinnedMesh->Initialize(m_instance.GetRenderProxy().GetRenderer(), drawItem));
 
+  skinnedMesh->SetBoneTransforms(createInfo.m_boneTransforms);
+  skinnedMesh->m_animations = createInfo.m_animations;
+  
+  for (size_t i = 0U; i < 16; i++)
+  {
+    skinnedMesh->m_vertexShaderData.m_bones[i] = skinnedMesh->m_animations[0].m_keyFrame[0].m_boneTransforms[i];
+  }
+
   pSkinnedMesh = skinnedMesh.get();
   m_assetStore.m_skinnedMeshes.push_back(std::move(skinnedMesh));
 
@@ -228,17 +236,21 @@ TSkinnedMeshCreateInfo CAssetManager::SkinnedMeshCreateInfoFromMeshModel(TMeshMo
 {
   TSkinnedMeshCreateInfo createInfo
   {
-    .m_indices      = meshModel.m_indices,
-    .m_textureNames = meshModel.m_textureNames,
+    .m_indices        = meshModel.m_indices,
+    .m_textureNames   = meshModel.m_textureNames,
+    .m_boneTransforms = meshModel.m_boneTransforms,
+    .m_animations     = meshModel.m_animations,
   };
 
   for (auto& vertexModel : meshModel.m_vertices)
   {
     TVertexSkinnedMesh vertex
     {
-      .m_position = vertexModel.m_position,
-      .m_normal   = vertexModel.m_normal,
-      .m_texcoord = vertexModel.m_texcoord,
+      .m_position    = vertexModel.m_position,
+      .m_normal      = vertexModel.m_normal,
+      .m_texcoord    = vertexModel.m_texcoord,
+      .m_boneIndices = vertexModel.m_boneIndices,
+      .m_boneWeights = vertexModel.m_boneWeights,
     };
 
     createInfo.m_vertices.push_back(vertex);

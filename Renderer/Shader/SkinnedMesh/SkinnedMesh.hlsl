@@ -21,7 +21,6 @@ struct VS_INPUT
 struct PS_INPUT
 {
   float4 position : SV_POSITION;
-  float3 model    : POSITION1;
   float3 normal   : NORMAL;
   float2 texcoord : TEXCOORD;
 };

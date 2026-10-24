@@ -27,6 +27,22 @@ TResult CSkinnedMesh::GetVertexShaderData(render::CRenderer& renderer, std::shar
   return TResult::Okay();
 }
 
+void CSkinnedMesh::SetBoneTransforms(const std::vector<glm::mat4>& transforms)
+{
+  for (size_t i = 0U; i < transforms.size() && i < CGE_MAX_BONES; i++)
+  {
+    m_vertexShaderData.m_bones[i] = transforms[i];
+  }
+
+  if (transforms.size() < CGE_MAX_BONES)
+  {
+    for (size_t i = transforms.size(); i < CGE_MAX_BONES; i++)
+    {
+      m_vertexShaderData.m_bones[i] = glm::transpose(glm::mat4(1.0f));
+    }
+  }
+}
+
 //static
 std::vector<TVertexAttribute> CSkinnedMesh::GetVertexAttributes()
 {
@@ -42,17 +58,18 @@ std::vector<TVertexAttribute> CSkinnedMesh::GetVertexAttributes()
 
 void CSkinnedMesh::UpdateVertexShaderData(render::CShaderData* pShaderData, const CCamera& camera, const glm::mat4& modelMatrix)
 {
+  static float rot = 0.0f;
+
   glm::mat4 projectionMatrix = camera.GetProjectionMatrix();
   glm::mat4 viewMatrix       = camera.GetViewMatrix();
 
-  TSkinnedMeshVertexShaderData vertexShaderData{};
-  vertexShaderData.m_mvp   = glm::transpose(projectionMatrix * viewMatrix * modelMatrix);
-  vertexShaderData.m_model = glm::transpose(modelMatrix);
+  m_vertexShaderData.m_mvp   = glm::transpose(projectionMatrix * viewMatrix * modelMatrix);
+  m_vertexShaderData.m_model = glm::transpose(modelMatrix);
 
   TDataHandle dataHandle
   {
     .m_size  = sizeof(TSkinnedMeshVertexShaderData),
-    .m_pData = &vertexShaderData,
+    .m_pData = &m_vertexShaderData,
   };
 
   pShaderData->SetData(dataHandle);
