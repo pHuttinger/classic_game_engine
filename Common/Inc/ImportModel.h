@@ -31,7 +31,7 @@ struct TVertexModel final
   glm::vec4  m_boneWeights = glm::vec4(0.0f);
 };
 
-//----------------------------------------------------
+//----------------------------------------------------s
 // TWeight
 //----------------------------------------------------
 struct TWeight final
@@ -66,7 +66,7 @@ struct TMeshModel final
   std::vector<TVertexModel> m_vertices;
   std::vector<uint32_t>     m_indices;
   std::vector<std::string>  m_textureNames;
-  std::vector<glm::mat4>    m_boneTransforms;
+  std::vector<glm::mat4>    m_staticBoneTransforms;
   std::vector<TAnimation>   m_animations;
 };
 
@@ -76,5 +76,21 @@ struct TMeshModel final
 struct TActorModel final
 {
   std::vector<TMeshModel> m_meshModels;
+};
+
+struct TBoneModel final
+{
+  glm::mat4 m_offsetMatrix = glm::mat4(1.0f);
+  glm::mat4 m_defaultPoseMatrix = glm::mat4(1.0f);
+};
+
+//----------------------------------------------------
+// TAnimationImportContext
+//----------------------------------------------------
+struct TAnimationImportContext final
+{
+  glm::mat4 m_globalInverseTransform = glm::mat4(1.0f);
+  std::unordered_map<std::string, TBoneModel> m_boneMap;
+  TMeshModel* m_pMeshModel = nullptr;
 };
 }

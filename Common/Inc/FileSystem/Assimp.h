@@ -13,6 +13,9 @@
 
 namespace cge::filesystem
 {
+//----------------------------------------------------
+// CAssimp
+//----------------------------------------------------
 class CAssimp final
 {
 public:
@@ -21,13 +24,14 @@ public:
 
 private:
 
-  TMeshModel ExtractMeshModel(aiMesh* pMesh) const;
+  TMeshModel ExtractMeshModel(const aiScene* pScene, aiMesh* pMesh) const;
   void ExtractGeometry(aiMesh* pMesh, TMeshModel& model) const;
-  void ExtractBones(aiMesh* pMesh, TMeshModel& model) const;
+  void ExtractBones(aiMesh* pMesh, TAnimationImportContext& ctx) const;
   TVertexModel ExtractVertex(aiMesh* pMesh, const size_t vertexIndex) const;
   void ExtractWeights(aiMesh* pMesh, TMeshModel& model) const;
   void ExtractAnimations(const aiScene* pScene, const aiMesh* pMesh, TMeshModel& model) const;
-  void ProcessNode(const aiScene* pScene, const aiMesh* pMesh, const aiNode* node, const glm::mat4& parentTransform, TMeshModel& model) const;
+  void ProcessNode(const aiScene* pScene, const aiNode* node, const glm::mat4& parentTransform, TAnimationImportContext& ctx) const;
+  void SetDefaultPoseBoneTransforms(TMeshModel& model, TAnimationImportContext& ctx) const;
 
   glm::mat4 ToGlm(const aiMatrix4x4& m) const;
   glm::quat ToGlm(const aiQuaternion& q) const;

@@ -58,8 +58,6 @@ std::vector<TVertexAttribute> CSkinnedMesh::GetVertexAttributes()
 
 void CSkinnedMesh::UpdateVertexShaderData(render::CShaderData* pShaderData, const CCamera& camera, const glm::mat4& modelMatrix)
 {
-  static float rot = 0.0f;
-
   glm::mat4 projectionMatrix = camera.GetProjectionMatrix();
   glm::mat4 viewMatrix       = camera.GetViewMatrix();
 

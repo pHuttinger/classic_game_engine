@@ -30,7 +30,7 @@ TResult CAssimp::LoadActorFromFile(const std::filesystem::path& filename, TActor
   {
     aiMesh* pMesh = pScene->mMeshes[i];
 
-    TMeshModel meshModel = ExtractMeshModel(pMesh);
+    TMeshModel meshModel = ExtractMeshModel(pScene, pMesh);
     if (pMesh->HasBones())
     {
       meshModel.m_meshType = EMeshType::Skinned;
@@ -47,13 +47,21 @@ TResult CAssimp::LoadActorFromFile(const std::filesystem::path& filename, TActor
   return TResult::Okay();
 }
 
-TMeshModel CAssimp::ExtractMeshModel(aiMesh* pMesh) const
+TMeshModel CAssimp::ExtractMeshModel(const aiScene* pScene, aiMesh* pMesh) const
 {
   TMeshModel model;
-
   ExtractGeometry(pMesh, model);
-  ExtractBones(pMesh, model);
   ExtractWeights(pMesh, model);
+
+  TAnimationImportContext ctx
+  {
+    .m_globalInverseTransform = glm::inverse(ToGlm(pScene->mRootNode->mTransformation))
+  };
+
+  ExtractBones(pMesh, ctx);
+  ProcessNode(pScene, pScene->mRootNode, glm::mat4(1.0f), ctx);
+
+  SetDefaultPoseBoneTransforms(model, ctx);
 
   return model;
 }
@@ -78,12 +86,20 @@ void CAssimp::ExtractGeometry(aiMesh* pMesh, TMeshModel& model) const
   }
 }
 
-void CAssimp::ExtractBones(aiMesh* pMesh, TMeshModel& model) const
+void CAssimp::ExtractBones(aiMesh* pMesh, TAnimationImportContext& ctx) const
 {
   for (size_t i = 0U; i < pMesh->mNumBones; i++)
   {
-    const aiMatrix4x4 m = pMesh->mBones[i]->mOffsetMatrix;
-    model.m_boneTransforms.push_back(ToGlm(m));
+    const aiBone* pBone = pMesh->mBones[i];
+    const aiMatrix4x4 offsetMatrix = pBone->mOffsetMatrix;
+
+    TBoneModel boneModel
+    {
+      .m_offsetMatrix = ToGlm(offsetMatrix),
+    };
+
+    std::string nodeName = pBone->mName.C_Str();
+    ctx.m_boneMap[nodeName] = boneModel;
   }
 }
 
@@ -119,9 +135,9 @@ void CAssimp::ExtractWeights(aiMesh* pMesh, TMeshModel& model) const
     const aiBone* bone = pMesh->mBones[i];
     for (size_t j = 0; j < bone->mNumWeights; j++)
     {
-      unsigned int vertexIndex = bone->mWeights[j].mVertexId;
-      float weight = bone->mWeights[j].mWeight;
-      weightsPerVertex[vertexIndex].push_back({i, weight});
+      const size_t vertexIndex = bone->mWeights[j].mVertexId;
+      const TWeight weight {i, bone->mWeights[j].mWeight};
+      weightsPerVertex[vertexIndex].push_back(weight);
     }
   }
 
@@ -129,7 +145,6 @@ void CAssimp::ExtractWeights(aiMesh* pMesh, TMeshModel& model) const
   {
     TVertexModel& vertex = model.m_vertices[keyVal.first];
     std::vector<TWeight> weights = keyVal.second;
-
     for (size_t i = 0U; i < weights.size(); i++)
     {
       switch (i)
@@ -145,87 +160,31 @@ void CAssimp::ExtractWeights(aiMesh* pMesh, TMeshModel& model) const
 
 void CAssimp::ExtractAnimations(const aiScene* pScene, const aiMesh* pMesh, TMeshModel& model) const
 {
-  model.m_animations.resize(pScene->mNumAnimations);
-  for (unsigned int a = 0; a < pScene->mNumAnimations; a++)
-  {
-    const aiAnimation* animation = pScene->mAnimations[a];
-    TAnimation& animationModel = model.m_animations[a];
-    for (unsigned int c = 0; c < animation->mNumChannels; c++)
-    {
-      const aiNodeAnim* channel = animation->mChannels[c];
-
-      if (c == 0)
-      {
-        animationModel.m_keyFrame.resize(channel->mNumPositionKeys);
-
-        for (unsigned int k = 0; k < channel->mNumPositionKeys; k++)
-        {
-          animationModel.m_keyFrame[k].m_boneTransforms.resize(model.m_boneTransforms.size());
-        }
-      }
-    }
-  }
-
-  ProcessNode(pScene, pMesh, pScene->mRootNode, glm::mat4(1.0f), model);
 }
 
-void CAssimp::ProcessNode(const aiScene* pScene, const aiMesh* pMesh, const aiNode* node, const glm::mat4& parentTransform, TMeshModel& model) const
+void CAssimp::ProcessNode(const aiScene* pScene, const aiNode* node, const glm::mat4& parentTransform, TAnimationImportContext& ctx) const
 {
-  const glm::mat4 globalInverseTransform = glm::inverse(ToGlm(pScene->mRootNode->mTransformation));
-  const glm::mat4 localTransform = ToGlm(node->mTransformation);
-  glm::mat4 globalTransform = parentTransform * localTransform;
+  const glm::mat4 localTransform  = ToGlm(node->mTransformation);
+  const glm::mat4 globalTransform = parentTransform * localTransform;
 
-  // Hier ist globalTransform die globale Transformation
-  // dieses Nodes.
-
-  for (unsigned int a = 0; a < pScene->mNumAnimations; a++)
+  std::string nodeName = node->mName.C_Str();
+  if (ctx.m_boneMap.find(nodeName) != ctx.m_boneMap.end())
   {
-    const aiAnimation* animation = pScene->mAnimations[a];
-    TAnimation& animationModel = model.m_animations[a];
-    for (unsigned int c = 0; c < animation->mNumChannels; c++)
-    {
-      const aiNodeAnim* channel = animation->mChannels[c];
-      if (channel->mNodeName != node->mName)
-      {
-        continue;
-      }
-
-      for (unsigned int k = 0; k < channel->mNumPositionKeys; k++)
-      {
-        aiVectorKey positionKey = channel->mPositionKeys[k];
-        aiQuatKey   rotationKey = channel->mRotationKeys[k];
-        aiVectorKey scaleKey = channel->mScalingKeys[k];
-
-        if (k == 0)
-        {
-          animationModel.m_keyFrame[k].m_timeOfSnapshot = positionKey.mTime;
-        }
-
-        glm::mat4 rotationMatrix    = glm::mat4_cast(ToGlm(rotationKey.mValue));
-        glm::mat4 translationMatrix = glm::translate(glm::mat4(1.0f), ToGlm(positionKey.mValue));
-        glm::mat4 scaleMatrix       = glm::scale(glm::mat4(1.0f), ToGlm(scaleKey.mValue));
-
-        glm::mat4 transform = translationMatrix * rotationMatrix * scaleMatrix;
-        globalTransform = parentTransform * transform;
-
-        for (size_t b = 0; b < pMesh->mNumBones; b++)
-        {
-          if (pMesh->mBones[b]->mName == channel->mNodeName)
-          {
-            animationModel.m_keyFrame[k].m_boneTransforms[b] =
-              globalInverseTransform     *
-              parentTransform            *
-              transform                  *
-              model.m_boneTransforms[b];
-          }
-        }
-      }
-    }
+    glm::mat4 transform = ctx.m_globalInverseTransform * globalTransform * ctx.m_boneMap[nodeName].m_offsetMatrix;
+    ctx.m_boneMap[nodeName].m_defaultPoseMatrix = transform;
   }
 
   for (unsigned int i = 0; i < node->mNumChildren; ++i)
   {
-    ProcessNode(pScene, pMesh, node->mChildren[i], globalTransform, model);
+    ProcessNode(pScene, node->mChildren[i], globalTransform, ctx);
+  }
+}
+
+void CAssimp::SetDefaultPoseBoneTransforms(TMeshModel& model, TAnimationImportContext& ctx) const
+{
+  for (auto& kv : ctx.m_boneMap)
+  {
+    model.m_staticBoneTransforms.push_back(kv.second.m_defaultPoseMatrix);
   }
 }
 
