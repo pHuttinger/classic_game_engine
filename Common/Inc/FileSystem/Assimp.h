@@ -29,8 +29,9 @@ private:
   void ExtractBones(aiMesh* pMesh, TAnimationImportContext& ctx) const;
   TVertexModel ExtractVertex(aiMesh* pMesh, const size_t vertexIndex) const;
   void ExtractWeights(aiMesh* pMesh, TMeshModel& model) const;
-  void ExtractAnimations(const aiScene* pScene, const aiMesh* pMesh, TMeshModel& model) const;
+  void ExtractAnimations(const aiScene* pScene, const aiMesh* pMesh, TMeshModel& model, TAnimationImportContext& ctx) const;
   void ProcessNode(const aiScene* pScene, const aiNode* node, const glm::mat4& parentTransform, TAnimationImportContext& ctx) const;
+  void ProcessNodeTree(const aiScene* pScene, TAnimationImportContext& ctx) const;
   void SetDefaultPoseBoneTransforms(TMeshModel& model, TAnimationImportContext& ctx) const;
 
   glm::mat4 ToGlm(const aiMatrix4x4& m) const;

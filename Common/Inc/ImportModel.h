@@ -41,20 +41,10 @@ struct TWeight final
 };
 
 //----------------------------------------------------
-// TSkeletonSnapshot
-//----------------------------------------------------
-struct TSkeletonSnapshot final
-{
-  std::vector<glm::mat4> m_boneTransforms;
-  float                  m_timeOfSnapshot = 0.0f;
-};
-
-//----------------------------------------------------
 // TAnimation
 //----------------------------------------------------
 struct TAnimation final
 {
-  std::vector<TSkeletonSnapshot> m_keyFrame;
 };
 
 //----------------------------------------------------
@@ -80,8 +70,9 @@ struct TActorModel final
 
 struct TBoneModel final
 {
-  glm::mat4 m_offsetMatrix = glm::mat4(1.0f);
-  glm::mat4 m_defaultPoseMatrix = glm::mat4(1.0f);
+  glm::mat4 m_offsetMatrix    = glm::mat4(1.0f);
+  glm::mat4 m_parentTransform = glm::mat4(1.0f);
+  glm::mat4 m_localTransform  = glm::mat4(1.0f);
 };
 
 //----------------------------------------------------

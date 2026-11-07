@@ -36,8 +36,6 @@ TResult CAssimp::LoadActorFromFile(const std::filesystem::path& filename, TActor
       meshModel.m_meshType = EMeshType::Skinned;
     }
 
-    ExtractAnimations(pScene, pMesh, meshModel);
-
     //TODO don't do it so
     meshModel.m_textureNames = { "models/running/texture.png" };
 
@@ -59,8 +57,8 @@ TMeshModel CAssimp::ExtractMeshModel(const aiScene* pScene, aiMesh* pMesh) const
   };
 
   ExtractBones(pMesh, ctx);
-  ProcessNode(pScene, pScene->mRootNode, glm::mat4(1.0f), ctx);
-
+  ProcessNodeTree(pScene, ctx);
+  //ExtractAnimations(pScene, pMesh, model, ctx);
   SetDefaultPoseBoneTransforms(model, ctx);
 
   return model;
@@ -106,7 +104,6 @@ void CAssimp::ExtractBones(aiMesh* pMesh, TAnimationImportContext& ctx) const
 TVertexModel CAssimp::ExtractVertex(aiMesh* pMesh, const size_t vertexIndex) const
 {
   TVertexModel vertex;
-
   vertex.m_position.x = pMesh->mVertices[vertexIndex].x;
   vertex.m_position.y = pMesh->mVertices[vertexIndex].y;
   vertex.m_position.z = pMesh->mVertices[vertexIndex].z;
@@ -158,8 +155,31 @@ void CAssimp::ExtractWeights(aiMesh* pMesh, TMeshModel& model) const
   }
 }
 
-void CAssimp::ExtractAnimations(const aiScene* pScene, const aiMesh* pMesh, TMeshModel& model) const
+void CAssimp::ExtractAnimations(const aiScene* pScene, const aiMesh* pMesh, TMeshModel& model, TAnimationImportContext& ctx) const
 {
+  for(size_t i = 0; i < pScene->mNumAnimations; i++)
+  {
+    const aiAnimation* animation = pScene->mAnimations[i];
+    for (size_t j = 0; j < animation->mNumChannels; j++)
+    {
+      const aiNodeAnim* nodeAnim = animation->mChannels[j];
+    /*  for (size_t k = 0; k < nodeAnim->mNumPositionKeys; k++)
+      {*/
+        const aiVectorKey& positionKey = nodeAnim->mPositionKeys[8];
+        const aiVectorKey& scaleKey = nodeAnim->mScalingKeys[8];
+        const aiQuatKey& rotationKey = nodeAnim->mRotationKeys[8];
+     /* }*/
+
+        if (ctx.m_boneMap.find(nodeAnim->mNodeName.C_Str()) != ctx.m_boneMap.end())
+        {
+          TBoneModel& boneModel = ctx.m_boneMap[nodeAnim->mNodeName.C_Str()];
+          boneModel.m_localTransform = 
+            glm::translate(glm::mat4(1.0f), ToGlm(positionKey.mValue)) *
+            glm::mat4_cast(ToGlm(rotationKey.mValue)) *
+            glm::scale(glm::mat4(1.0f), ToGlm(scaleKey.mValue));
+        }
+    }
+  }
 }
 
 void CAssimp::ProcessNode(const aiScene* pScene, const aiNode* node, const glm::mat4& parentTransform, TAnimationImportContext& ctx) const
@@ -170,8 +190,9 @@ void CAssimp::ProcessNode(const aiScene* pScene, const aiNode* node, const glm::
   std::string nodeName = node->mName.C_Str();
   if (ctx.m_boneMap.find(nodeName) != ctx.m_boneMap.end())
   {
-    glm::mat4 transform = ctx.m_globalInverseTransform * globalTransform * ctx.m_boneMap[nodeName].m_offsetMatrix;
-    ctx.m_boneMap[nodeName].m_defaultPoseMatrix = transform;
+    TBoneModel& boneModel = ctx.m_boneMap[nodeName];
+    boneModel.m_parentTransform = parentTransform;
+    boneModel.m_localTransform  = localTransform;
   }
 
   for (unsigned int i = 0; i < node->mNumChildren; ++i)
@@ -180,11 +201,23 @@ void CAssimp::ProcessNode(const aiScene* pScene, const aiNode* node, const glm::
   }
 }
 
+void CAssimp::ProcessNodeTree(const aiScene* pScene, TAnimationImportContext& ctx) const
+{
+  //walk through NodeTree recursive
+  ProcessNode(pScene, pScene->mRootNode, glm::mat4(1.0f), ctx);
+}
+
 void CAssimp::SetDefaultPoseBoneTransforms(TMeshModel& model, TAnimationImportContext& ctx) const
 {
   for (auto& kv : ctx.m_boneMap)
   {
-    model.m_staticBoneTransforms.push_back(kv.second.m_defaultPoseMatrix);
+    glm::mat4 defaultPoseMatrix    =
+      ctx.m_globalInverseTransform *
+      kv.second.m_parentTransform  *
+      kv.second.m_localTransform   *
+      kv.second.m_offsetMatrix     ;
+
+    model.m_staticBoneTransforms.push_back(defaultPoseMatrix);
   }
 }
 
